@@ -17,5 +17,20 @@ expect object Talsec {
 
     fun detachListener()
 
+    suspend fun getAppIcon(packageName: String): String
+
+    suspend fun blockScreenCapture(enable: Boolean)
+
+    suspend fun isScreenCaptureBlocked(): Boolean
+
+    //TODO: možno aj tieto zvyšné metódy
+
+    //onInvalidCallback
+
+    //addListener
+
+    //removeListeners
+
+
 
 }

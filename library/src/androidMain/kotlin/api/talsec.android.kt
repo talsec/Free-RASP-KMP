@@ -1,9 +1,10 @@
 package api
 
+import android.app.Application
 import kotlinx.coroutines.flow.Flow
 import com.aheaditec.talsec_security.security.api.Talsec as NativeTalsec
 import com.aheaditec.talsec_security.security.api.TalsecConfig as NativeTalsecConfig
-import android.content.Context
+import android.util.Log
 import com.aheaditec.talsec_security.security.api.ThreatListener
 import handlers.ThreatHandler
 import kotlinx.coroutines.CoroutineScope
@@ -15,10 +16,11 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import model.TalsecConfig
+import providers.ActivityProvider
 import threat.Threat
 import threat.ThreatCallback
-import utils.ContextProvider
-
+import utils.AppIconUtil
+import providers.ContextProvider
 
 
 fun TalsecConfig.toNativeConfig(): NativeTalsecConfig {
@@ -63,8 +65,10 @@ actual object Talsec {
         NativeTalsec.start(context, nativeConfig)
     }
 
-    fun initialize(context: Context){
-        ContextProvider.initialize(context)
+    fun initialize(application: Application){
+        ContextProvider.initialize(application)
+
+        application.registerActivityLifecycleCallbacks(ActivityProvider)
     }
 
     actual fun onThreatDetected(): Flow<Threat> {
@@ -121,6 +125,29 @@ actual object Talsec {
         }
     }
 
+    actual suspend fun getAppIcon(packageName: String): String {
+        return withContext(Dispatchers.IO) {
+            val context = ContextProvider.getApplicationContext()
 
+            AppIconUtil.getAppIconAsBase64String(context, packageName)
+                ?: throw Exception("Could not get or encode app icon for package: $packageName")
+        }
+    }
+
+    actual suspend fun blockScreenCapture(enable: Boolean) {
+        withContext(Dispatchers.Main){
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if(activity != null){
+                NativeTalsec.blockScreenCapture(activity, enable)
+            } else {
+                Log.w("Talsec", "blockedScreenCapture called but no activity is in foreground.")
+            }
+        }
+    }
+
+    actual suspend fun isScreenCaptureBlocked(): Boolean {
+        return NativeTalsec.isScreenCaptureBlocked()
+    }
 }
 

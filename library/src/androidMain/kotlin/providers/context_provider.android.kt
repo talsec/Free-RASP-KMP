@@ -1,4 +1,4 @@
-package utils
+package providers
 
 import android.content.Context
 
@@ -16,5 +16,4 @@ internal object ContextProvider {
         }
         return appContext
     }
-
 }
