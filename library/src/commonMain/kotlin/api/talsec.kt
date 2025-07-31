@@ -1,13 +1,14 @@
 package api
 
 import kotlinx.coroutines.flow.Flow
-import model.TalsecConfig
+import model.config.TalsecConfig
+import model.TalsecEvent
 import threat.*
 
 expect object Talsec {
     suspend fun start(config: TalsecConfig)
 
-    fun onThreatDetected(): Flow<Threat>
+    fun onThreatDetected(): Flow<TalsecEvent>
 
     suspend fun addToWhiteList(packageName: String)
 

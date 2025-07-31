@@ -15,7 +15,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import model.TalsecConfig
+import model.TalsecEvent
+import model.config.TalsecConfig
 import providers.ActivityProvider
 import threat.Threat
 import threat.ThreatCallback
@@ -46,11 +47,11 @@ fun TalsecConfig.toNativeConfig(): NativeTalsecConfig {
 actual object Talsec {
 
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
-    private val eventFlow = MutableSharedFlow<Threat>()
+    private val eventFlow = MutableSharedFlow<TalsecEvent>()
     private var listenerJob: Job? = null
     private var activateCallback: ThreatCallback? = null
-    private val threatHandler = ThreatHandler { threat ->
-        scope.launch { eventFlow.emit(threat) }
+    private val threatHandler = ThreatHandler { event ->
+        scope.launch { eventFlow.emit(event) }
     }
 
     private val nativeListener = ThreatListener(threatHandler, threatHandler)
@@ -71,38 +72,46 @@ actual object Talsec {
         application.registerActivityLifecycleCallbacks(ActivityProvider)
     }
 
-    actual fun onThreatDetected(): Flow<Threat> {
+    actual fun onThreatDetected(): Flow<TalsecEvent> {
         return eventFlow.asSharedFlow()
 
     }
 
-    actual fun attachListener(callback: ThreatCallback): Unit {
+    actual fun attachListener(callback: ThreatCallback){
         detachListener()
         activateCallback = callback
         listenerJob = scope.launch {
-            onThreatDetected().collect { threat ->
-                when(threat) {
-                    Threat.DEBUG -> activateCallback?.onDebug?.invoke()
-                    Threat.PRIVILEGED_ACCESS -> activateCallback?.onPrivilegedAccess?.invoke()
-                    Threat.SIMULATOR -> activateCallback?.onSimulator?.invoke()
-                    Threat.APP_INTEGRITY -> activateCallback?.onAppIntegrity?.invoke()
-                    Threat.UNOFFICIAL_STORE -> activateCallback?.onUnofficialStore?.invoke()
-                    Threat.HOOKS -> activateCallback?.onHooks?.invoke()
-                    Threat.DEVICE_BINDING -> activateCallback?.onDeviceBinding?.invoke()
-                    Threat.OBFUSCATION_ISSUES -> activateCallback?.onObfuscationIssues?.invoke()
-                    Threat.SCREENSHOT -> activateCallback?.onScreenshot?.invoke()
-                    Threat.SCREEN_RECORDING -> activateCallback?.onScreenRecording?.invoke()
-                    Threat.PASSCODE -> activateCallback?.onPasscode?.invoke()
-                    Threat.SECURE_HARDWARE_NOT_AVAILABLE -> activateCallback?.onSecureHardwareNotAvailable?.invoke()
-                    Threat.SYSTEM_VPN -> activateCallback?.onSystemVPN?.invoke()
-                    Threat.DEV_MODE -> activateCallback?.onDevMode?.invoke()
-                    Threat.ADB_ENABLED -> activateCallback?.onADBEnabled?.invoke()
-                    Threat.MULTI_INSTANCE -> activateCallback?.onMultiInstance?.invoke()
-                    Threat.DEVICE_ID -> activateCallback?.onDeviceID?.invoke()
+            onThreatDetected().collect { event ->
+                when(event){
+                    is TalsecEvent.ThreatDetected -> {
+                        when(event.threat) {
+                            Threat.DEBUG -> activateCallback?.onDebug?.invoke()
+                            Threat.PRIVILEGED_ACCESS -> activateCallback?.onPrivilegedAccess?.invoke()
+                            Threat.SIMULATOR -> activateCallback?.onSimulator?.invoke()
+                            Threat.APP_INTEGRITY -> activateCallback?.onAppIntegrity?.invoke()
+                            Threat.UNOFFICIAL_STORE -> activateCallback?.onUnofficialStore?.invoke()
+                            Threat.HOOKS -> activateCallback?.onHooks?.invoke()
+                            Threat.DEVICE_BINDING -> activateCallback?.onDeviceBinding?.invoke()
+                            Threat.OBFUSCATION_ISSUES -> activateCallback?.onObfuscationIssues?.invoke()
+                            Threat.SCREENSHOT -> activateCallback?.onScreenshot?.invoke()
+                            Threat.SCREEN_RECORDING -> activateCallback?.onScreenRecording?.invoke()
+                            Threat.PASSCODE -> activateCallback?.onPasscode?.invoke()
+                            Threat.SECURE_HARDWARE_NOT_AVAILABLE -> activateCallback?.onSecureHardwareNotAvailable?.invoke()
+                            Threat.SYSTEM_VPN -> activateCallback?.onSystemVPN?.invoke()
+                            Threat.DEV_MODE -> activateCallback?.onDevMode?.invoke()
+                            Threat.ADB_ENABLED -> activateCallback?.onADBEnabled?.invoke()
+                            Threat.MULTI_INSTANCE -> activateCallback?.onMultiInstance?.invoke()
+                            Threat.DEVICE_ID -> activateCallback?.onDeviceID?.invoke()
+                        }
+                    }
+                    is TalsecEvent.MalwareDetected -> {
+                        activateCallback?.onMalwareDetected?.invoke(event.apps)
+                    }
                 }
             }
         }
     }
+
     actual fun detachListener(): Unit {
         listenerJob?.cancel()
         listenerJob = null

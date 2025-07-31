@@ -1,4 +1,4 @@
-package model
+package model.config
 
 data class TalsecConfig(
     val watcherMail: String,

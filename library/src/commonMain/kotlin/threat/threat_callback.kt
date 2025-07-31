@@ -1,9 +1,8 @@
 package threat
 
-expect class SuspiciousAppInfo //TODO
-//or
-//data class SuspiciousAppInfo(val packageName: String, val appName: String)
+import model.SuspiciousAppInfo
 
+//toto možno prerobiť tak aby to bolo v common code override
 data class ThreatCallback(
     val onHooks: (() -> Unit)? = null,
     val onDebug: (() -> Unit)? = null,
@@ -19,7 +18,7 @@ data class ThreatCallback(
     val onSystemVPN: (() -> Unit)? = null,
     val onDevMode: (() -> Unit)? = null,
     val onADBEnabled: (() -> Unit)? = null,
-    val onMalware: ((List<SuspiciousAppInfo?>) -> Unit)? = null,
+    val onMalwareDetected: ((List<SuspiciousAppInfo?>) -> Unit)? = null,
     val onScreenshot: (() -> Unit)? = null,
     val onScreenRecording: (() -> Unit)? = null,
     val onMultiInstance: (() -> Unit)? = null

@@ -1,4 +1,4 @@
-package model
+package model.config
 
 data class AndroidConfig(
     val packageName: String,

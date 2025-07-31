@@ -1,44 +1,63 @@
 package handlers
 
-import com.aheaditec.talsec_security.security.api.SuspiciousAppInfo
+import android.util.Log
+import com.aheaditec.talsec_security.security.api.SuspiciousAppInfo as NativeSuspiciousAppInfo
 import com.aheaditec.talsec_security.security.api.ThreatListener
+import model.PackageInfo
+import model.SuspiciousAppInfo
+import model.TalsecEvent
+import providers.ContextProvider
 import threat.Threat
+import utils.AppIconUtil
+import utils.processMalwareData
 
 internal class ThreatHandler (
-    private val onThreat: (Threat) -> Unit
+    private val onEvent: (TalsecEvent) -> Unit
 ): ThreatListener.ThreatDetected, ThreatListener.DeviceState {
-    override fun onRootDetected() = onThreat(Threat.PRIVILEGED_ACCESS)
+    override fun onRootDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.PRIVILEGED_ACCESS))
 
-    override fun onDebuggerDetected()  = onThreat(Threat.DEBUG)
+    override fun onDebuggerDetected()  = onEvent(TalsecEvent.ThreatDetected(Threat.DEBUG))
 
-    override fun onEmulatorDetected() = onThreat(Threat.SIMULATOR)
+    override fun onEmulatorDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.SIMULATOR))
 
-    override fun onTamperDetected() = onThreat(Threat.APP_INTEGRITY)
+    override fun onTamperDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.APP_INTEGRITY))
 
-    override fun onUntrustedInstallationSourceDetected() = onThreat(Threat.UNOFFICIAL_STORE)
+    override fun onUntrustedInstallationSourceDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.UNOFFICIAL_STORE))
 
-    override fun onHookDetected() = onThreat(Threat.HOOKS)
+    override fun onHookDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.HOOKS))
 
-    override fun onDeviceBindingDetected() = onThreat(Threat.DEVICE_BINDING)
+    override fun onDeviceBindingDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.DEVICE_BINDING))
 
-    override fun onObfuscationIssuesDetected() = onThreat(Threat.OBFUSCATION_ISSUES)
+    override fun onObfuscationIssuesDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.OBFUSCATION_ISSUES))
 
-    override fun onMalwareDetected(p0: List<SuspiciousAppInfo?>?) = onThreat(Threat.SYSTEM_VPN)
+    override fun onMalwareDetected(nativeSuspiciousAppInfo: List<NativeSuspiciousAppInfo>?) {
 
-    override fun onScreenshotDetected() = onThreat(Threat.SCREENSHOT)
+        val nonNullNativeList = nativeSuspiciousAppInfo ?: emptyList()
 
-    override fun onScreenRecordingDetected() = onThreat(Threat.SCREEN_RECORDING)
+        if(nonNullNativeList.isEmpty()) return
 
-    override fun onMultiInstanceDetected() = onThreat(Threat.MULTI_INSTANCE)
+        val context = ContextProvider.getApplicationContext()
+        val commonApps = processMalwareData(context, nonNullNativeList)
 
-    override fun onUnlockedDeviceDetected() = onThreat(Threat.PASSCODE)
+        if(commonApps.isNotEmpty()) {
+            onEvent(TalsecEvent.MalwareDetected(commonApps))
+        }
+    }
 
-    override fun onHardwareBackedKeystoreNotAvailableDetected() = onThreat(Threat.SECURE_HARDWARE_NOT_AVAILABLE)
+    override fun onScreenshotDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.SCREENSHOT))
 
-    override fun onDeveloperModeDetected() = onThreat(Threat.DEV_MODE)
+    override fun onScreenRecordingDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.SCREEN_RECORDING))
 
-    override fun onADBEnabledDetected() = onThreat(Threat.ADB_ENABLED)
+    override fun onMultiInstanceDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.MULTI_INSTANCE))
 
-    override fun onSystemVPNDetected() = onThreat(Threat.SYSTEM_VPN)
+    override fun onUnlockedDeviceDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.PASSCODE))
+
+    override fun onHardwareBackedKeystoreNotAvailableDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.SECURE_HARDWARE_NOT_AVAILABLE))
+
+    override fun onDeveloperModeDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.DEV_MODE))
+
+    override fun onADBEnabledDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.ADB_ENABLED))
+
+    override fun onSystemVPNDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.SYSTEM_VPN))
 
 }
