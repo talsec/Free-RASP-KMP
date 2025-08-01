@@ -17,3 +17,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Free-RASP-KMP"
 include(":library")
+
+include(":example:composeApp")
+include(":example:iosApp")

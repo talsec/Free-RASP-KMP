@@ -112,13 +112,13 @@ actual object Talsec {
         }
     }
 
-    actual fun detachListener(): Unit {
+    actual fun detachListener() {
         listenerJob?.cancel()
         listenerJob = null
         activateCallback = null
     }
 
-    actual suspend fun addToWhiteList(packageName: String): Unit {
+    actual suspend fun addToWhiteList(packageName: String) {
         withContext(Dispatchers.IO){
             val context = ContextProvider.getApplicationContext()
 
@@ -126,7 +126,7 @@ actual object Talsec {
         }
     }
 
-    actual suspend fun storeExternalId(data: String): Unit {
+    actual suspend fun storeExternalId(data: String) {
         withContext(Dispatchers.IO){
             val context = ContextProvider.getApplicationContext()
 
