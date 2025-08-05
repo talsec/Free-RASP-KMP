@@ -2,8 +2,29 @@ package threat
 
 import model.SuspiciousAppInfo
 
+interface ThreatCallback{
+    fun onHooks()
+    fun onDebug()
+    fun onPasscode()
+    fun onDeviceID()
+    fun onSimulator()
+    fun onAppIntegrity()
+    fun onObfuscationIssues()
+    fun onDeviceBinding()
+    fun onUnofficialStore()
+    fun onPrivilegedAccess()
+    fun onSecureHardwareNotAvailable()
+    fun onSystemVPN()
+    fun onDevMode()
+    fun onADBEnabled()
+    fun onMalwareDetected(suspiciousAppInfo: List<SuspiciousAppInfo>)
+    fun onScreenshot()
+    fun onScreenRecording()
+    fun onMultiInstance()
+}
+
 //toto možno prerobiť tak aby to bolo v common code override
-data class ThreatCallback(
+/*data class ThreatCallback(
     val onHooks: (() -> Unit)? = null,
     val onDebug: (() -> Unit)? = null,
     val onPasscode: (() -> Unit)? = null,
@@ -22,4 +43,4 @@ data class ThreatCallback(
     val onScreenshot: (() -> Unit)? = null,
     val onScreenRecording: (() -> Unit)? = null,
     val onMultiInstance: (() -> Unit)? = null
-)
+)*/

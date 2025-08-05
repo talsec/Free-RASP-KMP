@@ -1,9 +1,7 @@
 package api
 
-import android.app.Application
 import kotlinx.coroutines.flow.Flow
 import com.aheaditec.talsec_security.security.api.Talsec as NativeTalsec
-import com.aheaditec.talsec_security.security.api.TalsecConfig as NativeTalsecConfig
 import android.util.Log
 import com.aheaditec.talsec_security.security.api.ThreatListener
 import handlers.ThreatHandler
@@ -22,27 +20,7 @@ import threat.Threat
 import threat.ThreatCallback
 import utils.AppIconUtil
 import providers.ContextProvider
-
-
-fun TalsecConfig.toNativeConfig(): NativeTalsecConfig {
-    val androidConfig = this.androidConfig ?: throw IllegalArgumentException("AndroidConfig is required on the Android platform but was null.")
-
-    val builder = NativeTalsecConfig.Builder(
-        androidConfig.packageName,
-        androidConfig.signingCertHashes.toTypedArray()
-    )
-
-    builder.apply {
-        watcherMail(this@toNativeConfig.watcherMail)
-        prod(this@toNativeConfig.isProd)
-
-        androidConfig.supportedStores?.let {
-            supportedAlternativeStores(it.toTypedArray())
-        }
-    }
-    return builder.build()
-
-}
+import utils.toNativeConfig
 
 actual object Talsec {
 
@@ -66,12 +44,6 @@ actual object Talsec {
         NativeTalsec.start(context, nativeConfig)
     }
 
-    fun initialize(application: Application){
-        ContextProvider.initialize(application)
-
-        application.registerActivityLifecycleCallbacks(ActivityProvider)
-    }
-
     actual fun onThreatDetected(): Flow<TalsecEvent> {
         return eventFlow.asSharedFlow()
 
@@ -85,27 +57,27 @@ actual object Talsec {
                 when(event){
                     is TalsecEvent.ThreatDetected -> {
                         when(event.threat) {
-                            Threat.DEBUG -> activateCallback?.onDebug?.invoke()
-                            Threat.PRIVILEGED_ACCESS -> activateCallback?.onPrivilegedAccess?.invoke()
-                            Threat.SIMULATOR -> activateCallback?.onSimulator?.invoke()
-                            Threat.APP_INTEGRITY -> activateCallback?.onAppIntegrity?.invoke()
-                            Threat.UNOFFICIAL_STORE -> activateCallback?.onUnofficialStore?.invoke()
-                            Threat.HOOKS -> activateCallback?.onHooks?.invoke()
-                            Threat.DEVICE_BINDING -> activateCallback?.onDeviceBinding?.invoke()
-                            Threat.OBFUSCATION_ISSUES -> activateCallback?.onObfuscationIssues?.invoke()
-                            Threat.SCREENSHOT -> activateCallback?.onScreenshot?.invoke()
-                            Threat.SCREEN_RECORDING -> activateCallback?.onScreenRecording?.invoke()
-                            Threat.PASSCODE -> activateCallback?.onPasscode?.invoke()
-                            Threat.SECURE_HARDWARE_NOT_AVAILABLE -> activateCallback?.onSecureHardwareNotAvailable?.invoke()
-                            Threat.SYSTEM_VPN -> activateCallback?.onSystemVPN?.invoke()
-                            Threat.DEV_MODE -> activateCallback?.onDevMode?.invoke()
-                            Threat.ADB_ENABLED -> activateCallback?.onADBEnabled?.invoke()
-                            Threat.MULTI_INSTANCE -> activateCallback?.onMultiInstance?.invoke()
-                            Threat.DEVICE_ID -> activateCallback?.onDeviceID?.invoke()
+                            Threat.DEBUG -> activateCallback?.onDebug()
+                            Threat.PRIVILEGED_ACCESS -> activateCallback?.onPrivilegedAccess()
+                            Threat.SIMULATOR -> activateCallback?.onSimulator()
+                            Threat.APP_INTEGRITY -> activateCallback?.onAppIntegrity()
+                            Threat.UNOFFICIAL_STORE -> activateCallback?.onUnofficialStore()
+                            Threat.HOOKS -> activateCallback?.onHooks()
+                            Threat.DEVICE_BINDING -> activateCallback?.onDeviceBinding()
+                            Threat.OBFUSCATION_ISSUES -> activateCallback?.onObfuscationIssues()
+                            Threat.SCREENSHOT -> activateCallback?.onScreenshot()
+                            Threat.SCREEN_RECORDING -> activateCallback?.onScreenRecording()
+                            Threat.PASSCODE -> activateCallback?.onPasscode()
+                            Threat.SECURE_HARDWARE_NOT_AVAILABLE -> activateCallback?.onSecureHardwareNotAvailable()
+                            Threat.SYSTEM_VPN -> activateCallback?.onSystemVPN()
+                            Threat.DEV_MODE -> activateCallback?.onDevMode()
+                            Threat.ADB_ENABLED -> activateCallback?.onADBEnabled()
+                            Threat.MULTI_INSTANCE -> activateCallback?.onMultiInstance()
+                            Threat.DEVICE_ID -> activateCallback?.onDeviceID()
                         }
                     }
                     is TalsecEvent.MalwareDetected -> {
-                        activateCallback?.onMalwareDetected?.invoke(event.apps)
+                        activateCallback?.onMalwareDetected(event.apps)
                     }
                 }
             }

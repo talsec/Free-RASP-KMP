@@ -88,6 +88,7 @@ kotlin {
             dependencies{
                 api("com.aheaditec.talsec.security:TalsecSecurity-Community:16.0.1")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+                implementation("androidx.startup:startup-runtime:1.2.0")
             }
         }
         val commonTest by getting {
