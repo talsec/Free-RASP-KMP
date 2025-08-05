@@ -1,7 +1,6 @@
 package com.jetbrains.example
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,13 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import api.Talsec
 import model.SuspiciousAppInfo
 import model.config.AndroidConfig
 import model.config.IOSConfig
+import model.config.MalwareConfig
 import model.config.TalsecConfig
 import threat.ThreatCallback
 
@@ -113,7 +112,14 @@ class ThreatHandler: ThreatCallback {
 
     override fun onMalwareDetected(suspiciousAppInfo: List<SuspiciousAppInfo>) {
         val threatName = "onMalwareDetected"
+        println("-------------------------------------------")
         println("Talsec: $threatName")
+        println("${suspiciousAppInfo.size} suspicious apps found.")
+
+        suspiciousAppInfo.forEach { appInfo ->
+            println("App: ${appInfo.packageInfo.appName}")
+        }
+        println("-------------------------------------------")
         //onNewThreat(threatName)
     }
 
@@ -137,7 +143,6 @@ class ThreatHandler: ThreatCallback {
 
 }
 
-
     @Composable
 @Preview
 fun App() {
@@ -150,6 +155,9 @@ fun App() {
                 androidConfig = AndroidConfig(
                     packageName = "com.jetbrains.example",
                     signingCertHashes = listOf("K/iFV7+CypnATFWcrUVM6aUIB5gnU2xwzRJOiKJJqPw="),
+                    malwareConfig = MalwareConfig(
+                        blacklistedPackageNames = listOf("com.google.android.youtube")
+                    )
                 ),
                 iosConfig = IOSConfig(
                     bundleIds = listOf("com.jetbrains.example.iosApp"),
