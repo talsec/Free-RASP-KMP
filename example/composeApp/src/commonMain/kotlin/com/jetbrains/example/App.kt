@@ -168,34 +168,20 @@ fun App() {
 
         var threatHandler = remember { ThreatHandler() }
 
-        /*val talsecCallbacks = remember {
-            ThreatCallback(
-                onHooks = { println("onHooks")},
-                onDebug = { println("onDebug")},
-                onPasscode = { println("onPasscode")},
-                onDeviceID = { println("onDeviceID")},
-                onSimulator = { println("onSimulator")},
-                onAppIntegrity = { println("onAppIntegrity")},
-                onObfuscationIssues = { println("onObfuscationIssues")},
-                onDeviceBinding = { println("onDeviceBinding")},
-                onUnofficialStore = { println("onUnofficialStore")},
-                onPrivilegedAccess = { println("onPrivilegedAccess")},
-                onSecureHardwareNotAvailable = { println("onSecureHardwareNotAvailable")},
-                onSystemVPN = { println("onSystemVPN")},
-                onDevMode = { println("onDevMode")},
-                onADBEnabled = { println("onADBEnabled")},
-                onMalwareDetected = { println("onMalwareDetected")},
-                onScreenshot = { println("onScreenshot")},
-                onScreenRecording = { println("onScreenRecording")},
-                onMultiInstance = { println("onMultiInstance")}
-            )
-        }*/
 
         LaunchedEffect(Unit) {
             Talsec.attachListener(threatHandler)
             try {
                 Talsec.start(talsecConfig)
                 println("Talsec background monitoring started.")
+
+                /*
+                Talsec.blockScreenCapture(false)
+                println("Talsec screen capture protection has been enabled.")
+
+                var isBlocked = Talsec.isScreenCaptureBlocked()
+                println("$isBlocked")*/
+
             } catch (e: Exception) {
                 println("Error starting Talsec: ${e.message}")
             }
@@ -218,7 +204,6 @@ fun App() {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    //Image(painterResource(Res.drawable.compose_multiplatform), null)
                     Text("Compose: $greeting")
                 }
             }
