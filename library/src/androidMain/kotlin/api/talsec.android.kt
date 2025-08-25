@@ -25,6 +25,7 @@ import utils.toNativeConfig
 import providers.ActivityProvider
 import providers.ContextProvider
 import handlers.ThreatHandler
+import kotlinx.coroutines.cancel
 
 
 actual object Talsec {
@@ -134,6 +135,16 @@ actual object Talsec {
 
     actual suspend fun isScreenCaptureBlocked(): Boolean {
         return NativeTalsec.isScreenCaptureBlocked()
+    }
+
+    internal fun emitEvent(event: TalsecEvent){
+        scope.launch {
+            eventFlow.emit(event)
+        }
+    }
+
+    internal fun cleanup() {
+        scope.cancel()
     }
 }
 

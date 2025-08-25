@@ -3,6 +3,8 @@ package providers
 import android.app.Application
 import android.content.Context
 import androidx.startup.Initializer
+import androidx.lifecycle.ProcessLifecycleOwner
+import handlers.TalsecLifecycleObserver
 
 
 internal object ContextProvider: Initializer<Unit> {
@@ -11,6 +13,8 @@ internal object ContextProvider: Initializer<Unit> {
     override fun create(context: Context){
         appContext = context.applicationContext
         (appContext as Application).registerActivityLifecycleCallbacks(ActivityProvider)
+
+        ProcessLifecycleOwner.get().lifecycle.addObserver(TalsecLifecycleObserver)
 
         return Unit
     }
