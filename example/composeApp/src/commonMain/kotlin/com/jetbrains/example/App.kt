@@ -175,12 +175,12 @@ fun App() {
                 Talsec.start(talsecConfig)
                 println("Talsec background monitoring started.")
 
-                /*
+
                 Talsec.blockScreenCapture(false)
                 println("Talsec screen capture protection has been enabled.")
 
                 var isBlocked = Talsec.isScreenCaptureBlocked()
-                println("$isBlocked")*/
+                println("$isBlocked")
 
             } catch (e: Exception) {
                 println("Error starting Talsec: ${e.message}")

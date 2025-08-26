@@ -12,6 +12,7 @@ import threat.Threat
 import api.Talsec
 import model.TalsecEvent
 import java.util.function.Consumer
+import android.view.WindowManager.SCREEN_RECORDING_STATE_VISIBLE
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 internal object ScreenProtector {
@@ -25,11 +26,11 @@ internal object ScreenProtector {
         Talsec.emitEvent(TalsecEvent.ThreatDetected(Threat.SCREENSHOT))
     }
 
-    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
-    private val screenRecordCallback = Consumer<Int> { state ->
-        if(state == 2){
+    private val screenRecordCallback: Consumer<Int> = Consumer<Int> { state ->
+        if(state == SCREEN_RECORDING_STATE_VISIBLE) {
             Talsec.emitEvent(TalsecEvent.ThreatDetected(Threat.SCREEN_RECORDING))
         }
+
     }
 
     internal fun register(activity: Activity){
@@ -82,7 +83,7 @@ internal object ScreenProtector {
     @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     internal fun registerScreenRecording(activity: Activity){
         if(!hasPermission(activity.applicationContext, SCREEN_RECORDING_PERMISSION)){
-            reportMissingPermission("screen record", SCREEN_CAPTURE_PERMISSION)
+            reportMissingPermission("screen record", SCREEN_RECORDING_PERMISSION)
             return
         }
 
