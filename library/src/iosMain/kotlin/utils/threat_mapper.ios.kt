@@ -5,9 +5,9 @@ import threat.Threat
 internal fun mapStringToThreat(threatString: String?): Threat? {
     return when (threatString) {
         "jailbreak" -> Threat.PRIVILEGED_ACCESS
-        "debugger" -> Threat.DEBUG
+        "debug" -> Threat.DEBUG
         "simulator" -> Threat.SIMULATOR
-        "signature" -> Threat.APP_INTEGRITY
+        "appIntegrity" -> Threat.APP_INTEGRITY
         "unofficialStore" -> Threat.UNOFFICIAL_STORE
         "runtimeManipulation", "hook" -> Threat.HOOKS
         "deviceBinding" -> Threat.DEVICE_BINDING

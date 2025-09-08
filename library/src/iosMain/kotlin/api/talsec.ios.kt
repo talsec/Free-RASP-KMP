@@ -35,7 +35,6 @@ actual object Talsec {
     init {
         NativeTalsec.setThreatDetectedCallback { threatString ->
             val threat = mapStringToThreat(threatString)
-
             if (threat != null) {
                 scope.launch {
                     eventFlow.emit(TalsecEvent.ThreatDetected(threat))
@@ -68,7 +67,7 @@ actual object Talsec {
                     when(event.threat) {
                         Threat.PRIVILEGED_ACCESS -> activeCallback?.onPrivilegedAccess()
                         Threat.DEBUG -> activeCallback?.onDebug()
-                        Threat.SIMULATOR -> activeCallback?.onAppIntegrity()
+                        Threat.SIMULATOR -> activeCallback?.onSimulator()
                         Threat.APP_INTEGRITY -> activeCallback?.onAppIntegrity()
                         Threat.UNOFFICIAL_STORE -> activeCallback?.onUnofficialStore()
                         Threat.HOOKS -> activeCallback?.onUnofficialStore()

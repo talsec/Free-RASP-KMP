@@ -295,6 +295,32 @@
           },
           {
             "kind": "Function",
+            "name": "forwardThreatToKotlin",
+            "printedName": "forwardThreatToKotlin(threat:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SecurityThreat",
+                "printedName": "TalsecRuntime.SecurityThreat",
+                "usr": "s:13TalsecRuntime14SecurityThreatO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12TalsecBridge0a3ApiB0C21forwardThreatToKotlin6threaty0A7Runtime08SecurityE0O_tF",
+            "mangledName": "$s12TalsecBridge0a3ApiB0C21forwardThreatToKotlin6threaty0A7Runtime08SecurityE0O_tF",
+            "moduleName": "TalsecBridge",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "storeExternalId",
             "printedName": "storeExternalId(externalId:)",
             "children": [
@@ -480,6 +506,69 @@
         "moduleName": "TalsecBridge",
         "declAttributes": [
           "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SecurityThreatCenter",
+        "printedName": "SecurityThreatCenter",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "threatDetected",
+            "printedName": "threatDetected(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SecurityThreat",
+                "printedName": "TalsecRuntime.SecurityThreat",
+                "usr": "s:13TalsecRuntime14SecurityThreatO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:13TalsecRuntime20SecurityThreatCenterC0A6BridgeE14threatDetectedyyAA0cD0OF",
+            "mangledName": "$s13TalsecRuntime20SecurityThreatCenterC0A6BridgeE14threatDetectedyyAA0cD0OF",
+            "moduleName": "TalsecBridge",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:13TalsecRuntime20SecurityThreatCenterC",
+        "mangledName": "$s13TalsecRuntime20SecurityThreatCenterC",
+        "moduleName": "TalsecRuntime",
+        "isExternal": true,
+        "hasMissingDesignatedInitializers": true,
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SecurityThreatHandler",
+            "printedName": "SecurityThreatHandler",
+            "usr": "s:13TalsecRuntime21SecurityThreatHandlerP",
+            "mangledName": "$s13TalsecRuntime21SecurityThreatHandlerP"
+          }
         ]
       }
     ],
