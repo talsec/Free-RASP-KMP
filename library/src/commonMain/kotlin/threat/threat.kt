@@ -19,3 +19,4 @@ enum class Threat {
     MULTI_INSTANCE,
     DEVICE_ID
 }
+

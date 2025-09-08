@@ -22,53 +22,64 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
 
-    /*listOf(
-        iosX64(), // Pridal som aj x64, ktorý si mal definovaný vyššie
+    applyDefaultHierarchyTemplate()
+
+    val iosTargets = listOf(
+        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach { iosTarget ->
+    )
+
+    val nativeDir = project.file("src/iosMain/nativeTalsec")
+
+    iosTargets.forEach { target ->
+        target.compilations["main"].cinterops.create("Talsec") {
+            defFile(project.file("src/nativeInterop/cinterop/talsec.def"))
+
+            // -------- HEADERS (podľa architektúry) --------
+            val headersDir = when (target.konanTarget) {
+                org.jetbrains.kotlin.konan.target.KonanTarget.IOS_ARM64 ->
+                    "$nativeDir/TalsecBridge.xcframework/ios-arm64/TalsecBridge.framework/Headers"
+                else ->
+                    "$nativeDir/TalsecBridge.xcframework/ios-arm64_x86_64-simulator/TalsecBridge.framework/Headers"
+            }
+            compilerOpts("-F$nativeDir", "-I$headersDir")
+
+            // -------- LINKER --------
+            linkerOpts("-F$nativeDir", "-framework", "TalsecBridge", "-framework", "TalsecRuntime")
+        }
+    }
+
+    /*iosTargets.forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "Library"
+            baseName = "shared"
             isStatic = false
 
-            // SPRÁVNE NASTAVENIE CESTY
-            linkerOpts("-F", "${projectDir}/src/iosMain", "-framework", "TalsecRuntime")
+            linkerOpts.add("-F$nativeDir")
+            linkerOpts.addAll(
+                listOf(
+                    "-framework", "TalsecBridge",
+                    "-framework", "TalsecRuntime"
+                )
+            )
         }
-        iosTarget.compilations["main"].apply {
-            cinterops.create("talsecruntime") {
-                definitionFile = file("src/nativeInterop/cinterop/talsecruntime.def")
+
+        iosTarget.compilations.getByName("main") {
+            //cinterops.create("TalsecBridge")
+            cinterops.create("Talsec"){
+                defFile(project.file("src/nativeInterop/cinterop/talsec.def"))
+
+                compilerOpts(
+                    "-F$nativeDir",
+
+                    "-I$nativeDir/TalsecBridge.xcframework/ios-arm64_x86_64-simulator/TalsecBridge.framework/Headers",
+                    "-I$nativeDir/TalsecBridge.xcframework/ios-arm64/TalsecBridge.framework/Headers",
+                    "-I$nativeDir/TalsecRuntime.xcframework/ios-arm64_x86_64-simulator/TalsecRuntime.framework/Headers",
+                    "-I$nativeDir/TalsecRuntime.xcframework/ios-arm64/TalsecRuntime.framework/Headers"
+                )
             }
         }
-    }*/
-
-    /*listOf(iosArm64(), iosX64(), iosSimulatorArm64()).forEach {
-        it.compilations.getByName("main") {
-            // Toto explicitne NIE JE potrebné, swiftklib plugin všetko nakonfiguruje automaticky,
-            // ale môžeš mať, ak chceš:
-            cinterops.create("FreeRASP")
-        }
-    }*/
-
-    /*cocoapods {
-        version = "1.0"
-        summary = "Some description for a Kotlin/Native module"
-        homepage = "Link to a Kotlin/Native module homepage"
-        name = "freeRASP_KMP"
-        ios.deploymentTarget = "14.0"
-
-        framework {
-            baseName = "freeRASP_KMP"
-            isStatic = false
-        }
-
-        pod(
-            "TalsecRuntime",
-            path = project.file("/Users/martinzigrai/Documents/iOS/Free-RASP-iOS/Talsec")
-            )
     }*/
 
     sourceSets {
@@ -77,12 +88,10 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
             }
         }
-        /*androidMain.dependencies {
-            implementation("com.aheaditec.talsec.security:TalsecSecurity-Community:16.0.1")
-        }*/
+
+        val iosMain by getting
+
         val androidMain by getting {
-            //dependsOn(commonMain)
-            //kotlin.srcDir("src/androidMain/kotlin")
             languageSettings.optIn("kotlin.ExperimentalMultiplatform")
 
             dependencies{
@@ -116,22 +125,6 @@ android {
 
 
 }
-
-/*swiftklib {
-    create("TalsecRuntime") {
-        path = file("/Users/martinzigrai/Documents/iOS/Free-RASP-iOS/Talsec/TalsecRuntime.xcframework")
-        packageName = "TalsecRuntime"
-    }
-}*/
-
-
-/*swiftklib {
-    create("FreeRASP") {
-        path = file("/Users/martinzigrai/Documents/iOS/Free-RASP-iOS/Talsec/TalsecRuntime.xcframework")
-        packageName = "com.lynxsft.TalsecRuntime"
-    }
-}*/
-
 
 mavenPublishing {
     //uncomment for publishing to Maven Central
