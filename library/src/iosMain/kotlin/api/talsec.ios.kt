@@ -1,10 +1,10 @@
 package api
 
-actual object Talsec {
-    actual suspend fun start(config: model.config.TalsecConfig) {
+actual object freeraspKMP {
+    actual suspend fun start(config: model.config.freeraspConfig) {
     }
 
-    actual fun onThreatDetected(): kotlinx.coroutines.flow.Flow<model.TalsecEvent> {
+    actual fun onThreatDetected(): kotlinx.coroutines.flow.Flow<model.freeraspEvent> {
         TODO("Not yet implemented")
     }
 

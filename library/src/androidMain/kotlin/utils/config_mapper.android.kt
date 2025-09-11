@@ -1,21 +1,21 @@
 package utils
 
-import com.aheaditec.talsec_security.security.api.TalsecConfig as NativeTalsecConfig
-import model.config.TalsecConfig
+import com.aheaditec.talsec_security.security.api.TalsecConfig
+import model.config.freeraspConfig
 
-fun TalsecConfig.toNativeConfig(): NativeTalsecConfig {
+fun freeraspConfig.toNativeConfig(): TalsecConfig {
     val androidConfig = this.androidConfig ?: throw IllegalArgumentException("AndroidConfig is required on the Android platform but was null.")
 
-    val builder = NativeTalsecConfig.Builder(
+    val builder = TalsecConfig.Builder(
         androidConfig.packageName,
-        androidConfig.signingCertHashes.toTypedArray()
+        androidConfig.certificateHashes.toTypedArray()
     )
 
     builder.apply {
         watcherMail(this@toNativeConfig.watcherMail)
         prod(this@toNativeConfig.isProd)
 
-        androidConfig.supportedStores?.let {
+        androidConfig.supportedAlternativeStores?.let {
             supportedAlternativeStores(it.toTypedArray())
         }
 

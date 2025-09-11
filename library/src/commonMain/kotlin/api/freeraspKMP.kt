@@ -1,14 +1,14 @@
 package api
 
 import kotlinx.coroutines.flow.Flow
-import model.config.TalsecConfig
-import model.TalsecEvent
+import model.config.freeraspConfig
+import model.freeraspEvent
 import threat.*
 
-expect object Talsec {
-    suspend fun start(config: TalsecConfig)
+expect object freeraspKMP {
+    suspend fun start(config: freeraspConfig)
 
-    fun onThreatDetected(): Flow<TalsecEvent>
+    fun onThreatDetected(): Flow<freeraspEvent>
 
     suspend fun addToWhiteList(packageName: String)
 
@@ -23,15 +23,4 @@ expect object Talsec {
     suspend fun blockScreenCapture(enable: Boolean)
 
     suspend fun isScreenCaptureBlocked(): Boolean
-
-    //TODO: možno aj tieto zvyšné metódy
-
-    //onInvalidCallback
-
-    //addListener
-
-    //removeListeners
-
-
-
 }

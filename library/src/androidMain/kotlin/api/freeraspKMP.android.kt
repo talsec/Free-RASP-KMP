@@ -1,7 +1,7 @@
 package api
 
 
-import com.aheaditec.talsec_security.security.api.Talsec as NativeTalsec
+import com.aheaditec.talsec_security.security.api.Talsec
 import com.aheaditec.talsec_security.security.api.ThreatListener
 
 import android.util.Log
@@ -16,8 +16,8 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-import model.TalsecEvent
-import model.config.TalsecConfig
+import model.freeraspEvent
+import model.config.freeraspConfig
 import threat.Threat
 import threat.ThreatCallback
 import utils.AppIconUtil
@@ -28,10 +28,10 @@ import handlers.ThreatHandler
 import kotlinx.coroutines.cancel
 
 
-actual object Talsec {
+actual object freeraspKMP {
 
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
-    private val eventFlow = MutableSharedFlow<TalsecEvent>()
+    private val eventFlow = MutableSharedFlow<freeraspEvent>()
     private var listenerJob: Job? = null
     private var activateCallback: ThreatCallback? = null
     private val threatHandler = ThreatHandler { event ->
@@ -40,19 +40,44 @@ actual object Talsec {
 
     private val nativeListener = ThreatListener(threatHandler, threatHandler)
 
-    actual suspend fun start(config: TalsecConfig) {
-        val context = ContextProvider.getApplicationContext()
+    actual suspend fun start(config: freeraspConfig) {
+        val nativeConfig = withContext(Dispatchers.Default){
+            config.toNativeConfig()
+        }
 
-        val nativeConfig = config.toNativeConfig()
+        withContext(Dispatchers.Main){
+            val context = ContextProvider.getApplicationContext()
 
-        nativeListener.registerListener(context)
+            nativeListener.registerListener(context)
 
-        NativeTalsec.start(context, nativeConfig)
+            Talsec.start(context, nativeConfig)
+        }
     }
 
-    actual fun onThreatDetected(): Flow<TalsecEvent> {
+    actual fun onThreatDetected(): Flow<freeraspEvent> {
         return eventFlow.asSharedFlow()
+    }
 
+    private fun handleThreatEvent(threat: Threat){
+        when(threat){
+            Threat.DEBUG -> activateCallback?.onDebug()
+            Threat.PRIVILEGED_ACCESS -> activateCallback?.onPrivilegedAccess()
+            Threat.SIMULATOR -> activateCallback?.onSimulator()
+            Threat.APP_INTEGRITY -> activateCallback?.onAppIntegrity()
+            Threat.UNOFFICIAL_STORE -> activateCallback?.onUnofficialStore()
+            Threat.HOOKS -> activateCallback?.onHooks()
+            Threat.DEVICE_BINDING -> activateCallback?.onDeviceBinding()
+            Threat.OBFUSCATION_ISSUES -> activateCallback?.onObfuscationIssues()
+            Threat.SCREENSHOT -> activateCallback?.onScreenshot()
+            Threat.SCREEN_RECORDING -> activateCallback?.onScreenRecording()
+            Threat.PASSCODE -> activateCallback?.onPasscode()
+            Threat.SECURE_HARDWARE_NOT_AVAILABLE -> activateCallback?.onSecureHardwareNotAvailable()
+            Threat.SYSTEM_VPN -> activateCallback?.onSystemVPN()
+            Threat.DEV_MODE -> activateCallback?.onDevMode()
+            Threat.ADB_ENABLED -> activateCallback?.onADBEnabled()
+            Threat.MULTI_INSTANCE -> activateCallback?.onMultiInstance()
+            Threat.DEVICE_ID -> activateCallback?.onDeviceID()
+        }
     }
 
     actual fun attachListener(callback: ThreatCallback){
@@ -61,30 +86,8 @@ actual object Talsec {
         listenerJob = scope.launch {
             onThreatDetected().collect { event ->
                 when(event){
-                    is TalsecEvent.ThreatDetected -> {
-                        when(event.threat) {
-                            Threat.DEBUG -> activateCallback?.onDebug()
-                            Threat.PRIVILEGED_ACCESS -> activateCallback?.onPrivilegedAccess()
-                            Threat.SIMULATOR -> activateCallback?.onSimulator()
-                            Threat.APP_INTEGRITY -> activateCallback?.onAppIntegrity()
-                            Threat.UNOFFICIAL_STORE -> activateCallback?.onUnofficialStore()
-                            Threat.HOOKS -> activateCallback?.onHooks()
-                            Threat.DEVICE_BINDING -> activateCallback?.onDeviceBinding()
-                            Threat.OBFUSCATION_ISSUES -> activateCallback?.onObfuscationIssues()
-                            Threat.SCREENSHOT -> activateCallback?.onScreenshot()
-                            Threat.SCREEN_RECORDING -> activateCallback?.onScreenRecording()
-                            Threat.PASSCODE -> activateCallback?.onPasscode()
-                            Threat.SECURE_HARDWARE_NOT_AVAILABLE -> activateCallback?.onSecureHardwareNotAvailable()
-                            Threat.SYSTEM_VPN -> activateCallback?.onSystemVPN()
-                            Threat.DEV_MODE -> activateCallback?.onDevMode()
-                            Threat.ADB_ENABLED -> activateCallback?.onADBEnabled()
-                            Threat.MULTI_INSTANCE -> activateCallback?.onMultiInstance()
-                            Threat.DEVICE_ID -> activateCallback?.onDeviceID()
-                        }
-                    }
-                    is TalsecEvent.MalwareDetected -> {
-                        activateCallback?.onMalwareDetected(event.apps)
-                    }
+                    is freeraspEvent.ThreatDetected -> handleThreatEvent(event.threat)
+                    is freeraspEvent.MalwareDetected -> activateCallback?.onMalwareDetected(event.apps)
                 }
             }
         }
@@ -100,7 +103,7 @@ actual object Talsec {
         withContext(Dispatchers.IO){
             val context = ContextProvider.getApplicationContext()
 
-            NativeTalsec.addToWhitelist(context, packageName)
+            Talsec.addToWhitelist(context, packageName)
         }
     }
 
@@ -108,7 +111,7 @@ actual object Talsec {
         withContext(Dispatchers.IO){
             val context = ContextProvider.getApplicationContext()
 
-            NativeTalsec.storeExternalId(context, data)
+            Talsec.storeExternalId(context, data)
         }
     }
 
@@ -126,18 +129,18 @@ actual object Talsec {
             val activity = ActivityProvider.getCurrentActivity()
 
             if(activity != null){
-                NativeTalsec.blockScreenCapture(activity, enable)
+                Talsec.blockScreenCapture(activity, enable)
             } else {
-                Log.w("Talsec", "blockedScreenCapture called but no activity is in foreground.")
+                Log.w("freeraspKMP", "blockedScreenCapture called but no activity is in foreground.")
             }
         }
     }
 
     actual suspend fun isScreenCaptureBlocked(): Boolean {
-        return NativeTalsec.isScreenCaptureBlocked()
+        return Talsec.isScreenCaptureBlocked()
     }
 
-    internal fun emitEvent(event: TalsecEvent){
+    internal fun emitEvent(event: freeraspEvent){
         scope.launch {
             eventFlow.emit(event)
         }

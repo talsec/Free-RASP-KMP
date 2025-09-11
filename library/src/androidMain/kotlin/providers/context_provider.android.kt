@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.startup.Initializer
 import androidx.lifecycle.ProcessLifecycleOwner
-import handlers.TalsecLifecycleObserver
+import handlers.freeraspKMPLifecycleObserver
 
 
 internal object ContextProvider: Initializer<Unit> {
@@ -14,7 +14,7 @@ internal object ContextProvider: Initializer<Unit> {
         appContext = context.applicationContext
         (appContext as Application).registerActivityLifecycleCallbacks(ActivityProvider)
 
-        ProcessLifecycleOwner.get().lifecycle.addObserver(TalsecLifecycleObserver)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(freeraspKMPLifecycleObserver)
 
         return Unit
     }
@@ -23,7 +23,7 @@ internal object ContextProvider: Initializer<Unit> {
 
     fun getApplicationContext(): Context {
         if(!::appContext.isInitialized){
-            throw IllegalStateException("Talsec not initialized. Call Talsec.initialize(context) in your Application.onCreate() first.")
+            throw IllegalStateException("freeraspKMP not initialized. It seems the automatic setup via App Startup failed.")
         }
         return appContext
     }

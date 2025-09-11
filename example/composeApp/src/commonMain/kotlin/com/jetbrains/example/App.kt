@@ -14,12 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import api.Talsec
+import api.freeraspKMP
 import model.SuspiciousAppInfo
 import model.config.AndroidConfig
 import model.config.IOSConfig
 import model.config.MalwareConfig
-import model.config.TalsecConfig
+import model.config.freeraspConfig
 import threat.ThreatCallback
 
 /*class ThreatHandler(
@@ -28,92 +28,92 @@ import threat.ThreatCallback
 class ThreatHandler: ThreatCallback {
     override fun onHooks() {
         val threatName = "onHooks"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onDebug() {
         val threatName = "onDebug"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onPasscode() {
         val threatName = "onPasscode"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onDeviceID() {
         val threatName = "onDeviceID"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onSimulator() {
         val threatName = "onSimulator"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onAppIntegrity() {
         val threatName = "onAppIntegrity"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onObfuscationIssues() {
         val threatName = "onObfuscationIssues"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onDeviceBinding() {
         val threatName = "onDeviceBinding"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onUnofficialStore() {
         val threatName = "onUnofficialStore"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onPrivilegedAccess() {
         val threatName = "onPrivilegedAccess"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onSecureHardwareNotAvailable() {
         val threatName = "onSecureHardwareNotAvailable"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onSystemVPN() {
         val threatName = "onSystemVPN"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onDevMode() {
         val threatName = "onDevMode"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onADBEnabled() {
         val threatName = "onADBEnabled"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
         }
 
     override fun onMalwareDetected(suspiciousAppInfo: List<SuspiciousAppInfo>) {
         val threatName = "onMalwareDetected"
         println("-------------------------------------------")
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         println("${suspiciousAppInfo.size} suspicious apps found.")
 
         suspiciousAppInfo.forEach { appInfo ->
@@ -125,22 +125,21 @@ class ThreatHandler: ThreatCallback {
 
     override fun onScreenshot() {
         val threatName = "onScreenshot"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onScreenRecording() {
         val threatName = "onScreenRecording"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
 
     override fun onMultiInstance() {
         val threatName = "onMultiInstance"
-        println("Talsec: $threatName")
+        println("freeraspKMP: $threatName")
         //onNewThreat(threatName)
     }
-
 }
 
     @Composable
@@ -148,13 +147,13 @@ class ThreatHandler: ThreatCallback {
 fun App() {
     MaterialTheme {
 
-        val talsecConfig = remember {
-            TalsecConfig(
+        val freeraspConfig = remember {
+            freeraspConfig(
                 watcherMail = "martin.zigrai@gmail.com",
                 isProd = true,
                 androidConfig = AndroidConfig(
                     packageName = "com.jetbrains.example",
-                    signingCertHashes = listOf("K/iFV7+CypnATFWcrUVM6aUIB5gnU2xwzRJOiKJJqPw="),
+                    certificateHashes = listOf("K/iFV7+CypnATFWcrUVM6aUIB5gnU2xwzRJOiKJJqPw="),
                     malwareConfig = MalwareConfig(
                         blacklistedPackageNames = listOf("com.google.android.youtube")
                     )
@@ -170,20 +169,20 @@ fun App() {
 
 
         LaunchedEffect(Unit) {
-            Talsec.attachListener(threatHandler)
+            freeraspKMP.attachListener(threatHandler)
             try {
-                Talsec.start(talsecConfig)
-                println("Talsec background monitoring started.")
+                freeraspKMP.start(freeraspConfig)
+                println("freeraspKMP background monitoring started.")
 
 
-                Talsec.blockScreenCapture(false)
-                println("Talsec screen capture protection has been enabled.")
+                freeraspKMP.blockScreenCapture(false)
+                println("freeraspKMP screen capture protection has been enabled.")
 
-                var isBlocked = Talsec.isScreenCaptureBlocked()
+                var isBlocked = freeraspKMP.isScreenCaptureBlocked()
                 println("$isBlocked")
 
             } catch (e: Exception) {
-                println("Error starting Talsec: ${e.message}")
+                println("Error starting freeraspKMP: ${e.message}")
             }
         }
 

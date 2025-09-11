@@ -5,9 +5,9 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import protector.ScreenProtector
 import providers.ActivityProvider
-import api.Talsec
+import api.freeraspKMP
 
-internal object TalsecLifecycleObserver : DefaultLifecycleObserver {
+internal object freeraspKMPLifecycleObserver : DefaultLifecycleObserver {
     override fun onResume(owner: LifecycleOwner) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE){
             ActivityProvider.getCurrentActivity()?.let { activity ->
@@ -25,6 +25,6 @@ internal object TalsecLifecycleObserver : DefaultLifecycleObserver {
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        Talsec.cleanup()
+        freeraspKMP.cleanup()
     }
 }
