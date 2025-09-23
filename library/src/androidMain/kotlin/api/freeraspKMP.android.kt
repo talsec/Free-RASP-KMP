@@ -27,8 +27,31 @@ import providers.ActivityProvider
 actual object freeraspKMP {
 
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+    private val eventCache = mutableListOf<FreeRaspEvent>()
+    private val cacheLock = Any()
     private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
     actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
+
+    init {
+        scope.launch {
+            _threatEvents.subscriptionCount.collect { count ->
+                if (count > 0) {
+                    val eventsToEmit: List<FreeRaspEvent>
+                    synchronized(cacheLock) {
+                        if (eventCache.isNotEmpty()) {
+                            eventsToEmit = eventCache.toList()
+                            eventCache.clear()
+                        } else {
+                            eventsToEmit = emptyList()
+                        }
+                    }
+                    eventsToEmit.forEach {
+                        _threatEvents.emit(it)
+                    }
+                }
+            }
+        }
+    }
 
     private val threatHandler = ThreatHandler { event ->
         emitEvent(event)
@@ -93,10 +116,13 @@ actual object freeraspKMP {
 
     internal fun emitEvent(event: FreeRaspEvent){
         if (_threatEvents.subscriptionCount.value == 0) {
-            Log.w("freeraspKMP", "No subscribers to threatEvents. Event will be lost: $event")
-        }
-        scope.launch {
-            _threatEvents.emit(event)
+            synchronized(cacheLock) {
+                eventCache.add(event)
+            }
+        } else {
+            scope.launch {
+                _threatEvents.emit(event)
+            }
         }
     }
 
