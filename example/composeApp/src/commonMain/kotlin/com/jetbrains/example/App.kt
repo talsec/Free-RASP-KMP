@@ -12,137 +12,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.ui.tooling.preview.Preview
-
 import api.freeraspKMP
-import model.SuspiciousAppInfo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import model.FreeRaspEvent
 import model.config.AndroidConfig
 import model.config.IOSConfig
 import model.config.MalwareConfig
 import model.config.freeraspConfig
-import threat.ThreatCallback
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
-/*class ThreatHandler(
-    private val onNewThreat: (String) -> Unit
-)*/
-class ThreatHandler: ThreatCallback {
-    override fun onHooks() {
-        val threatName = "onHooks"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onDebug() {
-        val threatName = "onDebug"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onPasscode() {
-        val threatName = "onPasscode"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onDeviceID() {
-        val threatName = "onDeviceID"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onSimulator() {
-        val threatName = "onSimulator"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onAppIntegrity() {
-        val threatName = "onAppIntegrity"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onObfuscationIssues() {
-        val threatName = "onObfuscationIssues"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onDeviceBinding() {
-        val threatName = "onDeviceBinding"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onUnofficialStore() {
-        val threatName = "onUnofficialStore"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onPrivilegedAccess() {
-        val threatName = "onPrivilegedAccess"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onSecureHardwareNotAvailable() {
-        val threatName = "onSecureHardwareNotAvailable"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onSystemVPN() {
-        val threatName = "onSystemVPN"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onDevMode() {
-        val threatName = "onDevMode"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onADBEnabled() {
-        val threatName = "onADBEnabled"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-        }
-
-    override fun onMalwareDetected(suspiciousAppInfo: List<SuspiciousAppInfo>) {
-        val threatName = "onMalwareDetected"
-        println("-------------------------------------------")
-        println("freeraspKMP: $threatName")
-        println("${suspiciousAppInfo.size} suspicious apps found.")
-
-        suspiciousAppInfo.forEach { appInfo ->
-            println("App: ${appInfo.packageInfo.appName}")
-        }
-        println("-------------------------------------------")
-        //onNewThreat(threatName)
-    }
-
-    override fun onScreenshot() {
-        val threatName = "onScreenshot"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onScreenRecording() {
-        val threatName = "onScreenRecording"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-
-    override fun onMultiInstance() {
-        val threatName = "onMultiInstance"
-        println("freeraspKMP: $threatName")
-        //onNewThreat(threatName)
-    }
-}
-
-    @Composable
+@Composable
 @Preview
 fun App() {
     MaterialTheme {
@@ -165,11 +49,42 @@ fun App() {
             )
         }
 
-        var threatHandler = remember { ThreatHandler() }
-
-
         LaunchedEffect(Unit) {
-            freeraspKMP.attachListener(threatHandler)
+            // CoroutineScope(Dispatchers.Default).launch {
+                // delay(5000L)
+                println("now registering")
+                freeraspKMP.threatEvents.onEach { event ->
+                    when (event) {
+                        is FreeRaspEvent.PrivilegedAccess -> println("freeraspKMP: PrivilegedAccess")
+                        is FreeRaspEvent.Debug -> println("freeraspKMP: Debug")
+                        is FreeRaspEvent.Simulator -> println("freeraspKMP: Simulator")
+                        is FreeRaspEvent.AppIntegrity -> println("freeraspKMP: AppIntegrity")
+                        is FreeRaspEvent.UnofficialStore -> println("freeraspKMP: UnofficialStore")
+                        is FreeRaspEvent.Hooks -> println("freeraspKMP: Hooks")
+                        is FreeRaspEvent.DeviceBinding -> println("freeraspKMP: DeviceBinding")
+                        is FreeRaspEvent.ObfuscationIssues -> println("freeraspKMP: ObfuscationIssues")
+                        is FreeRaspEvent.Screenshot -> println("freeraspKMP: Screenshot")
+                        is FreeRaspEvent.ScreenRecording -> println("freeraspKMP: ScreenRecording")
+                        is FreeRaspEvent.Passcode -> println("freeraspKMP: Passcode")
+                        is FreeRaspEvent.SecureHardwareNotAvailable -> println("freeraspKMP: SecureHardwareNotAvailable")
+                        is FreeRaspEvent.SystemVpn -> println("freeraspKMP: SystemVpn")
+                        is FreeRaspEvent.DevMode -> println("freeraspKMP: DevMode")
+                        is FreeRaspEvent.AdbEnabled -> println("freeraspKMP: AdbEnabled")
+                        is FreeRaspEvent.MultiInstance -> println("freeraspKMP: MultiInstance")
+                        is FreeRaspEvent.DeviceId -> println("freeraspKMP: DeviceId")
+                        is FreeRaspEvent.MalwareDetected -> {
+                            println("-------------------------------------------")
+                            println("freeraspKMP: MalwareDetected")
+                            println("${event.suspiciousAppInfo.size} suspicious apps found.")
+                            event.suspiciousAppInfo.forEach { appInfo ->
+                                println("App: ${appInfo.packageInfo.appName}")
+                            }
+                            println("-------------------------------------------")
+                        }
+                    }
+                }.launchIn(this)
+//            }
+
             try {
                 freeraspKMP.start(freeraspConfig)
                 println("freeraspKMP background monitoring started.")

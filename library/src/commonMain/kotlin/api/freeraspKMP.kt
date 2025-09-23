@@ -1,22 +1,17 @@
 package api
 
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 import model.config.freeraspConfig
-import model.freeraspEvent
-import threat.*
+import model.FreeRaspEvent
 
 expect object freeraspKMP {
-    suspend fun start(config: freeraspConfig)
+    val threatEvents: SharedFlow<FreeRaspEvent>
 
-    fun onThreatDetected(): Flow<freeraspEvent>
+    suspend fun start(config: freeraspConfig)
 
     suspend fun addToWhiteList(packageName: String)
 
     suspend fun storeExternalId(data: String)
-
-    fun attachListener(callback: ThreatCallback)
-
-    fun detachListener()
 
     suspend fun getAppIcon(packageName: String): String
 

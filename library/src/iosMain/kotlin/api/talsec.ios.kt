@@ -1,23 +1,25 @@
 package api
 
-actual object freeraspKMP {
-    actual suspend fun start(config: model.config.freeraspConfig) {
-    }
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import model.FreeRaspEvent
+import model.config.freeraspConfig
 
-    actual fun onThreatDetected(): kotlinx.coroutines.flow.Flow<model.freeraspEvent> {
-        TODO("Not yet implemented")
+actual object freeraspKMP {
+    private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
+    actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
+
+    actual suspend fun start(config: freeraspConfig) {
+        // TODO: Implement Talsec start for iOS
     }
 
     actual suspend fun addToWhiteList(packageName: String) {
+        // TODO: Implement addToWhiteList for iOS
     }
 
     actual suspend fun storeExternalId(data: String) {
-    }
-
-    actual fun attachListener(callback: threat.ThreatCallback) {
-    }
-
-    actual fun detachListener() {
+        // TODO: Implement storeExternalId for iOS
     }
 
     actual suspend fun getAppIcon(packageName: String): String {
@@ -25,6 +27,7 @@ actual object freeraspKMP {
     }
 
     actual suspend fun blockScreenCapture(enable: Boolean) {
+        // TODO: Implement blockScreenCapture for iOS
     }
 
     actual suspend fun isScreenCaptureBlocked(): Boolean {
