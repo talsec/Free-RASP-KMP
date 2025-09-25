@@ -67,7 +67,7 @@ sealed class FreeRaspEvent {
     /**
      * Indicates that a system VPN is active.
      */
-    data object SystemVpn : FreeRaspEvent()
+    data object SystemVPN : FreeRaspEvent()
 
     /**
      * Indicates that developer mode is enabled on the device.
@@ -87,12 +87,12 @@ sealed class FreeRaspEvent {
     /**
      * Indicates that the device ID is changed.
      */
-    data object DeviceId : FreeRaspEvent()
+    data object DeviceID : FreeRaspEvent()
 
     /**
      * Indicates that malware was detected on the device.
      *
      * @param suspiciousAppInfo A list of suspicious apps found on the device.
      */
-    data class MalwareDetected(val suspiciousAppInfo: List<SuspiciousAppInfo>) : FreeRaspEvent()
+    data class Malware(val suspiciousAppInfo: List<SuspiciousAppInfo>) : FreeRaspEvent()
 }

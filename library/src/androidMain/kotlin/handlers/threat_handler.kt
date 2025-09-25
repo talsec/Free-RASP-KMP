@@ -6,12 +6,12 @@ import model.FreeRaspEvent
 import providers.ContextProvider
 import utils.processMalwareData
 
-internal class ThreatHandler (
+internal class ThreatHandler(
     private val onEvent: (FreeRaspEvent) -> Unit
-): ThreatListener.ThreatDetected, ThreatListener.DeviceState {
+) : ThreatListener.ThreatDetected, ThreatListener.DeviceState {
     override fun onRootDetected() = onEvent(FreeRaspEvent.PrivilegedAccess)
 
-    override fun onDebuggerDetected()  = onEvent(FreeRaspEvent.Debug)
+    override fun onDebuggerDetected() = onEvent(FreeRaspEvent.Debug)
 
     override fun onEmulatorDetected() = onEvent(FreeRaspEvent.Simulator)
 
@@ -27,15 +27,15 @@ internal class ThreatHandler (
 
     override fun onMalwareDetected(nativeSuspiciousAppInfo: List<SuspiciousAppInfo>?) {
 
-        if(nativeSuspiciousAppInfo.isNullOrEmpty()) {
+        if (nativeSuspiciousAppInfo.isNullOrEmpty()) {
             return
         }
 
         val context = ContextProvider.getApplicationContext()
         val commonApps = processMalwareData(context, nativeSuspiciousAppInfo)
 
-        if(commonApps.isNotEmpty()) {
-            onEvent(FreeRaspEvent.MalwareDetected(commonApps))
+        if (commonApps.isNotEmpty()) {
+            onEvent(FreeRaspEvent.Malware(commonApps))
         }
     }
 
@@ -47,12 +47,13 @@ internal class ThreatHandler (
 
     override fun onUnlockedDeviceDetected() = onEvent(FreeRaspEvent.Passcode)
 
-    override fun onHardwareBackedKeystoreNotAvailableDetected() = onEvent(FreeRaspEvent.SecureHardwareNotAvailable)
+    override fun onHardwareBackedKeystoreNotAvailableDetected() =
+        onEvent(FreeRaspEvent.SecureHardwareNotAvailable)
 
     override fun onDeveloperModeDetected() = onEvent(FreeRaspEvent.DevMode)
 
     override fun onADBEnabledDetected() = onEvent(FreeRaspEvent.AdbEnabled)
 
-    override fun onSystemVPNDetected() = onEvent(FreeRaspEvent.SystemVpn)
+    override fun onSystemVPNDetected() = onEvent(FreeRaspEvent.SystemVPN)
 
 }

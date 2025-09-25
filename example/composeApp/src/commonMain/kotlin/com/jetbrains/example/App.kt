@@ -13,12 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import api.freeraspKMP
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import model.FreeRaspEvent
 import model.config.AndroidConfig
 import model.config.IOSConfig
@@ -64,14 +60,14 @@ fun App() {
                     is FreeRaspEvent.ScreenRecording -> println("freeraspKMP: ScreenRecording")
                     is FreeRaspEvent.Passcode -> println("freeraspKMP: Passcode")
                     is FreeRaspEvent.SecureHardwareNotAvailable -> println("freeraspKMP: SecureHardwareNotAvailable")
-                    is FreeRaspEvent.SystemVpn -> println("freeraspKMP: SystemVpn")
+                    is FreeRaspEvent.SystemVPN -> println("freeraspKMP: SystemVPN")
                     is FreeRaspEvent.DevMode -> println("freeraspKMP: DevMode")
                     is FreeRaspEvent.AdbEnabled -> println("freeraspKMP: AdbEnabled")
                     is FreeRaspEvent.MultiInstance -> println("freeraspKMP: MultiInstance")
-                    is FreeRaspEvent.DeviceId -> println("freeraspKMP: DeviceId")
-                    is FreeRaspEvent.MalwareDetected -> {
+                    is FreeRaspEvent.DeviceID -> println("freeraspKMP: DeviceID")
+                    is FreeRaspEvent.Malware -> {
                         println("-------------------------------------------")
-                        println("freeraspKMP: MalwareDetected")
+                        println("freeraspKMP: Malware")
                         println("${event.suspiciousAppInfo.size} suspicious apps found.")
                         event.suspiciousAppInfo.forEach { appInfo ->
                             println("App: ${appInfo.packageInfo.appName}")
