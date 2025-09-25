@@ -50,40 +50,37 @@ fun App() {
         }
 
         LaunchedEffect(Unit) {
-            // CoroutineScope(Dispatchers.Default).launch {
-                // delay(5000L)
-                println("now registering")
-                freeraspKMP.threatEvents.onEach { event ->
-                    when (event) {
-                        is FreeRaspEvent.PrivilegedAccess -> println("freeraspKMP: PrivilegedAccess")
-                        is FreeRaspEvent.Debug -> println("freeraspKMP: Debug")
-                        is FreeRaspEvent.Simulator -> println("freeraspKMP: Simulator")
-                        is FreeRaspEvent.AppIntegrity -> println("freeraspKMP: AppIntegrity")
-                        is FreeRaspEvent.UnofficialStore -> println("freeraspKMP: UnofficialStore")
-                        is FreeRaspEvent.Hooks -> println("freeraspKMP: Hooks")
-                        is FreeRaspEvent.DeviceBinding -> println("freeraspKMP: DeviceBinding")
-                        is FreeRaspEvent.ObfuscationIssues -> println("freeraspKMP: ObfuscationIssues")
-                        is FreeRaspEvent.Screenshot -> println("freeraspKMP: Screenshot")
-                        is FreeRaspEvent.ScreenRecording -> println("freeraspKMP: ScreenRecording")
-                        is FreeRaspEvent.Passcode -> println("freeraspKMP: Passcode")
-                        is FreeRaspEvent.SecureHardwareNotAvailable -> println("freeraspKMP: SecureHardwareNotAvailable")
-                        is FreeRaspEvent.SystemVpn -> println("freeraspKMP: SystemVpn")
-                        is FreeRaspEvent.DevMode -> println("freeraspKMP: DevMode")
-                        is FreeRaspEvent.AdbEnabled -> println("freeraspKMP: AdbEnabled")
-                        is FreeRaspEvent.MultiInstance -> println("freeraspKMP: MultiInstance")
-                        is FreeRaspEvent.DeviceId -> println("freeraspKMP: DeviceId")
-                        is FreeRaspEvent.MalwareDetected -> {
-                            println("-------------------------------------------")
-                            println("freeraspKMP: MalwareDetected")
-                            println("${event.suspiciousAppInfo.size} suspicious apps found.")
-                            event.suspiciousAppInfo.forEach { appInfo ->
-                                println("App: ${appInfo.packageInfo.appName}")
-                            }
-                            println("-------------------------------------------")
+            freeraspKMP.threatEvents.onEach { event ->
+                when (event) {
+                    is FreeRaspEvent.PrivilegedAccess -> println("freeraspKMP: PrivilegedAccess")
+                    is FreeRaspEvent.Debug -> println("freeraspKMP: Debug")
+                    is FreeRaspEvent.Simulator -> println("freeraspKMP: Simulator")
+                    is FreeRaspEvent.AppIntegrity -> println("freeraspKMP: AppIntegrity")
+                    is FreeRaspEvent.UnofficialStore -> println("freeraspKMP: UnofficialStore")
+                    is FreeRaspEvent.Hooks -> println("freeraspKMP: Hooks")
+                    is FreeRaspEvent.DeviceBinding -> println("freeraspKMP: DeviceBinding")
+                    is FreeRaspEvent.ObfuscationIssues -> println("freeraspKMP: ObfuscationIssues")
+                    is FreeRaspEvent.Screenshot -> println("freeraspKMP: Screenshot")
+                    is FreeRaspEvent.ScreenRecording -> println("freeraspKMP: ScreenRecording")
+                    is FreeRaspEvent.Passcode -> println("freeraspKMP: Passcode")
+                    is FreeRaspEvent.SecureHardwareNotAvailable -> println("freeraspKMP: SecureHardwareNotAvailable")
+                    is FreeRaspEvent.SystemVpn -> println("freeraspKMP: SystemVpn")
+                    is FreeRaspEvent.DevMode -> println("freeraspKMP: DevMode")
+                    is FreeRaspEvent.AdbEnabled -> println("freeraspKMP: AdbEnabled")
+                    is FreeRaspEvent.MultiInstance -> println("freeraspKMP: MultiInstance")
+                    is FreeRaspEvent.DeviceId -> println("freeraspKMP: DeviceId")
+                    is FreeRaspEvent.MalwareDetected -> {
+                        println("-------------------------------------------")
+                        println("freeraspKMP: MalwareDetected")
+                        println("${event.suspiciousAppInfo.size} suspicious apps found.")
+                        event.suspiciousAppInfo.forEach { appInfo ->
+                            println("App: ${appInfo.packageInfo.appName}")
                         }
+                        println("-------------------------------------------")
                     }
-                }.launchIn(this)
-//            }
+                }
+            }.launchIn(this)
+
 
             try {
                 freeraspKMP.start(freeraspConfig)

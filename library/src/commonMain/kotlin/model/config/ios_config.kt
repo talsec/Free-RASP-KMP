@@ -1,7 +1,7 @@
 package model.config
 
 /**
- * Configuration for iOS-specific security checks.
+ * Configuration for iOS platform.
  *
  * @param bundleIds A list of expected bundle IDs.
  * @param teamId The expected team ID.
