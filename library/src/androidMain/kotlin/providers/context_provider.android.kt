@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.startup.Initializer
 import androidx.lifecycle.ProcessLifecycleOwner
 import handlers.freeraspKMPLifecycleObserver
+import model.exception.FreeRASPException
 
 
 internal object ContextProvider: Initializer<Unit> {
@@ -23,7 +24,7 @@ internal object ContextProvider: Initializer<Unit> {
 
     fun getApplicationContext(): Context {
         if(!::appContext.isInitialized){
-            throw IllegalStateException("freeraspKMP not initialized. It seems the automatic setup via App Startup failed.")
+            throw FreeRASPException("freeraspKMP not initialized. It seems the automatic setup via App Startup failed.")
         }
         return appContext
     }

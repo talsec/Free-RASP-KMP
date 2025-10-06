@@ -47,7 +47,9 @@ kotlin {
 }
 
 android {
-    namespace = "com.freeraspkmp"
+    if (!project.hasProperty("namespace")) {
+        namespace = "com.freeraspkmp"
+    }
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

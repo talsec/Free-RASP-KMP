@@ -1,6 +1,5 @@
 package api
 
-
 import com.aheaditec.talsec_security.security.api.Talsec
 import com.aheaditec.talsec_security.security.api.ThreatListener
 
@@ -22,6 +21,7 @@ import providers.ContextProvider
 import handlers.ThreatHandler
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.SharedFlow
+import model.exception.FreeRASPException
 import providers.ActivityProvider
 
 actual object freeraspKMP {
@@ -94,7 +94,7 @@ actual object freeraspKMP {
             val context = ContextProvider.getApplicationContext()
 
             AppIconUtil.getAppIconAsBase64String(context, packageName)
-                ?: throw Exception("Could not get or encode app icon for package: $packageName")
+                ?: throw FreeRASPException("Could not get or encode app icon for package: $packageName")
         }
     }
 
@@ -127,6 +127,8 @@ actual object freeraspKMP {
     }
 
     internal fun cleanup() {
+        val context = ContextProvider.getApplicationContext()
+        nativeListener.unregisterListener(context)
         scope.cancel()
     }
 }

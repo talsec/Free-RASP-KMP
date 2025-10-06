@@ -13,6 +13,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import api.freeraspKMP
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import model.FreeRaspEvent
@@ -29,7 +32,7 @@ fun App() {
 
         val freeraspConfig = remember {
             freeraspConfig(
-                watcherMail = "martin.zigrai@gmail.com",
+                watcherMail = "test@mail.app",
                 isProd = true,
                 androidConfig = AndroidConfig(
                     packageName = "com.jetbrains.example",
@@ -75,7 +78,8 @@ fun App() {
                         println("-------------------------------------------")
                     }
                 }
-            }.launchIn(this)
+            }.flowOn(Dispatchers.IO)
+                .launchIn(this)
 
 
             try {
