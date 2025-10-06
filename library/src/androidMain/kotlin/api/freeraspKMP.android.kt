@@ -6,36 +6,55 @@ import com.aheaditec.talsec_security.security.api.ThreatListener
 
 import android.util.Log
 
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-import model.freeraspEvent
+import model.FreeRaspEvent
 import model.config.freeraspConfig
-import threat.Threat
-import threat.ThreatCallback
 import utils.AppIconUtil
 import utils.toNativeConfig
-import providers.ActivityProvider
 import providers.ContextProvider
 import handlers.ThreatHandler
 import kotlinx.coroutines.cancel
-
+import kotlinx.coroutines.flow.SharedFlow
+import providers.ActivityProvider
 
 actual object freeraspKMP {
 
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
-    private val eventFlow = MutableSharedFlow<freeraspEvent>()
-    private var listenerJob: Job? = null
-    private var activateCallback: ThreatCallback? = null
+    private val eventCache = mutableListOf<FreeRaspEvent>()
+    private val cacheLock = Any()
+    private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
+    actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
+
+    init {
+        scope.launch {
+            _threatEvents.subscriptionCount.collect { count ->
+                if (count > 0) {
+                    val eventsToEmit: List<FreeRaspEvent>
+                    synchronized(cacheLock) {
+                        if (eventCache.isNotEmpty()) {
+                            eventsToEmit = eventCache.toList()
+                            eventCache.clear()
+                        } else {
+                            eventsToEmit = emptyList()
+                        }
+                    }
+                    eventsToEmit.forEach {
+                        _threatEvents.emit(it)
+                    }
+                }
+            }
+        }
+    }
+
     private val threatHandler = ThreatHandler { event ->
-        scope.launch { eventFlow.emit(event) }
+        emitEvent(event)
     }
 
     private val nativeListener = ThreatListener(threatHandler, threatHandler)
@@ -52,51 +71,6 @@ actual object freeraspKMP {
 
             Talsec.start(context, nativeConfig)
         }
-    }
-
-    actual fun onThreatDetected(): Flow<freeraspEvent> {
-        return eventFlow.asSharedFlow()
-    }
-
-    private fun handleThreatEvent(threat: Threat){
-        when(threat){
-            Threat.DEBUG -> activateCallback?.onDebug()
-            Threat.PRIVILEGED_ACCESS -> activateCallback?.onPrivilegedAccess()
-            Threat.SIMULATOR -> activateCallback?.onSimulator()
-            Threat.APP_INTEGRITY -> activateCallback?.onAppIntegrity()
-            Threat.UNOFFICIAL_STORE -> activateCallback?.onUnofficialStore()
-            Threat.HOOKS -> activateCallback?.onHooks()
-            Threat.DEVICE_BINDING -> activateCallback?.onDeviceBinding()
-            Threat.OBFUSCATION_ISSUES -> activateCallback?.onObfuscationIssues()
-            Threat.SCREENSHOT -> activateCallback?.onScreenshot()
-            Threat.SCREEN_RECORDING -> activateCallback?.onScreenRecording()
-            Threat.PASSCODE -> activateCallback?.onPasscode()
-            Threat.SECURE_HARDWARE_NOT_AVAILABLE -> activateCallback?.onSecureHardwareNotAvailable()
-            Threat.SYSTEM_VPN -> activateCallback?.onSystemVPN()
-            Threat.DEV_MODE -> activateCallback?.onDevMode()
-            Threat.ADB_ENABLED -> activateCallback?.onADBEnabled()
-            Threat.MULTI_INSTANCE -> activateCallback?.onMultiInstance()
-            Threat.DEVICE_ID -> activateCallback?.onDeviceID()
-        }
-    }
-
-    actual fun attachListener(callback: ThreatCallback){
-        detachListener()
-        activateCallback = callback
-        listenerJob = scope.launch {
-            onThreatDetected().collect { event ->
-                when(event){
-                    is freeraspEvent.ThreatDetected -> handleThreatEvent(event.threat)
-                    is freeraspEvent.MalwareDetected -> activateCallback?.onMalwareDetected(event.apps)
-                }
-            }
-        }
-    }
-
-    actual fun detachListener() {
-        listenerJob?.cancel()
-        listenerJob = null
-        activateCallback = null
     }
 
     actual suspend fun addToWhiteList(packageName: String) {
@@ -140,9 +114,15 @@ actual object freeraspKMP {
         return Talsec.isScreenCaptureBlocked()
     }
 
-    internal fun emitEvent(event: freeraspEvent){
-        scope.launch {
-            eventFlow.emit(event)
+    internal fun emitEvent(event: FreeRaspEvent){
+        if (_threatEvents.subscriptionCount.value == 0) {
+            synchronized(cacheLock) {
+                eventCache.add(event)
+            }
+        } else {
+            scope.launch {
+                _threatEvents.emit(event)
+            }
         }
     }
 
@@ -150,4 +130,3 @@ actual object freeraspKMP {
         scope.cancel()
     }
 }
-
