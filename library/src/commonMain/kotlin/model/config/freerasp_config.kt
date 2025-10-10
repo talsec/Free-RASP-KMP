@@ -1,6 +1,6 @@
 package model.config
 
-data class TalsecConfig(
+data class freeraspConfig(
     val watcherMail: String,
     val isProd: Boolean = true,
     val androidConfig: AndroidConfig? = null,

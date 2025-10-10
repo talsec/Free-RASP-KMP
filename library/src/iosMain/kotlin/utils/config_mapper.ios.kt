@@ -1,19 +1,20 @@
 package utils
 
-import model.config.TalsecConfig
+import model.config.freeraspConfig
+import model.exception.FreeRASPException
 
-internal data class iosTalsecConfig(
+internal data class iosFreeraspConfig(
     val appBundleIds: List<String>,
     val appTeamId: String,
     val watcherMail: String,
     val isProd: Boolean
 )
 
-internal fun TalsecConfig.toNativeConfig(): iosTalsecConfig {
+internal fun freeraspConfig.toNativeConfig(): iosFreeraspConfig {
     val iosConfig = this.iosConfig
-        ?: throw IllegalArgumentException("IOSConfig is required on the iOS platform but was null.")
+        ?: throw FreeRASPException("IOSConfig is required on the iOS platform but was null.")
 
-    return iosTalsecConfig(
+    return iosFreeraspConfig(
         appBundleIds = iosConfig.bundleIds,
         appTeamId = iosConfig.teamId,
         watcherMail = this.watcherMail,

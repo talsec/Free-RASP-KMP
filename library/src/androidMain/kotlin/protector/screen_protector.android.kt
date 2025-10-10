@@ -8,27 +8,26 @@ import androidx.annotation.RequiresApi
 import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
-import threat.Threat
-import api.Talsec
-import model.TalsecEvent
+import api.freeraspKMP
+import model.freeraspEvent
 import java.util.function.Consumer
 import android.view.WindowManager.SCREEN_RECORDING_STATE_VISIBLE
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 internal object ScreenProtector {
 
-    private const val TAG = "TalsecScreenProtector"
+    private const val TAG = "freeraspKMPScreenProtector"
     private const val SCREEN_CAPTURE_PERMISSION = "android.permission.DETECT_SCREEN_CAPTURE"
     private const val SCREEN_RECORDING_PERMISSION = "android.permission.DETECT_SCREEN_RECORDING"
     private var registerdActivites = mutableSetOf<Int>()
 
     private val screenCaptureCallback = Activity.ScreenCaptureCallback{
-        Talsec.emitEvent(TalsecEvent.ThreatDetected(Threat.SCREENSHOT))
+        freeraspKMP.emitEvent(freeraspEvent.Screenshot)
     }
 
     private val screenRecordCallback: Consumer<Int> = Consumer<Int> { state ->
         if(state == SCREEN_RECORDING_STATE_VISIBLE) {
-            Talsec.emitEvent(TalsecEvent.ThreatDetected(Threat.SCREEN_RECORDING))
+            freeraspKMP.emitEvent(freeraspEvent.ScreenRecording)
         }
 
     }
@@ -89,7 +88,6 @@ internal object ScreenProtector {
 
         val initialState = activity.windowManager.addScreenRecordingCallback(activity.mainExecutor, screenRecordCallback)
         screenRecordCallback.accept(initialState)
-        //activity.windowManager.addScreenRecordingCallback(activity.mainExecutor, screenRecordCallback)
     }
 
     @SuppressLint("MissingPermission")

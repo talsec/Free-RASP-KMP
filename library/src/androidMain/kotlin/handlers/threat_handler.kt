@@ -1,34 +1,29 @@
 package handlers
 
-import android.util.Log
 import com.aheaditec.talsec_security.security.api.SuspiciousAppInfo as NativeSuspiciousAppInfo
 import com.aheaditec.talsec_security.security.api.ThreatListener
-import model.PackageInfo
-import model.SuspiciousAppInfo
-import model.TalsecEvent
+import model.freeraspEvent
 import providers.ContextProvider
-import threat.Threat
-import utils.AppIconUtil
 import utils.processMalwareData
 
 internal class ThreatHandler (
-    private val onEvent: (TalsecEvent) -> Unit
+    private val onEvent: (freeraspEvent) -> Unit
 ): ThreatListener.ThreatDetected, ThreatListener.DeviceState {
-    override fun onRootDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.PRIVILEGED_ACCESS))
+    override fun onRootDetected() = onEvent(freeraspEvent.PrivilegedAccess)
 
-    override fun onDebuggerDetected()  = onEvent(TalsecEvent.ThreatDetected(Threat.DEBUG))
+    override fun onDebuggerDetected()  = onEvent(freeraspEvent.Debug)
 
-    override fun onEmulatorDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.SIMULATOR))
+    override fun onEmulatorDetected() = onEvent(freeraspEvent.Simulator)
 
-    override fun onTamperDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.APP_INTEGRITY))
+    override fun onTamperDetected() = onEvent(freeraspEvent.AppIntegrity)
 
-    override fun onUntrustedInstallationSourceDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.UNOFFICIAL_STORE))
+    override fun onUntrustedInstallationSourceDetected() = onEvent(freeraspEvent.UnofficialStore)
 
-    override fun onHookDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.HOOKS))
+    override fun onHookDetected() = onEvent(freeraspEvent.Hooks)
 
-    override fun onDeviceBindingDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.DEVICE_BINDING))
+    override fun onDeviceBindingDetected() = onEvent(freeraspEvent.DeviceBinding)
 
-    override fun onObfuscationIssuesDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.OBFUSCATION_ISSUES))
+    override fun onObfuscationIssuesDetected() = onEvent(freeraspEvent.ObfuscationIssues)
 
     override fun onMalwareDetected(nativeSuspiciousAppInfo: List<NativeSuspiciousAppInfo>?) {
 
@@ -40,24 +35,24 @@ internal class ThreatHandler (
         val commonApps = processMalwareData(context, nonNullNativeList)
 
         if(commonApps.isNotEmpty()) {
-            onEvent(TalsecEvent.MalwareDetected(commonApps))
+            onEvent(freeraspEvent.Malware(commonApps))
         }
     }
 
-    override fun onScreenshotDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.SCREENSHOT))
+    override fun onScreenshotDetected() = onEvent(freeraspEvent.Screenshot)
 
-    override fun onScreenRecordingDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.SCREEN_RECORDING))
+    override fun onScreenRecordingDetected() = onEvent(freeraspEvent.ScreenRecording)
 
-    override fun onMultiInstanceDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.MULTI_INSTANCE))
+    override fun onMultiInstanceDetected() = onEvent(freeraspEvent.MultiInstance)
 
-    override fun onUnlockedDeviceDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.PASSCODE))
+    override fun onUnlockedDeviceDetected() = onEvent(freeraspEvent.Passcode)
 
-    override fun onHardwareBackedKeystoreNotAvailableDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.SECURE_HARDWARE_NOT_AVAILABLE))
+    override fun onHardwareBackedKeystoreNotAvailableDetected() = onEvent(freeraspEvent.SecureHardwareNotAvailable)
 
-    override fun onDeveloperModeDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.DEV_MODE))
+    override fun onDeveloperModeDetected() = onEvent(freeraspEvent.DevMode)
 
-    override fun onADBEnabledDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.ADB_ENABLED))
+    override fun onADBEnabledDetected() = onEvent(freeraspEvent.AdbEnabled)
 
-    override fun onSystemVPNDetected() = onEvent(TalsecEvent.ThreatDetected(Threat.SYSTEM_VPN))
+    override fun onSystemVPNDetected() = onEvent(freeraspEvent.SystemVPN)
 
 }
