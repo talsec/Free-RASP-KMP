@@ -12,18 +12,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.ui.tooling.preview.Preview
-
 import api.freeraspKMP
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import model.FreeRaspEvent
 import model.config.AndroidConfig
 import model.config.IOSConfig
 import model.config.MalwareConfig
 import model.config.freeraspConfig
-import model.freeraspEvent
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
@@ -35,14 +35,14 @@ fun App() {
                 watcherMail = "test@mail.app",
                 isProd = true,
                 androidConfig = AndroidConfig(
-                    packageName = "com.example",
+                    packageName = "com.jetbrains.example",
                     certificateHashes = listOf("K/iFV7+CypnATFWcrUVM6aUIB5gnU2xwzRJOiKJJqPw="),
                     malwareConfig = MalwareConfig(
                         blacklistedPackageNames = listOf("com.google.android.youtube")
                     )
                 ),
                 iosConfig = IOSConfig(
-                    bundleIds = listOf("com.example.iosApp"),
+                    bundleIds = listOf("com.jetbrains.example.iosApp"),
                     teamId = "YOUR_TEAM_ID"
                 )
             )
@@ -51,24 +51,24 @@ fun App() {
         LaunchedEffect(Unit) {
             freeraspKMP.threatEvents.onEach { event ->
                 when (event) {
-                    is freeraspEvent.PrivilegedAccess -> println("freeraspKMP: PrivilegedAccess")
-                    is freeraspEvent.Debug -> println("freeraspKMP: Debug")
-                    is freeraspEvent.Simulator -> println("freeraspKMP: Simulator")
-                    is freeraspEvent.AppIntegrity -> println("freeraspKMP: AppIntegrity")
-                    is freeraspEvent.UnofficialStore -> println("freeraspKMP: UnofficialStore")
-                    is freeraspEvent.Hooks -> println("freeraspKMP: Hooks")
-                    is freeraspEvent.DeviceBinding -> println("freeraspKMP: DeviceBinding")
-                    is freeraspEvent.ObfuscationIssues -> println("freeraspKMP: ObfuscationIssues")
-                    is freeraspEvent.Screenshot -> println("freeraspKMP: Screenshot")
-                    is freeraspEvent.ScreenRecording -> println("freeraspKMP: ScreenRecording")
-                    is freeraspEvent.Passcode -> println("freeraspKMP: Passcode")
-                    is freeraspEvent.SecureHardwareNotAvailable -> println("freeraspKMP: SecureHardwareNotAvailable")
-                    is freeraspEvent.SystemVPN -> println("freeraspKMP: SystemVPN")
-                    is freeraspEvent.DevMode -> println("freeraspKMP: DevMode")
-                    is freeraspEvent.AdbEnabled -> println("freeraspKMP: AdbEnabled")
-                    is freeraspEvent.MultiInstance -> println("freeraspKMP: MultiInstance")
-                    is freeraspEvent.DeviceID -> println("freeraspKMP: DeviceID")
-                    is freeraspEvent.Malware -> {
+                    is FreeRaspEvent.PrivilegedAccess -> println("freeraspKMP: PrivilegedAccess")
+                    is FreeRaspEvent.Debug -> println("freeraspKMP: Debug")
+                    is FreeRaspEvent.Simulator -> println("freeraspKMP: Simulator")
+                    is FreeRaspEvent.AppIntegrity -> println("freeraspKMP: AppIntegrity")
+                    is FreeRaspEvent.UnofficialStore -> println("freeraspKMP: UnofficialStore")
+                    is FreeRaspEvent.Hooks -> println("freeraspKMP: Hooks")
+                    is FreeRaspEvent.DeviceBinding -> println("freeraspKMP: DeviceBinding")
+                    is FreeRaspEvent.ObfuscationIssues -> println("freeraspKMP: ObfuscationIssues")
+                    is FreeRaspEvent.Screenshot -> println("freeraspKMP: Screenshot")
+                    is FreeRaspEvent.ScreenRecording -> println("freeraspKMP: ScreenRecording")
+                    is FreeRaspEvent.Passcode -> println("freeraspKMP: Passcode")
+                    is FreeRaspEvent.SecureHardwareNotAvailable -> println("freeraspKMP: SecureHardwareNotAvailable")
+                    is FreeRaspEvent.SystemVPN -> println("freeraspKMP: SystemVPN")
+                    is FreeRaspEvent.DevMode -> println("freeraspKMP: DevMode")
+                    is FreeRaspEvent.AdbEnabled -> println("freeraspKMP: AdbEnabled")
+                    is FreeRaspEvent.MultiInstance -> println("freeraspKMP: MultiInstance")
+                    is FreeRaspEvent.DeviceID -> println("freeraspKMP: DeviceID")
+                    is FreeRaspEvent.Malware -> {
                         println("-------------------------------------------")
                         println("freeraspKMP: Malware")
                         println("${event.suspiciousAppInfo.size} suspicious apps found.")
@@ -78,7 +78,7 @@ fun App() {
                         println("-------------------------------------------")
                     }
                 }
-            }.flowOn(Dispatchers.Default)
+            }.flowOn(Dispatchers.IO)
                 .launchIn(this)
 
 
@@ -90,7 +90,7 @@ fun App() {
                 freeraspKMP.blockScreenCapture(false)
                 println("freeraspKMP screen capture protection has been enabled.")
 
-                val isBlocked = freeraspKMP.isScreenCaptureBlocked()
+                var isBlocked = freeraspKMP.isScreenCaptureBlocked()
                 println("$isBlocked")
 
             } catch (e: Exception) {
