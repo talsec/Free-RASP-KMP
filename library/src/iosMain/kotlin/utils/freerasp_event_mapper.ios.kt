@@ -1,22 +1,23 @@
 package utils
 
-import model.freeraspEvent
+import model.FreeRASPEvent
 
-internal fun mapStringToFreeraspEvent(threatString: String?): freeraspEvent? {
+internal fun mapStringToFreeraspEvent(threatString: String?): FreeRASPEvent? {
     return when (threatString) {
-        "jailbreak" -> freeraspEvent.PrivilegedAccess
-        "debug" -> freeraspEvent.Debug
-        "simulator" -> freeraspEvent.Simulator
-        "appIntegrity" -> freeraspEvent.AppIntegrity
-        "unofficialStore" -> freeraspEvent.UnofficialStore
-        "runtimeManipulation", "hook" -> freeraspEvent.Hooks
-        "deviceBinding" -> freeraspEvent.DeviceBinding
-        "passcode" -> freeraspEvent.Passcode
-        "missingSecureEnclave" -> freeraspEvent.SecureHardwareNotAvailable
-        "systemVPN" -> freeraspEvent.SystemVPN
-        "deviceID" -> freeraspEvent.DeviceID
-        "screenshot" -> freeraspEvent.Screenshot
-        "screenRecording" -> freeraspEvent.ScreenRecording
+        "appIntegrity" -> FreeRASPEvent.AppIntegrity
+        "jailbreak" -> FreeRASPEvent.PrivilegedAccess
+        "debug" -> FreeRASPEvent.Debug
+        "runtimeManipulation" -> FreeRASPEvent.Hooks
+        "passcode" -> FreeRASPEvent.Passcode
+        "passcodeChange" -> FreeRASPEvent.Passcode // Or a new event if you want to distinguish
+        "simulator" -> FreeRASPEvent.Simulator
+        "missingSecureEnclave" -> FreeRASPEvent.SecureHardwareNotAvailable
+        "systemVPN" -> FreeRASPEvent.SystemVPN
+        "deviceChange" -> FreeRASPEvent.DeviceBinding // Assuming 'deviceChange' maps to DeviceBinding
+        "deviceID" -> FreeRASPEvent.DeviceID
+        "unofficialStore" -> FreeRASPEvent.UnofficialStore
+        "screenshot" -> FreeRASPEvent.Screenshot
+        "screenRecording" -> FreeRASPEvent.ScreenRecording
         else -> {
             println("Received unknown threat ($threatString)")
             null

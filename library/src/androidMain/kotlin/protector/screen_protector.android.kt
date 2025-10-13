@@ -9,7 +9,7 @@ import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
 import api.freeraspKMP
-import model.FreeRaspEvent
+import model.FreeRASPEvent
 import java.util.function.Consumer
 import android.view.WindowManager.SCREEN_RECORDING_STATE_VISIBLE
 
@@ -22,12 +22,12 @@ internal object ScreenProtector {
     private var registerdActivites = mutableSetOf<Int>()
 
     private val screenCaptureCallback = Activity.ScreenCaptureCallback{
-        freeraspKMP.emitEvent(FreeRaspEvent.Screenshot)
+        freeraspKMP.emitEvent(FreeRASPEvent.Screenshot)
     }
 
     private val screenRecordCallback: Consumer<Int> = Consumer<Int> { state ->
         if(state == SCREEN_RECORDING_STATE_VISIBLE) {
-            freeraspKMP.emitEvent(FreeRaspEvent.ScreenRecording)
+            freeraspKMP.emitEvent(FreeRASPEvent.ScreenRecording)
         }
     }
 

@@ -2,7 +2,7 @@
 
 package api
 
-import com.freeraspkmp.interop.TalsecApiBridge
+import com.aheaditec.talsec.interop.TalsecApiBridge
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,25 +13,42 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import model.config.freeraspConfig
-import model.freeraspEvent
+import model.FreeRASPEvent
 import utils.mapStringToFreeraspEvent
 import utils.toNativeConfig
 import kotlin.coroutines.resume
 
-
 actual object freeraspKMP {
     private val NativeTalsec = TalsecApiBridge.shared()
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
-    private val _threatEvents = MutableSharedFlow<freeraspEvent>()
-    actual val threatEvents: SharedFlow<freeraspEvent> = _threatEvents.asSharedFlow()
-
+    
+    private val eventCache = mutableListOf<FreeRASPEvent>()
+    private val cacheMutex = Mutex()
+    private val _threatEvents = MutableSharedFlow<FreeRASPEvent>()
+    actual val threatEvents: SharedFlow<FreeRASPEvent> = _threatEvents.asSharedFlow()
 
     init {
+        // Set up the native callback
         NativeTalsec.setThreatDetectedCallback { threatString ->
-            mapStringToFreeraspEvent(threatString)?.let {
-                scope.launch {
-                    _threatEvents.emit(it)
+            mapStringToFreeraspEvent(threatString)?.let { event ->
+                emitEvent(event)
+            }
+        }
+
+        // Start collecting subscription counts to drain the cache
+        scope.launch {
+            _threatEvents.subscriptionCount.collect { count ->
+                if (count > 0) {
+                    cacheMutex.withLock {
+                        val eventsToEmit = eventCache.toList()
+                        eventCache.clear()
+                        eventsToEmit.forEach { event ->
+                            scope.launch { _threatEvents.emit(event) }
+                        }
+                    }
                 }
             }
         }
@@ -39,15 +56,24 @@ actual object freeraspKMP {
 
     actual suspend fun start(config: freeraspConfig) {
         val iosNativeConfig = config.toNativeConfig()
-
-        // Note: The positional arguments (_1, _2, _3) are due to the Objective-C bridge generation.
-        // This should be fixed in the native Swift library by using named arguments in the @objc attribute.
         NativeTalsec.start(
             appBundleIds = iosNativeConfig.appBundleIds,
             _1 = iosNativeConfig.appTeamId,
             _2 = iosNativeConfig.watcherMail,
             _3 = iosNativeConfig.isProd
         )
+    }
+
+    private fun emitEvent(event: FreeRASPEvent) {
+        scope.launch {
+            if (_threatEvents.subscriptionCount.value == 0) {
+                cacheMutex.withLock {
+                    eventCache.add(event)
+                }
+            } else {
+                _threatEvents.emit(event)
+            }
+        }
     }
 
     actual suspend fun storeExternalId(data: String) {
