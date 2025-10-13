@@ -1,23 +1,23 @@
 package utils
 
-import model.FreeRASPEvent
+import model.FreeRaspEvent
 
-internal fun mapStringToFreeraspEvent(threatString: String?): FreeRASPEvent? {
+internal fun mapStringToFreeraspEvent(threatString: String?): FreeRaspEvent? {
     return when (threatString) {
-        "appIntegrity" -> FreeRASPEvent.AppIntegrity
-        "jailbreak" -> FreeRASPEvent.PrivilegedAccess
-        "debug" -> FreeRASPEvent.Debug
-        "runtimeManipulation" -> FreeRASPEvent.Hooks
-        "passcode" -> FreeRASPEvent.Passcode
-        "passcodeChange" -> FreeRASPEvent.Passcode // Or a new event if you want to distinguish
-        "simulator" -> FreeRASPEvent.Simulator
-        "missingSecureEnclave" -> FreeRASPEvent.SecureHardwareNotAvailable
-        "systemVPN" -> FreeRASPEvent.SystemVPN
-        "deviceChange" -> FreeRASPEvent.DeviceBinding // Assuming 'deviceChange' maps to DeviceBinding
-        "deviceID" -> FreeRASPEvent.DeviceID
-        "unofficialStore" -> FreeRASPEvent.UnofficialStore
-        "screenshot" -> FreeRASPEvent.Screenshot
-        "screenRecording" -> FreeRASPEvent.ScreenRecording
+        "appIntegrity" -> FreeRaspEvent.AppIntegrity
+        "jailbreak" -> FreeRaspEvent.PrivilegedAccess
+        "debug" -> FreeRaspEvent.Debug
+        "runtimeManipulation" -> FreeRaspEvent.Hooks
+        "passcode" -> FreeRaspEvent.Passcode
+        "passcodeChange" -> FreeRaspEvent.Passcode // Or a new event if you want to distinguish
+        "simulator" -> FreeRaspEvent.Simulator
+        "missingSecureEnclave" -> FreeRaspEvent.SecureHardwareNotAvailable
+        "systemVPN" -> FreeRaspEvent.SystemVPN
+        "deviceChange" -> FreeRaspEvent.DeviceBinding // Assuming 'deviceChange' maps to DeviceBinding
+        "deviceID" -> FreeRaspEvent.DeviceID
+        "unofficialStore" -> FreeRaspEvent.UnofficialStore
+        "screenshot" -> FreeRaspEvent.Screenshot
+        "screenRecording" -> FreeRaspEvent.ScreenRecording
         else -> {
             println("Received unknown threat ($threatString)")
             null

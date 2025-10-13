@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import model.config.freeraspConfig
-import model.FreeRASPEvent
+import model.FreeRaspEvent
 import utils.mapStringToFreeraspEvent
 import utils.toNativeConfig
 import kotlin.coroutines.resume
@@ -25,10 +25,10 @@ actual object freeraspKMP {
     private val NativeTalsec = TalsecApiBridge.shared()
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     
-    private val eventCache = mutableListOf<FreeRASPEvent>()
+    private val eventCache = mutableListOf<FreeRaspEvent>()
     private val cacheMutex = Mutex()
-    private val _threatEvents = MutableSharedFlow<FreeRASPEvent>()
-    actual val threatEvents: SharedFlow<FreeRASPEvent> = _threatEvents.asSharedFlow()
+    private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
+    actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
 
     init {
         // Set up the native callback
@@ -64,7 +64,7 @@ actual object freeraspKMP {
         )
     }
 
-    private fun emitEvent(event: FreeRASPEvent) {
+    private fun emitEvent(event: FreeRaspEvent) {
         scope.launch {
             if (_threatEvents.subscriptionCount.value == 0) {
                 cacheMutex.withLock {

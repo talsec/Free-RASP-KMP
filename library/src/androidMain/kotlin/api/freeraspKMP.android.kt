@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import model.FreeRASPEvent
+import model.FreeRaspEvent
 import model.config.freeraspConfig
 import utils.AppIconUtil
 import utils.toNativeConfig
@@ -24,16 +24,16 @@ import providers.ActivityProvider
 actual object freeraspKMP {
 
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
-    private val eventCache = mutableListOf<FreeRASPEvent>()
+    private val eventCache = mutableListOf<FreeRaspEvent>()
     private val cacheLock = Any()
-    private val _threatEvents = MutableSharedFlow<FreeRASPEvent>()
-    actual val threatEvents: SharedFlow<FreeRASPEvent> = _threatEvents.asSharedFlow()
+    private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
+    actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
 
     init {
         scope.launch {
             _threatEvents.subscriptionCount.collect { count ->
                 if (count > 0) {
-                    val eventsToEmit: List<FreeRASPEvent>
+                    val eventsToEmit: List<FreeRaspEvent>
                     synchronized(cacheLock) {
                         if (eventCache.isNotEmpty()) {
                             eventsToEmit = eventCache.toList()
@@ -111,7 +111,7 @@ actual object freeraspKMP {
         return Talsec.isScreenCaptureBlocked()
     }
 
-    internal fun emitEvent(event: FreeRASPEvent){
+    internal fun emitEvent(event: FreeRaspEvent){
         if (_threatEvents.subscriptionCount.value == 0) {
             synchronized(cacheLock) {
                 eventCache.add(event)

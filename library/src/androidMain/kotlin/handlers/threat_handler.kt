@@ -2,28 +2,28 @@ package handlers
 
 import com.aheaditec.talsec_security.security.api.SuspiciousAppInfo
 import com.aheaditec.talsec_security.security.api.ThreatListener
-import model.FreeRASPEvent
+import model.FreeRaspEvent
 import providers.ContextProvider
 import utils.processMalwareData
 
 internal class ThreatHandler(
-    private val onEvent: (FreeRASPEvent) -> Unit
+    private val onEvent: (FreeRaspEvent) -> Unit
 ) : ThreatListener.ThreatDetected, ThreatListener.DeviceState {
-    override fun onRootDetected() = onEvent(FreeRASPEvent.PrivilegedAccess)
+    override fun onRootDetected() = onEvent(FreeRaspEvent.PrivilegedAccess)
 
-    override fun onDebuggerDetected() = onEvent(FreeRASPEvent.Debug)
+    override fun onDebuggerDetected() = onEvent(FreeRaspEvent.Debug)
 
-    override fun onEmulatorDetected() = onEvent(FreeRASPEvent.Simulator)
+    override fun onEmulatorDetected() = onEvent(FreeRaspEvent.Simulator)
 
-    override fun onTamperDetected() = onEvent(FreeRASPEvent.AppIntegrity)
+    override fun onTamperDetected() = onEvent(FreeRaspEvent.AppIntegrity)
 
-    override fun onUntrustedInstallationSourceDetected() = onEvent(FreeRASPEvent.UnofficialStore)
+    override fun onUntrustedInstallationSourceDetected() = onEvent(FreeRaspEvent.UnofficialStore)
 
-    override fun onHookDetected() = onEvent(FreeRASPEvent.Hooks)
+    override fun onHookDetected() = onEvent(FreeRaspEvent.Hooks)
 
-    override fun onDeviceBindingDetected() = onEvent(FreeRASPEvent.DeviceBinding)
+    override fun onDeviceBindingDetected() = onEvent(FreeRaspEvent.DeviceBinding)
 
-    override fun onObfuscationIssuesDetected() = onEvent(FreeRASPEvent.ObfuscationIssues)
+    override fun onObfuscationIssuesDetected() = onEvent(FreeRaspEvent.ObfuscationIssues)
 
     override fun onMalwareDetected(nativeSuspiciousAppInfo: List<SuspiciousAppInfo>?) {
 
@@ -35,25 +35,25 @@ internal class ThreatHandler(
         val commonApps = processMalwareData(context, nativeSuspiciousAppInfo)
 
         if (commonApps.isNotEmpty()) {
-            onEvent(FreeRASPEvent.Malware(commonApps))
+            onEvent(FreeRaspEvent.Malware(commonApps))
         }
     }
 
-    override fun onScreenshotDetected() = onEvent(FreeRASPEvent.Screenshot)
+    override fun onScreenshotDetected() = onEvent(FreeRaspEvent.Screenshot)
 
-    override fun onScreenRecordingDetected() = onEvent(FreeRASPEvent.ScreenRecording)
+    override fun onScreenRecordingDetected() = onEvent(FreeRaspEvent.ScreenRecording)
 
-    override fun onMultiInstanceDetected() = onEvent(FreeRASPEvent.MultiInstance)
+    override fun onMultiInstanceDetected() = onEvent(FreeRaspEvent.MultiInstance)
 
-    override fun onUnlockedDeviceDetected() = onEvent(FreeRASPEvent.Passcode)
+    override fun onUnlockedDeviceDetected() = onEvent(FreeRaspEvent.Passcode)
 
     override fun onHardwareBackedKeystoreNotAvailableDetected() =
-        onEvent(FreeRASPEvent.SecureHardwareNotAvailable)
+        onEvent(FreeRaspEvent.SecureHardwareNotAvailable)
 
-    override fun onDeveloperModeDetected() = onEvent(FreeRASPEvent.DevMode)
+    override fun onDeveloperModeDetected() = onEvent(FreeRaspEvent.DevMode)
 
-    override fun onADBEnabledDetected() = onEvent(FreeRASPEvent.AdbEnabled)
+    override fun onADBEnabledDetected() = onEvent(FreeRaspEvent.AdbEnabled)
 
-    override fun onSystemVPNDetected() = onEvent(FreeRASPEvent.SystemVPN)
+    override fun onSystemVPNDetected() = onEvent(FreeRaspEvent.SystemVPN)
 
 }

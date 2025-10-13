@@ -2,16 +2,16 @@ package api
 
 import kotlinx.coroutines.flow.SharedFlow
 import model.config.freeraspConfig
-import model.FreeRASPEvent
+import model.FreeRaspEvent
 
 /**
  * Singleton object providing access to freerasp KMP functionality.
  */
 expect object freeraspKMP {
     /**
-     * A [SharedFlow] of [FreeRASPEvent] which emits events about security threats.
+     * A [SharedFlow] of [FreeRaspEvent] which emits events about security threats.
      */
-    val threatEvents: SharedFlow<FreeRASPEvent>
+    val threatEvents: SharedFlow<FreeRaspEvent>
 
     /**
      * Starts the freerasp protection with the given [config].
