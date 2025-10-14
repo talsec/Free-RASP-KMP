@@ -29,7 +29,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     MaterialTheme {
-
         val freeraspConfig = remember {
             freeraspConfig(
                 watcherMail = "test@mail.app",

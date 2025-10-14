@@ -1,7 +1,7 @@
 package model
 
 /**
- * Represents events detected by freerasp.
+ * Represents events detected by freeRASP.
  */
 sealed class FreeRaspEvent {
     /**

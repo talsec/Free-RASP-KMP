@@ -9,11 +9,11 @@ internal fun mapStringToFreeraspEvent(threatString: String?): FreeRaspEvent? {
         "debug" -> FreeRaspEvent.Debug
         "runtimeManipulation" -> FreeRaspEvent.Hooks
         "passcode" -> FreeRaspEvent.Passcode
-        "passcodeChange" -> FreeRaspEvent.Passcode // Or a new event if you want to distinguish
+        "passcodeChange" -> FreeRaspEvent.Passcode
         "simulator" -> FreeRaspEvent.Simulator
         "missingSecureEnclave" -> FreeRaspEvent.SecureHardwareNotAvailable
         "systemVPN" -> FreeRaspEvent.SystemVPN
-        "deviceChange" -> FreeRaspEvent.DeviceBinding // Assuming 'deviceChange' maps to DeviceBinding
+        "deviceChange" -> FreeRaspEvent.DeviceBinding
         "deviceID" -> FreeRaspEvent.DeviceID
         "unofficialStore" -> FreeRaspEvent.UnofficialStore
         "screenshot" -> FreeRaspEvent.Screenshot

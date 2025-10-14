@@ -1,6 +1,3 @@
-#package = com.aheaditec.talsec.interop
-#headers = TalsecBridge-Swift.h
-
 package = com.aheaditec.talsec.interop
 language = Objective-C
 headers = TalsecBridge-Swift.h

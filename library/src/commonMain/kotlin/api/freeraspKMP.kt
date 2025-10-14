@@ -5,7 +5,7 @@ import model.config.freeraspConfig
 import model.FreeRaspEvent
 
 /**
- * Singleton object providing access to freerasp KMP functionality.
+ * Singleton object providing access to freeRASP KMP functionality.
  */
 expect object freeraspKMP {
     /**
@@ -14,9 +14,9 @@ expect object freeraspKMP {
     val threatEvents: SharedFlow<FreeRaspEvent>
 
     /**
-     * Starts the freerasp protection with the given [config].
+     * Starts the freeRASP protection with the given [config].
      *
-     * @param config The configuration for freerasp.
+     * @param config The configuration for freeRASP.
      */
     suspend fun start(config: freeraspConfig)
 

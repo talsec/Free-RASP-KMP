@@ -21,6 +21,8 @@ import kotlinx.coroutines.cancel
 import model.exception.FreeRASPException
 import providers.ActivityProvider
 
+import utils.verifyConfig
+
 actual object freeraspKMP {
 
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
@@ -57,6 +59,7 @@ actual object freeraspKMP {
     private val nativeListener = ThreatListener(threatHandler, threatHandler)
 
     actual suspend fun start(config: freeraspConfig) {
+        verifyConfig(config)
         val nativeConfig = withContext(Dispatchers.Default){
             config.toNativeConfig()
         }

@@ -21,6 +21,8 @@ import utils.mapStringToFreeraspEvent
 import utils.toNativeConfig
 import kotlin.coroutines.resume
 
+import utils.verifyConfig
+
 actual object freeraspKMP {
     private val NativeTalsec = TalsecApiBridge.shared()
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
@@ -31,14 +33,12 @@ actual object freeraspKMP {
     actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
 
     init {
-        // Set up the native callback
         NativeTalsec.setThreatDetectedCallback { threatString ->
             mapStringToFreeraspEvent(threatString)?.let { event ->
                 emitEvent(event)
             }
         }
 
-        // Start collecting subscription counts to drain the cache
         scope.launch {
             _threatEvents.subscriptionCount.collect { count ->
                 if (count > 0) {
@@ -55,6 +55,7 @@ actual object freeraspKMP {
     }
 
     actual suspend fun start(config: freeraspConfig) {
+        verifyConfig(config)
         val iosNativeConfig = config.toNativeConfig()
         NativeTalsec.start(
             appBundleIds = iosNativeConfig.appBundleIds,
