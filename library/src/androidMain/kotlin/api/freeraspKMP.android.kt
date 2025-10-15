@@ -2,17 +2,15 @@ package api
 
 import com.aheaditec.talsec_security.security.api.Talsec
 import com.aheaditec.talsec_security.security.api.ThreatListener
-
 import android.util.Log
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
 import model.FreeRaspEvent
 import model.config.freeraspConfig
 import utils.AppIconUtil
@@ -20,9 +18,10 @@ import utils.toNativeConfig
 import providers.ContextProvider
 import handlers.ThreatHandler
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.SharedFlow
 import model.exception.FreeRASPException
 import providers.ActivityProvider
+
+import utils.verifyConfig
 
 actual object freeraspKMP {
 
@@ -60,6 +59,7 @@ actual object freeraspKMP {
     private val nativeListener = ThreatListener(threatHandler, threatHandler)
 
     actual suspend fun start(config: freeraspConfig) {
+        verifyConfig(config)
         val nativeConfig = withContext(Dispatchers.Default){
             config.toNativeConfig()
         }

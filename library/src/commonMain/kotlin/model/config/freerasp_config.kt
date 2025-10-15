@@ -1,7 +1,7 @@
 package model.config
 
 /**
- * The main configuration for freerasp.
+ * The main configuration for freeRASP.
  *
  * @param watcherMail The email address to which security reports will be sent.
  * @param isProd `true` if the app is in a production environment, `false` otherwise.

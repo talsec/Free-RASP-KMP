@@ -17,9 +17,33 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_17)
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+
+    applyDefaultHierarchyTemplate()
+
+    val iosTargets = listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    )
+
+    val nativeDir = project.file("src/iosMain/nativeTalsec")
+
+    iosTargets.forEach { target ->
+        target.compilations["main"].cinterops.create("Talsec") {
+            defFile(project.file("src/nativeInterop/cinterop/talsec.def"))
+
+            val headersDir = when (target.konanTarget) {
+                org.jetbrains.kotlin.konan.target.KonanTarget.IOS_ARM64 ->
+                    "$nativeDir/TalsecBridge.xcframework/ios-arm64/TalsecBridge.framework/Headers"
+                else ->
+                    "$nativeDir/TalsecBridge.xcframework/ios-arm64_x86_64-simulator/TalsecBridge.framework/Headers"
+            }
+            compilerOpts("-F$nativeDir", "-I$headersDir")
+
+            linkerOpts("-F$nativeDir", "-framework", "TalsecBridge", "-framework", "TalsecRuntime")
+        }
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -27,7 +51,11 @@ kotlin {
             }
         }
 
+        val iosMain by getting
+
         val androidMain by getting {
+            languageSettings.optIn("kotlin.ExperimentalMultiplatform")
+
             dependencies{
                 implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:16.0.4")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
