@@ -10,7 +10,6 @@ plugins {
 
 group = "com.aheaditec.talsec"
 version = "1.0.0"
-
 kotlin {
     androidTarget {
         publishLibraryVariants("release")
