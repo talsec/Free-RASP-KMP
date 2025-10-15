@@ -57,11 +57,11 @@ actual object freeraspKMP {
     actual suspend fun start(config: freeraspConfig) {
         verifyConfig(config)
         val iosNativeConfig = config.toNativeConfig()
-        NativeTalsec.start(
+        NativeTalsec.startWithAppBundleIds(
             appBundleIds = iosNativeConfig.appBundleIds,
-            _1 = iosNativeConfig.appTeamId,
-            _2 = iosNativeConfig.watcherMail,
-            _3 = iosNativeConfig.isProd
+            appTeamId = iosNativeConfig.appTeamId,
+            watcherMailAddress = iosNativeConfig.watcherMail,
+            isProd = iosNativeConfig.isProd
         )
     }
 

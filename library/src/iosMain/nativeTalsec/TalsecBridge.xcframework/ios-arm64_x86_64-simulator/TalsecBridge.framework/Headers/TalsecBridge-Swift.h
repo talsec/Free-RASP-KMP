@@ -313,7 +313,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) TalsecApiBri
 @property (nonatomic, copy) void (^ _Nullable threatDetectedCallback)(NSString * _Nonnull);
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-- (void)start:(NSArray<NSString *> * _Nonnull)appBundleIds :(NSString * _Nonnull)appTeamId :(NSString * _Nonnull)watcherMailAddress :(BOOL)isProd;
+- (void)startWithAppBundleIds:(NSArray<NSString *> * _Nonnull)appBundleIds appTeamId:(NSString * _Nonnull)appTeamId watcherMailAddress:(NSString * _Nonnull)watcherMailAddress isProd:(BOOL)isProd;
 - (void)storeExternalId:(NSString * _Nonnull)externalId;
 - (void)blockScreenCapture:(BOOL)enable;
 - (void)isScreenCaptureBlocked:(void (^ _Nonnull)(BOOL))completion;
@@ -642,7 +642,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) TalsecApiBri
 @property (nonatomic, copy) void (^ _Nullable threatDetectedCallback)(NSString * _Nonnull);
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-- (void)start:(NSArray<NSString *> * _Nonnull)appBundleIds :(NSString * _Nonnull)appTeamId :(NSString * _Nonnull)watcherMailAddress :(BOOL)isProd;
+- (void)startWithAppBundleIds:(NSArray<NSString *> * _Nonnull)appBundleIds appTeamId:(NSString * _Nonnull)appTeamId watcherMailAddress:(NSString * _Nonnull)watcherMailAddress isProd:(BOOL)isProd;
 - (void)storeExternalId:(NSString * _Nonnull)externalId;
 - (void)blockScreenCapture:(BOOL)enable;
 - (void)isScreenCaptureBlocked:(void (^ _Nonnull)(BOOL))completion;

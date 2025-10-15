@@ -283,10 +283,10 @@
               }
             ],
             "declKind": "Func",
-            "usr": "c:@M@TalsecBridge@objc(cs)TalsecApiBridge(im)start::::",
+            "usr": "c:@M@TalsecBridge@objc(cs)TalsecApiBridge(im)startWithAppBundleIds:appTeamId:watcherMailAddress:isProd:",
             "mangledName": "$s12TalsecBridge0a3ApiB0C5start12appBundleIds0E6TeamId18watcherMailAddress6isProdySaySSG_S2SSbtF",
             "moduleName": "TalsecBridge",
-            "objc_name": "start::::",
+            "objc_name": "startWithAppBundleIds:appTeamId:watcherMailAddress:isProd:",
             "declAttributes": [
               "AccessControl",
               "ObjC"
