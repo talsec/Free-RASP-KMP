@@ -46,10 +46,10 @@ internal object AppIconUtil {
             }
             return null
         } catch (e: PackageManager.NameNotFoundException) {
-            Log.e("Talsec", "App not found for package: $packageName")
+            Log.e("freeRASP", "App not found for package: $packageName")
             return null
         } catch (e: Exception) {
-            Log.e("Talsec", "Could not retrieve app icon for $packageName: ${e.message}")
+            Log.e("freeRASP", "Could not retrieve app icon for $packageName: ${e.message}")
             return null
         }
 

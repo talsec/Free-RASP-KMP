@@ -12,7 +12,7 @@ import _SwiftConcurrencyShims
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(TalsecApiBridge) @objcMembers public class TalsecApiBridge : ObjectiveC.NSObject {
   @objc public static let shared: TalsecBridge.TalsecApiBridge
   @objc public var threatDetectedCallback: ((Swift.String) -> Swift.Void)?
-  @objc(start::::) public func start(appBundleIds: [Swift.String], appTeamId: Swift.String, watcherMailAddress: Swift.String, isProd: Swift.Bool)
+  @objc(startWithAppBundleIds:appTeamId:watcherMailAddress:isProd:) public func start(appBundleIds: [Swift.String], appTeamId: Swift.String, watcherMailAddress: Swift.String, isProd: Swift.Bool)
   public func forwardThreatToKotlin(threat: TalsecRuntime.SecurityThreat)
   @objc(storeExternalId:) public func storeExternalId(externalId: Swift.String)
   @objc(blockScreenCapture:) public func blockScreenCapture(enable: Swift.Bool)

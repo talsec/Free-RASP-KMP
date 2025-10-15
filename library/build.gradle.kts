@@ -6,9 +6,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.vanniktech.mavenPublish)
-    //alias(libs.plugins.kotlinCocoapods)
-    //id("io.github.ttypic.swiftklib") version "0.6.4"
-
 }
 
 group = "com.aheaditec.talsec"
@@ -17,9 +14,8 @@ version = "1.0.0"
 kotlin {
     androidTarget {
         publishLibraryVariants("release")
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
 
@@ -37,7 +33,6 @@ kotlin {
         target.compilations["main"].cinterops.create("Talsec") {
             defFile(project.file("src/nativeInterop/cinterop/talsec.def"))
 
-            // -------- HEADERS (podľa architektúry) --------
             val headersDir = when (target.konanTarget) {
                 org.jetbrains.kotlin.konan.target.KonanTarget.IOS_ARM64 ->
                     "$nativeDir/TalsecBridge.xcframework/ios-arm64/TalsecBridge.framework/Headers"
@@ -46,41 +41,9 @@ kotlin {
             }
             compilerOpts("-F$nativeDir", "-I$headersDir")
 
-            // -------- LINKER --------
             linkerOpts("-F$nativeDir", "-framework", "TalsecBridge", "-framework", "TalsecRuntime")
         }
     }
-
-    /*iosTargets.forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "shared"
-            isStatic = false
-
-            linkerOpts.add("-F$nativeDir")
-            linkerOpts.addAll(
-                listOf(
-                    "-framework", "TalsecBridge",
-                    "-framework", "TalsecRuntime"
-                )
-            )
-        }
-
-        iosTarget.compilations.getByName("main") {
-            //cinterops.create("TalsecBridge")
-            cinterops.create("Talsec"){
-                defFile(project.file("src/nativeInterop/cinterop/talsec.def"))
-
-                compilerOpts(
-                    "-F$nativeDir",
-
-                    "-I$nativeDir/TalsecBridge.xcframework/ios-arm64_x86_64-simulator/TalsecBridge.framework/Headers",
-                    "-I$nativeDir/TalsecBridge.xcframework/ios-arm64/TalsecBridge.framework/Headers",
-                    "-I$nativeDir/TalsecRuntime.xcframework/ios-arm64_x86_64-simulator/TalsecRuntime.framework/Headers",
-                    "-I$nativeDir/TalsecRuntime.xcframework/ios-arm64/TalsecRuntime.framework/Headers"
-                )
-            }
-        }
-    }*/
 
     sourceSets {
         val commonMain by getting {
@@ -95,7 +58,7 @@ kotlin {
             languageSettings.optIn("kotlin.ExperimentalMultiplatform")
 
             dependencies{
-                api("com.aheaditec.talsec.security:TalsecSecurity-Community:16.0.1")
+                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:16.0.4")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
                 implementation("androidx.startup:startup-runtime:1.2.0")
                 implementation("androidx.annotation:annotation:1.9.1")
@@ -113,14 +76,16 @@ kotlin {
 }
 
 android {
-    namespace = "com.aheaditec.talsec"
+    if (!project.hasProperty("namespace")) {
+        namespace = "com.freeraspkmp"
+    }
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
 
