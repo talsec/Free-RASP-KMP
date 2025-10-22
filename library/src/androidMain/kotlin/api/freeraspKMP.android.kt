@@ -56,7 +56,7 @@ actual object freeraspKMP {
         emitEvent(event)
     }
 
-    private val nativeListener = ThreatListener(threatHandler, threatHandler)
+    private val nativeListener = ThreatListener(threatHandler, threatHandler, threatHandler)
 
     actual suspend fun start(config: freeraspConfig) {
         verifyConfig(config)

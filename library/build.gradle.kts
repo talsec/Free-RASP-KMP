@@ -57,7 +57,7 @@ kotlin {
             languageSettings.optIn("kotlin.ExperimentalMultiplatform")
 
             dependencies{
-                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:16.0.4")
+                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:17.0.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
                 implementation("androidx.startup:startup-runtime:1.2.0")
                 implementation("androidx.annotation:annotation:1.9.1")
@@ -101,7 +101,7 @@ mavenPublishing {
         name = "freeRASP KMP"
         description = "A library."
         inceptionYear = "2025"
-        url = "https://github.com/martinzigrai/Free-RASP-KMP"
+        url = "https://github.com/talsec/Free-RASP-KMP"
         licenses {
             license {
                 name = "XXX"

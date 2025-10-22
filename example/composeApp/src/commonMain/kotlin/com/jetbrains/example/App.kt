@@ -33,6 +33,7 @@ fun App() {
             freeraspConfig(
                 watcherMail = "test@mail.app",
                 isProd = true,
+                killOnBypass = true,
                 androidConfig = AndroidConfig(
                     packageName = "com.jetbrains.example",
                     certificateHashes = listOf("K/iFV7+CypnATFWcrUVM6aUIB5gnU2xwzRJOiKJJqPw="),
@@ -76,6 +77,10 @@ fun App() {
                         }
                         println("-------------------------------------------")
                     }
+                    is FreeRaspEvent.TimeSpoofing -> println("freeraspKMP: TimeSpoofing")
+                    is FreeRaspEvent.UnsecureWifi -> println("freeraspKMP: UnsecureWifi")
+                    is FreeRaspEvent.LocationSpoofing -> println("freeraspKMP: LocationSpoofing")
+                    is FreeRaspEvent.AllChecksFinished -> println("freeraspKMP: AllChecksFinished")
                 }
             }.flowOn(Dispatchers.IO)
                 .launchIn(this)

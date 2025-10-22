@@ -15,6 +15,7 @@ fun freeraspConfig.toNativeConfig(): TalsecConfig {
     builder.apply {
         watcherMail(this@toNativeConfig.watcherMail)
         prod(this@toNativeConfig.isProd)
+        killOnBypass(this@toNativeConfig.killOnBypass)
 
         androidConfig.supportedAlternativeStores?.let {
             supportedAlternativeStores(it.toTypedArray())

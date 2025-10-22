@@ -90,6 +90,26 @@ sealed class FreeRaspEvent {
     data object DeviceID : FreeRaspEvent()
 
     /**
+     * Indicates that the device is connected to an unsecure Wi-Fi network.
+     */
+    data object UnsecureWifi : FreeRaspEvent()
+
+    /**
+     * Indicates that device time spoofing is detected.
+     */
+    data object TimeSpoofing : FreeRaspEvent()
+
+    /**
+     * Indicates that device location spoofing is detected.
+     */
+    data object LocationSpoofing : FreeRaspEvent()
+
+    /**
+     * Indicates that all security checks have finished.
+     */
+    data object AllChecksFinished : FreeRaspEvent()
+
+    /**
      * Indicates that malware was detected on the device.
      *
      * @param suspiciousAppInfo A list of suspicious apps found on the device.
