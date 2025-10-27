@@ -6,10 +6,6 @@ android-minSdk = "23"
 android-compileSdk = "36"
 android-targetSdk = "36"
 
-#SCREENRECORDING
-#android-compileSdk = "35"
-#android-targetSdk = "35"
-
 compose = "1.6.10"
 composeCompiler = "2.2.0"
 androidx-lifecycle = "2.8.0"

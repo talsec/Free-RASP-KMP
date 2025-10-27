@@ -1,7 +1,6 @@
 package utils
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -18,10 +17,6 @@ internal object AppIconUtil {
         val byteArray = byteArrayOutputStream.toByteArray()
 
         return Base64.encodeToString(byteArray, Base64.NO_WRAP)
-    }
-
-    internal fun getAppName(context: Context, applicationInfo: ApplicationInfo?): String? {
-        return applicationInfo?.let { context.packageManager.getApplicationLabel(it).toString() }
     }
 
     internal fun getAppIconAsBase64String(context: Context, packageName: String): String? {

@@ -7,7 +7,7 @@ import model.FreeRaspEvent
 /**
  * Singleton object providing access to freeRASP KMP functionality.
  */
-expect object freeraspKMP {
+expect object FreeraspKMP {
     /**
      * A [SharedFlow] of [FreeRaspEvent] which emits events about security threats.
      */

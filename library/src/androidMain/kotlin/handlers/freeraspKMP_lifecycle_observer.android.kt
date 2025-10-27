@@ -5,9 +5,9 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import protector.ScreenProtector
 import providers.ActivityProvider
-import api.freeraspKMP
+import api.FreeraspKMP
 
-internal object freeraspKMPLifecycleObserver : DefaultLifecycleObserver {
+internal object FreeraspKMPLifecycleObserver : DefaultLifecycleObserver {
     override fun onResume(owner: LifecycleOwner) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE){
             ActivityProvider.getCurrentActivity()?.let { activity ->
@@ -25,6 +25,6 @@ internal object freeraspKMPLifecycleObserver : DefaultLifecycleObserver {
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        freeraspKMP.cleanup()
+        FreeraspKMP.cleanup()
     }
 }

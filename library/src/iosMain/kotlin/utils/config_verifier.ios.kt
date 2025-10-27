@@ -1,20 +1,20 @@
 package utils
 
 import model.config.freeraspConfig
-import model.exception.FreeRASPException
+import model.exception.FreeraspKMPException
 
 /**
  * Verifies the provided freeRASP configuration for iOS.
  */
-@Throws(FreeRASPException::class)
+@Throws(FreeraspKMPException::class)
 internal fun verifyConfig(config: freeraspConfig) {
-    config.iosConfig ?: throw FreeRASPException("freeRASP: iosConfig must be provided on iOS.")
+    config.iosConfig ?: throw FreeraspKMPException("freeRASP: iosConfig must be provided on iOS.")
 
     if (config.iosConfig.bundleIds.isEmpty()) {
-        throw FreeRASPException("freeRASP: bundleIds in iosConfig must not be empty.")
+        throw FreeraspKMPException("freeRASP: bundleIds in iosConfig must not be empty.")
     }
 
     if (config.iosConfig.teamId.isBlank()) {
-        throw FreeRASPException("freeRASP: teamId in iosConfig must not be blank.")
+        throw FreeraspKMPException("freeRASP: teamId in iosConfig must not be blank.")
     }
 }

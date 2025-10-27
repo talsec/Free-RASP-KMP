@@ -23,10 +23,9 @@ import kotlin.coroutines.resume
 
 import utils.verifyConfig
 
-actual object freeraspKMP {
+actual object FreeraspKMP {
     private val NativeTalsec = TalsecApiBridge.shared()
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
-    
     private val eventCache = mutableListOf<FreeRaspEvent>()
     private val cacheMutex = Mutex()
     private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()

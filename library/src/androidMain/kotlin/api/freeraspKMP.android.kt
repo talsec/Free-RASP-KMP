@@ -18,12 +18,12 @@ import utils.toNativeConfig
 import providers.ContextProvider
 import handlers.ThreatHandler
 import kotlinx.coroutines.cancel
-import model.exception.FreeRASPException
+import model.exception.FreeraspKMPException
 import providers.ActivityProvider
 
 import utils.verifyConfig
 
-actual object freeraspKMP {
+actual object FreeraspKMP {
 
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     private val eventCache = mutableListOf<FreeRaspEvent>()
@@ -94,7 +94,7 @@ actual object freeraspKMP {
             val context = ContextProvider.getApplicationContext()
 
             AppIconUtil.getAppIconAsBase64String(context, packageName)
-                ?: throw FreeRASPException("Could not get or encode app icon for package: $packageName")
+                ?: throw FreeraspKMPException("Could not get or encode app icon for package: $packageName")
         }
     }
 

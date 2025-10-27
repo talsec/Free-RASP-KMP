@@ -1,23 +1,23 @@
 package utils
 
 import model.config.freeraspConfig
-import model.exception.FreeRASPException
+import model.exception.FreeraspKMPException
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
 /**
  * Verifies the provided freeRASP configuration for Android.
  */
-@Throws(FreeRASPException::class)
+@Throws(FreeraspKMPException::class)
 internal fun verifyConfig(config: freeraspConfig) {
-    config.androidConfig ?: throw FreeRASPException("freeRASP: androidConfig must be provided on Android.")
+    config.androidConfig ?: throw FreeraspKMPException("freeRASP: androidConfig must be provided on Android.")
 
     if (config.androidConfig.packageName.isBlank()) {
-        throw FreeRASPException("freeRASP: packageName in androidConfig must not be blank.")
+        throw FreeraspKMPException("freeRASP: packageName in androidConfig must not be blank.")
     }
 
     if (config.androidConfig.certificateHashes.isEmpty()) {
-        throw FreeRASPException("freeRASP: certificateHashes in androidConfig must not be empty.")
+        throw FreeraspKMPException("freeRASP: certificateHashes in androidConfig must not be empty.")
     }
 
     verifyHashes(config.androidConfig.certificateHashes)
@@ -28,16 +28,16 @@ internal fun verifyConfig(config: freeraspConfig) {
  * @param hashesEncoded The list of Base64-encoded hashes.
  */
 @OptIn(ExperimentalEncodingApi::class)
-@Throws(FreeRASPException::class)
+@Throws(FreeraspKMPException::class)
 private fun verifyHashes(hashesEncoded: List<String>) {
     hashesEncoded.forEach { hash ->
         try {
             val decodedHash = Base64.decode(hash)
             if (decodedHash.size != 32) {
-                throw FreeRASPException("freeRASP: Invalid hash length: '$hash' is not 32 bytes long")
+                throw FreeraspKMPException("freeRASP: Invalid hash length: '$hash' is not 32 bytes long")
             }
         } catch (e: IllegalArgumentException) {
-            throw FreeRASPException("freeRASP: Invalid Base64 format for hash: '$hash'")
+            throw FreeraspKMPException("freeRASP: Invalid Base64 format for hash: '$hash'")
         }
     }
 }

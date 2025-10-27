@@ -1,7 +1,7 @@
 package utils
 
 import model.config.freeraspConfig
-import model.exception.FreeRASPException
+import model.exception.FreeraspKMPException
 
 internal data class iosFreeraspConfig(
     val appBundleIds: List<String>,
@@ -12,7 +12,7 @@ internal data class iosFreeraspConfig(
 
 internal fun freeraspConfig.toNativeConfig(): iosFreeraspConfig {
     val iosConfig = this.iosConfig
-        ?: throw FreeRASPException("IOSConfig is required on the iOS platform but was null.")
+        ?: throw FreeraspKMPException("IOSConfig is required on the iOS platform but was null.")
 
     return iosFreeraspConfig(
         appBundleIds = iosConfig.bundleIds,

@@ -1,6 +1,5 @@
 package handlers
 
-import android.util.Log
 import com.aheaditec.talsec_security.security.api.SuspiciousAppInfo
 import com.aheaditec.talsec_security.security.api.ThreatListener
 import com.aheaditec.talsec_security.security.api.ThreatListener.RaspExecutionState

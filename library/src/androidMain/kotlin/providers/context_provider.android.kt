@@ -2,11 +2,10 @@ package providers
 
 import android.app.Application
 import android.content.Context
-import androidx.startup.Initializer
 import androidx.lifecycle.ProcessLifecycleOwner
-import handlers.freeraspKMPLifecycleObserver
-import model.exception.FreeRASPException
-
+import androidx.startup.Initializer
+import handlers.FreeraspKMPLifecycleObserver
+import model.exception.FreeraspKMPException
 
 internal object ContextProvider: Initializer<Unit> {
     private lateinit var appContext: Context
@@ -15,7 +14,7 @@ internal object ContextProvider: Initializer<Unit> {
         appContext = context.applicationContext
         (appContext as Application).registerActivityLifecycleCallbacks(ActivityProvider)
 
-        ProcessLifecycleOwner.get().lifecycle.addObserver(freeraspKMPLifecycleObserver)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(FreeraspKMPLifecycleObserver)
 
         return Unit
     }
@@ -24,7 +23,7 @@ internal object ContextProvider: Initializer<Unit> {
 
     fun getApplicationContext(): Context {
         if(!::appContext.isInitialized){
-            throw FreeRASPException("freeraspKMP not initialized. It seems the automatic setup via App Startup failed.")
+            throw FreeraspKMPException("freeraspKMP not initialized. It seems the automatic setup via App Startup failed.")
         }
         return appContext
     }

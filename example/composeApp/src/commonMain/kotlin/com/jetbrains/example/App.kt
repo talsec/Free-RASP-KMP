@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import api.freeraspKMP
+import api.FreeraspKMP
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.flowOn
@@ -49,7 +49,7 @@ fun App() {
         }
 
         LaunchedEffect(Unit) {
-            freeraspKMP.threatEvents.onEach { event ->
+            FreeraspKMP.threatEvents.onEach { event ->
                 when (event) {
                     is FreeRaspEvent.PrivilegedAccess -> println("freeraspKMP: PrivilegedAccess")
                     is FreeRaspEvent.Debug -> println("freeraspKMP: Debug")
@@ -87,14 +87,14 @@ fun App() {
 
 
             try {
-                freeraspKMP.start(freeraspConfig)
+                FreeraspKMP.start(freeraspConfig)
                 println("freeraspKMP background monitoring started.")
 
 
-                freeraspKMP.blockScreenCapture(false)
+                FreeraspKMP.blockScreenCapture(false)
                 println("freeraspKMP screen capture protection has been enabled.")
 
-                var isBlocked = freeraspKMP.isScreenCaptureBlocked()
+                var isBlocked = FreeraspKMP.isScreenCaptureBlocked()
                 println("$isBlocked")
 
             } catch (e: Exception) {
