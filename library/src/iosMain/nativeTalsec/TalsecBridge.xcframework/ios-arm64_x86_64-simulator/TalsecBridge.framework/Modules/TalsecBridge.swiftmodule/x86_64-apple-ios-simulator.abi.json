@@ -539,6 +539,27 @@
             ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onAllChecksFinished",
+            "printedName": "onAllChecksFinished()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:13TalsecRuntime20SecurityThreatCenterC0A6BridgeE19onAllChecksFinishedyyF",
+            "mangledName": "$s13TalsecRuntime20SecurityThreatCenterC0A6BridgeE19onAllChecksFinishedyyF",
+            "moduleName": "TalsecBridge",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Class",
@@ -568,6 +589,13 @@
             "printedName": "SecurityThreatHandler",
             "usr": "s:13TalsecRuntime21SecurityThreatHandlerP",
             "mangledName": "$s13TalsecRuntime21SecurityThreatHandlerP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RaspExecutionState",
+            "printedName": "RaspExecutionState",
+            "usr": "s:13TalsecRuntime18RaspExecutionStateP",
+            "mangledName": "$s13TalsecRuntime18RaspExecutionStateP"
           }
         ]
       }

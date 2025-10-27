@@ -19,6 +19,7 @@ import _SwiftConcurrencyShims
   @objc(isScreenCaptureBlocked:) public func isScreenCaptureBlocked(completion: @escaping (Swift.Bool) -> Swift.Void)
   @objc deinit
 }
-extension TalsecRuntime.SecurityThreatCenter : TalsecRuntime.SecurityThreatHandler {
+extension TalsecRuntime.SecurityThreatCenter : TalsecRuntime.SecurityThreatHandler, TalsecRuntime.RaspExecutionState {
   public func threatDetected(_ securityThreat: TalsecRuntime.SecurityThreat)
+  public func onAllChecksFinished()
 }
