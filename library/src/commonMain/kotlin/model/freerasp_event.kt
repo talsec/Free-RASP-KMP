@@ -1,4 +1,4 @@
-package model
+package com.freeraspkmp.model
 
 /**
  * Represents events detected by freeRASP.

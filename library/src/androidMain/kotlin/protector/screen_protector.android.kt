@@ -1,4 +1,4 @@
-package protector
+package com.freeraspkmp.android.protector
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -8,8 +8,8 @@ import androidx.annotation.RequiresApi
 import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat
-import api.FreeraspKMP
-import model.FreeRaspEvent
+import com.freeraspkmp.api.FreeraspKMP
+import com.freeraspkmp.model.FreeRaspEvent
 import java.util.function.Consumer
 import android.view.WindowManager.SCREEN_RECORDING_STATE_VISIBLE
 

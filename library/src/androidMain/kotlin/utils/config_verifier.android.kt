@@ -1,7 +1,7 @@
-package utils
+package com.freeraspkmp.android.utils
 
-import model.config.freeraspConfig
-import model.exception.FreeraspKMPException
+import com.freeraspkmp.model.config.freeraspConfig
+import com.freeraspkmp.model.exception.FreeraspKMPException
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 

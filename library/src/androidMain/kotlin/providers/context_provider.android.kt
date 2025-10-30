@@ -1,11 +1,11 @@
-package providers
+package com.freeraspkmp.android.providers
 
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.startup.Initializer
-import handlers.FreeraspKMPLifecycleObserver
-import model.exception.FreeraspKMPException
+import com.freeraspkmp.android.handlers.FreeraspKMPLifecycleObserver
+import com.freeraspkmp.model.exception.FreeraspKMPException
 
 internal object ContextProvider: Initializer<Unit> {
     private lateinit var appContext: Context

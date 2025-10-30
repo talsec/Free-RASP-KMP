@@ -1,4 +1,4 @@
-package model
+package com.freeraspkmp.model
 
 /**
  * Contains information about a suspicious app.

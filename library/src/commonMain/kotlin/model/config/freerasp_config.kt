@@ -1,4 +1,4 @@
-package model.config
+package com.freeraspkmp.model.config
 
 /**
  * The main configuration for freeRASP.

@@ -1,6 +1,6 @@
-package utils
+package com.freeraspkmp.ios.utils
 
-import model.FreeRaspEvent
+import com.freeraspkmp.model.FreeRaspEvent
 
 internal fun mapStringToFreeraspEvent(threatString: String?): FreeRaspEvent? {
     return when (threatString) {

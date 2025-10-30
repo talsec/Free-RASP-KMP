@@ -1,8 +1,8 @@
-package api
+package com.freeraspkmp.api
 
 import kotlinx.coroutines.flow.SharedFlow
-import model.config.freeraspConfig
-import model.FreeRaspEvent
+import com.freeraspkmp.model.config.freeraspConfig
+import com.freeraspkmp.model.FreeRaspEvent
 
 /**
  * Singleton object providing access to freeRASP KMP functionality.

@@ -1,11 +1,11 @@
-package handlers
+package com.freeraspkmp.android.handlers
 
 import com.aheaditec.talsec_security.security.api.SuspiciousAppInfo
 import com.aheaditec.talsec_security.security.api.ThreatListener
 import com.aheaditec.talsec_security.security.api.ThreatListener.RaspExecutionState
-import model.FreeRaspEvent
-import providers.ContextProvider
-import utils.processMalwareData
+import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.android.providers.ContextProvider
+import com.freeraspkmp.android.utils.processMalwareData
 
 internal class ThreatHandler(
     private val onEvent: (FreeRaspEvent) -> Unit

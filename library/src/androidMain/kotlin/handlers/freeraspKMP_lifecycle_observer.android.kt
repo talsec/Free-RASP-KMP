@@ -1,11 +1,11 @@
-package handlers
+package com.freeraspkmp.android.handlers
 
 import android.os.Build
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import protector.ScreenProtector
-import providers.ActivityProvider
-import api.FreeraspKMP
+import com.freeraspkmp.android.protector.ScreenProtector
+import com.freeraspkmp.android.providers.ActivityProvider
+import com.freeraspkmp.api.FreeraspKMP
 
 internal object FreeraspKMPLifecycleObserver : DefaultLifecycleObserver {
     override fun onResume(owner: LifecycleOwner) {

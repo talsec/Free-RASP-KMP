@@ -1,8 +1,8 @@
-package utils
+package com.freeraspkmp.android.utils
 
 import com.aheaditec.talsec_security.security.api.TalsecConfig
-import model.config.freeraspConfig
-import model.exception.FreeraspKMPException
+import com.freeraspkmp.model.config.freeraspConfig
+import com.freeraspkmp.model.exception.FreeraspKMPException
 
 fun freeraspConfig.toNativeConfig(): TalsecConfig {
     val androidConfig = this.androidConfig ?: throw FreeraspKMPException("AndroidConfig is required on the Android platform but was null.")

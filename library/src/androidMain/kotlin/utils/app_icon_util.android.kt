@@ -1,4 +1,4 @@
-package utils
+package com.freeraspkmp.android.utils
 
 import android.content.Context
 import android.content.pm.PackageManager

@@ -1,4 +1,4 @@
-package api
+package com.freeraspkmp.api
 
 import com.aheaditec.talsec_security.security.api.Talsec
 import com.aheaditec.talsec_security.security.api.ThreatListener
@@ -11,17 +11,17 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import model.FreeRaspEvent
-import model.config.freeraspConfig
-import utils.AppIconUtil
-import utils.toNativeConfig
-import providers.ContextProvider
-import handlers.ThreatHandler
+import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.model.config.freeraspConfig
+import com.freeraspkmp.android.utils.AppIconUtil
+import com.freeraspkmp.android.utils.toNativeConfig
+import com.freeraspkmp.android.providers.ContextProvider
+import com.freeraspkmp.android.handlers.ThreatHandler
 import kotlinx.coroutines.cancel
-import model.exception.FreeraspKMPException
-import providers.ActivityProvider
+import com.freeraspkmp.model.exception.FreeraspKMPException
+import com.freeraspkmp.android.providers.ActivityProvider
 
-import utils.verifyConfig
+import com.freeraspkmp.android.utils.verifyConfig
 
 actual object FreeraspKMP {
 

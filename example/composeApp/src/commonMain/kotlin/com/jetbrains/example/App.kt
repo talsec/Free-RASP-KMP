@@ -12,17 +12,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import api.FreeraspKMP
+import com.freeraspkmp.api.FreeraspKMP
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import model.FreeRaspEvent
-import model.config.AndroidConfig
-import model.config.IOSConfig
-import model.config.MalwareConfig
-import model.config.freeraspConfig
+import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.model.config.AndroidConfig
+import com.freeraspkmp.model.config.IOSConfig
+import com.freeraspkmp.model.config.MalwareConfig
+import com.freeraspkmp.model.config.freeraspConfig
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

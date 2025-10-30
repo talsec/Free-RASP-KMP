@@ -1,7 +1,7 @@
-package utils
+package com.freeraspkmp.ios.utils
 
-import model.config.freeraspConfig
-import model.exception.FreeraspKMPException
+import com.freeraspkmp.model.config.freeraspConfig
+import com.freeraspkmp.model.exception.FreeraspKMPException
 
 internal data class iosFreeraspConfig(
     val appBundleIds: List<String>,

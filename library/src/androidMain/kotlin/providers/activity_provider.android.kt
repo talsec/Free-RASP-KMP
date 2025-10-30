@@ -1,4 +1,4 @@
-package providers
+package com.freeraspkmp.android.providers
 
 import android.app.Activity
 import android.app.Application

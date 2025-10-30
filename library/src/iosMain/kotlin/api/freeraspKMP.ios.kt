@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalForeignApi::class)
 
-package api
+package com.freeraspkmp.api
 
 import com.aheaditec.talsec.interop.TalsecApiBridge
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -15,13 +15,13 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import model.config.freeraspConfig
-import model.FreeRaspEvent
-import utils.mapStringToFreeraspEvent
-import utils.toNativeConfig
+import com.freeraspkmp.model.config.freeraspConfig
+import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.ios.utils.mapStringToFreeraspEvent
+import com.freeraspkmp.ios.utils.toNativeConfig
 import kotlin.coroutines.resume
 
-import utils.verifyConfig
+import com.freeraspkmp.ios.utils.verifyConfig
 
 actual object FreeraspKMP {
     private val NativeTalsec = TalsecApiBridge.shared()
