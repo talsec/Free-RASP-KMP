@@ -10,7 +10,7 @@
             tools:node="merge">
 
             <meta-data
-                android:name="providers.ContextProvider"
+                android:name="com.freeraspkmp.android.providers.ContextProvider"
                 android:value="androidx.startup" />
         </provider>
     </application>
