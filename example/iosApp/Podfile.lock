@@ -1,0 +1,16 @@
+PODS:
+  - freeraspKMP (1.0.13)
+
+DEPENDENCIES:
+  - freeraspKMP (from `../../library`)
+
+EXTERNAL SOURCES:
+  freeraspKMP:
+    :path: "../../library"
+
+SPEC CHECKSUMS:
+  freeraspKMP: 3c3753fe2187341997c539ddd39ee1e87c19bc74
+
+PODFILE CHECKSUM: 26a6534941d0fad09ba5f3d486536617baf7963b
+
+COCOAPODS: 1.16.2
