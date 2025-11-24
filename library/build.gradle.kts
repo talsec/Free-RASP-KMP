@@ -1,6 +1,5 @@
-import com.vanniktech.maven.publish.SonatypeHost
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -8,7 +7,18 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-group = "com.aheaditec.talsec"
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+
+fun getVariable(name: String): String {
+    return System.getenv(name) ?: localProperties.getProperty(name) ?: ""
+}
+
+
+group = "com.aheaditec.talsec.security"
 version = "1.0.0"
 kotlin {
     androidTarget {
@@ -91,36 +101,52 @@ android {
 
 }
 
-mavenPublishing {
-    //uncomment for publishing to Maven Central
-    /*publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-    signAllPublications() */
+publishing {
+    repositories {
+        maven {
+            name = "GcpArtifactRegistry"
 
-    coordinates(group.toString(), "library", version.toString())
+            val gcpPublicUrl = "https://europe-west3-maven.pkg.dev"
+
+            val projectId = getVariable("GCP_PROJECT_ID")
+            val repoName = getVariable("GCP_REPO_NAME")
+
+            url = uri("$gcpPublicUrl/$projectId/$repoName")
+
+            credentials {
+                username = getVariable("GCP_USERNAME")
+                password = getVariable("GCP_PASSWORD")
+            }
+        }
+    }
+}
+
+mavenPublishing {
+    coordinates(group.toString(), "freeRASP_KMP", version.toString())
 
     pom {
         name = "freeRASP KMP"
-        description = "A library."
+        description = "Talsec freeRASP for Kotlin Multiplatform. Runtime App Self Protection (RASP) SDK for Android and iOS."
         inceptionYear = "2025"
         url = "https://github.com/talsec/Free-RASP-KMP"
         licenses {
             license {
-                name = "XXX"
-                url = "YYY"
-                distribution = "ZZZ"
+                name = "MIT License"
+                url = "https://github.com/talsec/Free-RASP-KMP/LICENSE"
+                distribution = "repo"
             }
         }
         developers {
             developer {
-                id = "XXX"
-                name = "YYY"
-                url = "ZZZ"
+                id = "talsec"
+                name = "Talsec Team"
+                url = "https://www.talsec.app"
             }
         }
         scm {
-            url = "XXX"
-            connection = "YYY"
-            developerConnection = "ZZZ"
+            url = "https://github.com/talsec/Free-RASP-KMP"
+            connection = "scm:git:https://github.com/talsec/Free-RASP-KMP.git"
+            developerConnection = "scm:git:ssh://git@github.com/talsec/Free-RASP-KMP.git"
         }
     }
 }
