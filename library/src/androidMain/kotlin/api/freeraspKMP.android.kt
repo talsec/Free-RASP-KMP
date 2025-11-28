@@ -1,0 +1,134 @@
+package com.freeraspkmp.api
+
+import com.aheaditec.talsec_security.security.api.Talsec
+import com.aheaditec.talsec_security.security.api.ThreatListener
+import android.util.Log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.model.config.freeraspConfig
+import com.freeraspkmp.android.utils.AppIconUtil
+import com.freeraspkmp.android.utils.toNativeConfig
+import com.freeraspkmp.android.providers.ContextProvider
+import com.freeraspkmp.android.handlers.ThreatHandler
+import kotlinx.coroutines.cancel
+import com.freeraspkmp.model.exception.FreeraspKMPException
+import com.freeraspkmp.android.providers.ActivityProvider
+
+import com.freeraspkmp.android.utils.verifyConfig
+
+actual object FreeraspKMP {
+
+    private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+    private val eventCache = mutableListOf<FreeRaspEvent>()
+    private val cacheLock = Any()
+    private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
+    actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
+
+    init {
+        scope.launch {
+            _threatEvents.subscriptionCount.collect { count ->
+                if (count > 0) {
+                    val eventsToEmit: List<FreeRaspEvent>
+                    synchronized(cacheLock) {
+                        if (eventCache.isNotEmpty()) {
+                            eventsToEmit = eventCache.toList()
+                            eventCache.clear()
+                        } else {
+                            eventsToEmit = emptyList()
+                        }
+                    }
+                    eventsToEmit.forEach {
+                        _threatEvents.emit(it)
+                    }
+                }
+            }
+        }
+    }
+
+    private val threatHandler = ThreatHandler { event ->
+        emitEvent(event)
+    }
+
+    private val nativeListener = ThreatListener(threatHandler, threatHandler, threatHandler)
+
+    actual suspend fun start(config: freeraspConfig) {
+        verifyConfig(config)
+        val nativeConfig = withContext(Dispatchers.Default){
+            config.toNativeConfig()
+        }
+
+        withContext(Dispatchers.Main){
+            val context = ContextProvider.getApplicationContext()
+
+            nativeListener.registerListener(context)
+
+            Talsec.start(context, nativeConfig)
+        }
+    }
+
+    actual suspend fun addToWhiteList(packageName: String) {
+        withContext(Dispatchers.IO){
+            val context = ContextProvider.getApplicationContext()
+
+            Talsec.addToWhitelist(context, packageName)
+        }
+    }
+
+    actual suspend fun storeExternalId(data: String) {
+        withContext(Dispatchers.IO){
+            val context = ContextProvider.getApplicationContext()
+
+            Talsec.storeExternalId(context, data)
+        }
+    }
+
+    actual suspend fun getAppIcon(packageName: String): String {
+        return withContext(Dispatchers.IO) {
+            val context = ContextProvider.getApplicationContext()
+
+            AppIconUtil.getAppIconAsBase64String(context, packageName)
+                ?: throw FreeraspKMPException("Could not get or encode app icon for package: $packageName")
+        }
+    }
+
+    actual suspend fun blockScreenCapture(enable: Boolean) {
+        withContext(Dispatchers.Main){
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if(activity != null){
+                Talsec.blockScreenCapture(activity, enable)
+            } else {
+                Log.w("freeraspKMP", "blockedScreenCapture called but no activity is in foreground.")
+            }
+        }
+    }
+
+    actual suspend fun isScreenCaptureBlocked(): Boolean {
+        return Talsec.isScreenCaptureBlocked()
+    }
+
+    internal fun emitEvent(event: FreeRaspEvent){
+        if (_threatEvents.subscriptionCount.value == 0) {
+            synchronized(cacheLock) {
+                eventCache.add(event)
+            }
+        } else {
+            scope.launch {
+                _threatEvents.emit(event)
+            }
+        }
+    }
+
+    internal fun cleanup() {
+        val context = ContextProvider.getApplicationContext()
+        nativeListener.unregisterListener(context)
+        scope.cancel()
+    }
+}

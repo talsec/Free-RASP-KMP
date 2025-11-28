@@ -1,0 +1,5 @@
+package = com.aheaditec.talsec.interop
+language = Objective-C
+headers = TalsecBridge-Swift.h
+headerFilter = TalsecBridge*.h
+linkerOpts = -framework TalsecBridge -framework TalsecRuntime
