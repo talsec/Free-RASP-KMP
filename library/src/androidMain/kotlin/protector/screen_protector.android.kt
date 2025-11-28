@@ -19,7 +19,7 @@ internal object ScreenProtector {
     private const val TAG = "freeraspKMPScreenProtector"
     private const val SCREEN_CAPTURE_PERMISSION = "android.permission.DETECT_SCREEN_CAPTURE"
     private const val SCREEN_RECORDING_PERMISSION = "android.permission.DETECT_SCREEN_RECORDING"
-    private var registerdActivites = mutableSetOf<Int>()
+    private var registeredActivites = mutableSetOf<Int>()
 
     private val screenCaptureCallback = Activity.ScreenCaptureCallback{
         FreeraspKMP.emitEvent(FreeRaspEvent.Screenshot)
@@ -33,7 +33,7 @@ internal object ScreenProtector {
 
     internal fun register(activity: Activity){
         val activityHash = activity.hashCode()
-        if(registerdActivites.contains(activityHash)) return
+        if(registeredActivites.contains(activityHash)) return
 
         registerScreenCapture(activity)
 
@@ -41,12 +41,12 @@ internal object ScreenProtector {
             registerScreenRecording(activity)
         }
 
-        registerdActivites.add(activityHash)
+        registeredActivites.add(activityHash)
     }
 
     internal fun unregister(activity: Activity){
         val activityHash = activity.hashCode()
-        if(!registerdActivites.contains(activityHash)) return
+        if(!registeredActivites.contains(activityHash)) return
 
         unregisterScreenCapture(activity)
 
@@ -54,7 +54,7 @@ internal object ScreenProtector {
             unregisterScreenRecording(activity)
         }
 
-        registerdActivites.remove(activityHash)
+        registeredActivites.remove(activityHash)
     }
 
     @SuppressLint("MissingPermission")

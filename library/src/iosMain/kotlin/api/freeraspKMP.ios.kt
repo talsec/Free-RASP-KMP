@@ -81,11 +81,14 @@ actual object FreeraspKMP {
     }
 
     actual suspend fun addToWhiteList(packageName: String) {
-        throw UnsupportedOperationException("freeraspKMP: addToWhiteList is not supported on iOS.")
+        //throw UnsupportedOperationException("freeraspKMP: addToWhiteList is not supported on iOS.")
+        println("freeraspKMP: addToWhiteList is not supported on iOS.")
     }
 
     actual suspend fun getAppIcon(packageName: String): String {
-        throw UnsupportedOperationException("freeraspKMP: getAppIcon is not supported on iOS.")
+        //throw UnsupportedOperationException("freeraspKMP: getAppIcon is not supported on iOS.")
+        println("freeraspKMP: getAppIcon is not supported on iOS.")
+        return ""
     }
 
     actual suspend fun blockScreenCapture(enable: Boolean) {

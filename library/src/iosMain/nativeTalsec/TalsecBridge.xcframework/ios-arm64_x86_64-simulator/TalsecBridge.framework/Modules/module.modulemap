@@ -1,4 +1,0 @@
-framework module TalsecBridge {
-  header "TalsecBridge-Swift.h"
-  requires objc
-}

@@ -91,7 +91,7 @@ fun App() {
                 println("freeraspKMP background monitoring started.")
 
 
-                FreeraspKMP.blockScreenCapture(false)
+                FreeraspKMP.blockScreenCapture(true)
                 println("freeraspKMP screen capture protection has been enabled.")
 
                 var isBlocked = FreeraspKMP.isScreenCaptureBlocked()
