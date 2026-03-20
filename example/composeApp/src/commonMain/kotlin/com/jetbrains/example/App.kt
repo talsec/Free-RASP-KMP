@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.model.RaspExecutionStateEvent
 import com.freeraspkmp.model.config.AndroidConfig
 import com.freeraspkmp.model.config.IOSConfig
 import com.freeraspkmp.model.config.MalwareConfig
@@ -80,11 +81,18 @@ fun App() {
                     is FreeRaspEvent.TimeSpoofing -> println("freeraspKMP: TimeSpoofing")
                     is FreeRaspEvent.UnsecureWifi -> println("freeraspKMP: UnsecureWifi")
                     is FreeRaspEvent.LocationSpoofing -> println("freeraspKMP: LocationSpoofing")
-                    is FreeRaspEvent.AllChecksFinished -> println("freeraspKMP: AllChecksFinished")
+                    FreeRaspEvent.Automation -> println("freeraspKMP: Automation")
                 }
             }.flowOn(Dispatchers.IO)
                 .launchIn(this)
 
+
+            FreeraspKMP.raspExecutionStateEvents.onEach { event ->
+                when (event) {
+                    is RaspExecutionStateEvent.AllChecksFinished -> println("freeraspKMP: AllChecksFinished")
+                }
+            }.flowOn(Dispatchers.IO)
+                .launchIn(this)
 
             try {
                 FreeraspKMP.start(freeraspConfig)
