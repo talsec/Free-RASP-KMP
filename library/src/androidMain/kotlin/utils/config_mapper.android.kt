@@ -40,7 +40,7 @@ fun freeraspConfig.toNativeConfig(): TalsecConfig {
             }
             if(malware.whitelistedInstallationSources.isNotEmpty())
             {
-                whitelistedInstallationSources(malware.blacklistedHashes.toTypedArray())
+                whitelistedInstallationSources(malware.whitelistedInstallationSources.toTypedArray())
             }
         }
     }
