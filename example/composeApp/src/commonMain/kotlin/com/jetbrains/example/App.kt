@@ -1,35 +1,30 @@
 package com.jetbrains.example
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import com.freeraspkmp.api.FreeraspKMP
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import com.freeraspkmp.model.FreeRaspEvent
-import com.freeraspkmp.model.RaspExecutionStateEvent
+import com.freeraspkmp.model.SuspiciousAppInfo
 import com.freeraspkmp.model.config.AndroidConfig
 import com.freeraspkmp.model.config.IOSConfig
 import com.freeraspkmp.model.config.MalwareConfig
 import com.freeraspkmp.model.config.freeraspConfig
+import com.jetbrains.example.model.initialChecks
+import com.jetbrains.example.model.toCheckId
+import com.jetbrains.example.ui.FreeraspTheme
+import com.jetbrains.example.ui.SecurityDashboard
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    FreeraspTheme {
         val freeraspConfig = remember {
             freeraspConfig(
                 watcherMail = "test@mail.app",
@@ -49,87 +44,68 @@ fun App() {
             )
         }
 
+        var checks by remember { mutableStateOf(initialChecks) }
+        var malwareApps by remember { mutableStateOf<List<SuspiciousAppInfo>>(emptyList()) }
+        var allChecksFinished by remember { mutableStateOf(false) }
+        var isScreenCaptureBlocked by remember { mutableStateOf(false) }
+        val scope = rememberCoroutineScope()
+
         LaunchedEffect(Unit) {
-            FreeraspKMP.threatEvents.onEach { event ->
-                when (event) {
-                    is FreeRaspEvent.PrivilegedAccess -> println("freeraspKMP: PrivilegedAccess")
-                    is FreeRaspEvent.Debug -> println("freeraspKMP: Debug")
-                    is FreeRaspEvent.Simulator -> println("freeraspKMP: Simulator")
-                    is FreeRaspEvent.AppIntegrity -> println("freeraspKMP: AppIntegrity")
-                    is FreeRaspEvent.UnofficialStore -> println("freeraspKMP: UnofficialStore")
-                    is FreeRaspEvent.Hooks -> println("freeraspKMP: Hooks")
-                    is FreeRaspEvent.DeviceBinding -> println("freeraspKMP: DeviceBinding")
-                    is FreeRaspEvent.ObfuscationIssues -> println("freeraspKMP: ObfuscationIssues")
-                    is FreeRaspEvent.Screenshot -> println("freeraspKMP: Screenshot")
-                    is FreeRaspEvent.ScreenRecording -> println("freeraspKMP: ScreenRecording")
-                    is FreeRaspEvent.Passcode -> println("freeraspKMP: Passcode")
-                    is FreeRaspEvent.SecureHardwareNotAvailable -> println("freeraspKMP: SecureHardwareNotAvailable")
-                    is FreeRaspEvent.SystemVPN -> println("freeraspKMP: SystemVPN")
-                    is FreeRaspEvent.DevMode -> println("freeraspKMP: DevMode")
-                    is FreeRaspEvent.AdbEnabled -> println("freeraspKMP: AdbEnabled")
-                    is FreeRaspEvent.MultiInstance -> println("freeraspKMP: MultiInstance")
-                    is FreeRaspEvent.DeviceID -> println("freeraspKMP: DeviceID")
-                    is FreeRaspEvent.Malware -> {
-                        println("-------------------------------------------")
-                        println("freeraspKMP: Malware")
-                        println("${event.suspiciousAppInfo.size} suspicious apps found.")
-                        event.suspiciousAppInfo.forEach { appInfo ->
-                            println("App: ${appInfo.packageInfo.appName}")
-                        }
-                        println("-------------------------------------------")
+            launch {
+                FreeraspKMP.threatEvents.collect { event ->
+                    val checkId = event.toCheckId()
+                    checks = checks.map { check ->
+                        if (check.id == checkId) check.copy(isDetected = true) else check
                     }
-                    is FreeRaspEvent.TimeSpoofing -> println("freeraspKMP: TimeSpoofing")
-                    is FreeRaspEvent.UnsecureWifi -> println("freeraspKMP: UnsecureWifi")
-                    is FreeRaspEvent.LocationSpoofing -> println("freeraspKMP: LocationSpoofing")
-                    FreeRaspEvent.Automation -> println("freeraspKMP: Automation")
+                    if (event is FreeRaspEvent.Malware) {
+                        malwareApps = event.suspiciousAppInfo
+                    }
                 }
-            }.flowOn(Dispatchers.IO)
-                .launchIn(this)
+            }
 
-
-            FreeraspKMP.raspExecutionStateEvents.onEach { event ->
-                when (event) {
-                    is RaspExecutionStateEvent.AllChecksFinished -> println("freeraspKMP: AllChecksFinished")
+            launch {
+                FreeraspKMP.raspExecutionStateEvents.collect {
+                    allChecksFinished = true
                 }
-            }.flowOn(Dispatchers.IO)
-                .launchIn(this)
+            }
 
             try {
                 FreeraspKMP.start(freeraspConfig)
-                println("freeraspKMP background monitoring started.")
-
-
                 FreeraspKMP.blockScreenCapture(true)
-                println("freeraspKMP screen capture protection has been enabled.")
-
-                var isBlocked = FreeraspKMP.isScreenCaptureBlocked()
-                println("$isBlocked")
-
+                isScreenCaptureBlocked = FreeraspKMP.isScreenCaptureBlocked()
             } catch (e: Exception) {
-                println("Error starting freeraspKMP: ${e.message}")
+                println("freeraspKMP: Error starting: ${e.message}")
             }
         }
 
-        var showContent by remember { mutableStateOf(true) }
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text("Compose: $greeting")
+        SecurityDashboard(
+            checks = checks,
+            allChecksFinished = allChecksFinished,
+            isScreenCaptureBlocked = isScreenCaptureBlocked,
+            malwareApps = malwareApps,
+            onToggleScreenCapture = {
+                scope.launch {
+                    val newValue = !isScreenCaptureBlocked
+                    FreeraspKMP.blockScreenCapture(newValue)
+                    isScreenCaptureBlocked = FreeraspKMP.isScreenCaptureBlocked()
                 }
-            }
-        }
+            },
+            onStoreExternalId = { id, onResult ->
+                scope.launch {
+                    try {
+                        FreeraspKMP.storeExternalId(id)
+                        onResult("External ID stored", true)
+                    } catch (e: Exception) {
+                        onResult(e.message ?: "Failed to store External ID", false)
+                    }
+                }
+            },
+            onRemoveExternalId = { onDone ->
+                scope.launch {
+                    FreeraspKMP.removeExternalId()
+                    onDone()
+                }
+            },
+        )
     }
 }
