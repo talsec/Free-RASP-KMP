@@ -18,7 +18,7 @@ internal fun mapStringToFreeraspEvent(threatString: String?): FreeRaspEvent? {
         "unofficialStore" -> FreeRaspEvent.UnofficialStore
         "screenshot" -> FreeRaspEvent.Screenshot
         "screenRecording" -> FreeRaspEvent.ScreenRecording
-        "allChecksFinished" -> FreeRaspEvent.AllChecksFinished
+        "timeSpoofing" -> FreeRaspEvent.TimeSpoofing
         else -> {
             println("Received unknown threat ($threatString)")
             null
