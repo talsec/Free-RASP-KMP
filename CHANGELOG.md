@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0] - 2025-03-25
 
 - Android SDK version: 18.0.4
-- iOS SDK version: 6.14.2
+- iOS SDK version: 6.14.4
 
 ### Kotlin Multiplatform
 

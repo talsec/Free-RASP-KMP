@@ -14,11 +14,11 @@
 		</data>
 		<key>Headers/CurlWrapper.h</key>
 		<data>
-		40XuDX2m5VAgILqzxFVduib0LYs=
+		R1E+H6PLtWwiCDgBW4qGM4nonSQ=
 		</data>
 		<key>Headers/TalsecRuntime-Swift.h</key>
 		<data>
-		N6kkXseAuWeaBDLA94phL9DcdtM=
+		LBJ69/w0qbla6PGE4RCH7T/3wHk=
 		</data>
 		<key>Headers/TalsecRuntime_iOS.h</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/curl.h</key>
 		<data>
-		7VzHczlhU40rCtya96FDVmBC4dk=
+		/m80INMPJqRZcCoxmHPQs1yMcUY=
 		</data>
 		<key>Headers/curlver.h</key>
 		<data>
@@ -46,11 +46,11 @@
 		</data>
 		<key>Headers/multi.h</key>
 		<data>
-		h0/+tBunSX1zBA5s6aGd7Ct8qX8=
+		z5d1gReaKoxmlfSGhcxQnbGdUUA=
 		</data>
 		<key>Headers/options.h</key>
 		<data>
-		EVdr2xstryKCAzyNzy7DrMciwlQ=
+		0SphVSS9igGFQuHafBmT1eFXEqo=
 		</data>
 		<key>Headers/stdcheaders.h</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Headers/urlapi.h</key>
 		<data>
-		XCo6/2x9eFOxiaCUx+jkwQQE/28=
+		rFuCDkp1iM/eQQ82UOaCE8hqz3s=
 		</data>
 		<key>Headers/websockets.h</key>
 		<data>
@@ -74,11 +74,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		f9PtDx65y5/qtoYE1DtDg0CgBCc=
+		4pI5j8NGLDqEd/OZJnyc+ocjgxM=
 		</data>
 		<key>Modules/TalsecRuntime.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		5RB9XV24L/gvquruQa4nFs7HqfA=
+		xGkJDOPylmGm8cVzkvTryHM1ZNU=
 		</data>
 		<key>Modules/TalsecRuntime.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
@@ -129,14 +129,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			myCyKU3CSMNzXeuEm7yQcWTzIfVLW+wdrsHtoBG0pzQ=
+			Jaf+jlGj+VwT9tSy72UtB45lThtz6JY68DGf4Fu/WpY=
 			</data>
 		</dict>
 		<key>Headers/TalsecRuntime-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			f0HZTYTt2mROh2L10Vz2DhL8+Y9c7beFkREgKMbtSh8=
+			uEJ++mLEvHd4yq3JDbDGUYRqyA35gCM7bclhahpKdrY=
 			</data>
 		</dict>
 		<key>Headers/TalsecRuntime_iOS.h</key>
@@ -150,7 +150,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			feZMz6iMzbv8lBZ2Ewa8MLDSqRwjYZ1mQEl+pn02Zt0=
+			xTWPqHc/Q/juiAm1rL7CLTHkQkYYyqhRIHNUISDtzr8=
 			</data>
 		</dict>
 		<key>Headers/curlver.h</key>
@@ -185,14 +185,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zj9L9cwy9cCyPOG/5gEwMsji+G95tt2rY1GPP3EqNh8=
+			NBz9lEJR7FJKirxy9unRcKsqaiCvBC0X3MHMkPf9QQk=
 			</data>
 		</dict>
 		<key>Headers/options.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wqtVPTdnCbDiePr/12hnaifK7MGVz6mQKBT9IOiDdl0=
+			Ot5nUXM/5W8JiOniCFhfAg8Uwa/39C4b6VuesVowvMM=
 			</data>
 		</dict>
 		<key>Headers/stdcheaders.h</key>
@@ -220,7 +220,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lEm8850M+ph7L80LbP1dfx7kRb/Qar4/ZaBJAMmBC9Q=
+			GYbt1MNQCLUNF8/qy+C/PrtEnKFnMx6hubK+aAMXZ14=
 			</data>
 		</dict>
 		<key>Headers/websockets.h</key>
@@ -234,7 +234,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dkRszxwJkkWCeiC7CyVgTdp5BGziT+yhfz6SH5v/YwA=
+			08ghu4SFRRZcoC4Bh+f7/7Ule5/T7ElCTHKR88U757Q=
 			</data>
 		</dict>
 		<key>Modules/TalsecRuntime.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
