@@ -349,6 +349,28 @@
           },
           {
             "kind": "Function",
+            "name": "removeExternalId",
+            "printedName": "removeExternalId()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@TalsecBridge@objc(cs)TalsecApiBridge(im)removeExternalId",
+            "mangledName": "$s12TalsecBridge0a3ApiB0C16removeExternalIdyyF",
+            "moduleName": "TalsecBridge",
+            "objc_name": "removeExternalId",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "blockScreenCapture",
             "printedName": "blockScreenCapture(enable:)",
             "children": [

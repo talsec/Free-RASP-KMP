@@ -15,6 +15,7 @@ import _SwiftConcurrencyShims
   @objc(startWithAppBundleIds:appTeamId:watcherMailAddress:isProd:) public func start(appBundleIds: [Swift.String], appTeamId: Swift.String, watcherMailAddress: Swift.String, isProd: Swift.Bool)
   public func forwardThreatToKotlin(threat: TalsecRuntime.SecurityThreat)
   @objc(storeExternalId:) public func storeExternalId(externalId: Swift.String)
+  @objc(removeExternalId) public func removeExternalId()
   @objc(blockScreenCapture:) public func blockScreenCapture(enable: Swift.Bool)
   @objc(isScreenCaptureBlocked:) public func isScreenCaptureBlocked(completion: @escaping (Swift.Bool) -> Swift.Void)
   @objc deinit

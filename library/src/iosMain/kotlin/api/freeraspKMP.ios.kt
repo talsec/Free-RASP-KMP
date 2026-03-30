@@ -88,7 +88,7 @@ actual object FreeraspKMP {
     }
 
     actual suspend fun removeExternalId() {
-        println("freeraspKMP: removeExternalId is not supported on iOS.")
+        NativeTalsec.removeExternalId()
     }
 
     actual suspend fun addToWhiteList(packageName: String) {

@@ -315,6 +315,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) TalsecApiBri
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 - (void)startWithAppBundleIds:(NSArray<NSString *> * _Nonnull)appBundleIds appTeamId:(NSString * _Nonnull)appTeamId watcherMailAddress:(NSString * _Nonnull)watcherMailAddress isProd:(BOOL)isProd;
 - (void)storeExternalId:(NSString * _Nonnull)externalId;
+- (void)removeExternalId;
 - (void)blockScreenCapture:(BOOL)enable;
 - (void)isScreenCaptureBlocked:(void (^ _Nonnull)(BOOL))completion;
 @end
@@ -644,6 +645,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) TalsecApiBri
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 - (void)startWithAppBundleIds:(NSArray<NSString *> * _Nonnull)appBundleIds appTeamId:(NSString * _Nonnull)appTeamId watcherMailAddress:(NSString * _Nonnull)watcherMailAddress isProd:(BOOL)isProd;
 - (void)storeExternalId:(NSString * _Nonnull)externalId;
+- (void)removeExternalId;
 - (void)blockScreenCapture:(BOOL)enable;
 - (void)isScreenCaptureBlocked:(void (^ _Nonnull)(BOOL))completion;
 @end

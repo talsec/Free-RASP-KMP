@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/TalsecBridge-Swift.h</key>
 		<data>
-		N8byoAOgepQTKdrXKTfVkJi/JYo=
+		Ix0bCm0aQ+X6Eyf3AA5Jja0Fudo=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -42,11 +42,11 @@
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		DS+gYZxZQRdKbWI5BgToXMCSYv0=
+		vk6NCEvj+N58mIwpOey30/jwNy0=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		t4lj8969whhvlbl2IjdUHJ9rLP4=
+		fMGc9g2BYfRy1wqlC8E8i5w9o24=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -54,19 +54,19 @@
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		t4lj8969whhvlbl2IjdUHJ9rLP4=
+		fMGc9g2BYfRy1wqlC8E8i5w9o24=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		TKc4oyOBZQtyqu7mL5M9o6HBnP0=
+		KwDJEOiVEhbt8JidPMS9sRj35Ko=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		DS+gYZxZQRdKbWI5BgToXMCSYv0=
+		vk6NCEvj+N58mIwpOey30/jwNy0=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		TYzMUgp5128DUWjxIcL7opBsVCM=
+		+beKbK1/N+7Wu0095LO+nrUyE1s=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -74,11 +74,11 @@
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		TYzMUgp5128DUWjxIcL7opBsVCM=
+		+beKbK1/N+7Wu0095LO+nrUyE1s=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		ophaOWPlEHRWWPjwRxmy1y9aP74=
+		3beMP27euhmEVl/50tY1I6Vx5Bk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -140,21 +140,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lPqGg0tVFD0PAF5sbPd/4dG6SKgurnE14W2vvxtB4nU=
+			A9hl8jYpNcaOb6Y47pZDvr68sHF2Jst3jvYhs91d3+w=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			4lRd7eiBawVZltCMJnIBcM9DJbiPy3dlzDJ8swVKuK4=
+			MsmKmhP3izM1VyaQwQ+ysnlnn6zNyFnQPluWmNzf1Yo=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VnTxG4XG7pVuz50KACvKLsb8QcbDxLztyemQSRHnY74=
+			VZmdoMTVqjmgzp19WMOncEmMTLFeSa0cz+6iL29ublI=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -168,28 +168,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			VnTxG4XG7pVuz50KACvKLsb8QcbDxLztyemQSRHnY74=
+			VZmdoMTVqjmgzp19WMOncEmMTLFeSa0cz+6iL29ublI=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qGiB51+FY7cowjyrkVGNEO6y3g3Ng9hYw1BVJIx2NyY=
+			BdzEC1E0cMTFTs5qSLeeEt84nJlVcAm2awFevxkq2Ro=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			4lRd7eiBawVZltCMJnIBcM9DJbiPy3dlzDJ8swVKuK4=
+			MsmKmhP3izM1VyaQwQ+ysnlnn6zNyFnQPluWmNzf1Yo=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			d0RVflv8sZSLOVoP1JmFclkrhZ8LgGpmprVQQQI2tRo=
+			YNDzg3/paATBNJgdsSvCyZKmnYF2P3jn0P/MHDtf6eY=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -203,14 +203,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			d0RVflv8sZSLOVoP1JmFclkrhZ8LgGpmprVQQQI2tRo=
+			YNDzg3/paATBNJgdsSvCyZKmnYF2P3jn0P/MHDtf6eY=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			l2iWUvHuxy7ydn7yVCjErPCNAUthNdRXyT1jzKtX9bw=
+			1bB/QGREK+lAXDX6pQpjv6DxPSRlV2KCwArUMZDJijc=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

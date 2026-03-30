@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7D2E4D2B2F753633002F0A40 /* TalsecBridge.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2E4D292F753633002F0A40 /* TalsecBridge.xcframework */; };
-		7D2E4D2C2F753633002F0A40 /* TalsecBridge.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2E4D292F753633002F0A40 /* TalsecBridge.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7D2E4D2D2F753633002F0A40 /* TalsecRuntime.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2E4D2A2F753633002F0A40 /* TalsecRuntime.xcframework */; };
-		7D2E4D2E2F753633002F0A40 /* TalsecRuntime.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2E4D2A2F753633002F0A40 /* TalsecRuntime.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7DFDD5E42F7AD0EE001A80A7 /* TalsecBridge.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DE549882F7ACE020050612B /* TalsecBridge.xcframework */; };
+		7DFDD5E52F7AD0EE001A80A7 /* TalsecBridge.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DE549882F7ACE020050612B /* TalsecBridge.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7DFDD5E62F7AD0EE001A80A7 /* TalsecRuntime.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2E4D2A2F753633002F0A40 /* TalsecRuntime.xcframework */; };
+		7DFDD5E72F7AD0EE001A80A7 /* TalsecRuntime.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2E4D2A2F753633002F0A40 /* TalsecRuntime.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7DC4DE9E2E687F670028482C /* Embed Frameworks */ = {
+		7DFDD5E82F7AD0EE001A80A7 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7D2E4D2E2F753633002F0A40 /* TalsecRuntime.xcframework in Embed Frameworks */,
-				7D2E4D2C2F753633002F0A40 /* TalsecBridge.xcframework in Embed Frameworks */,
+				7DFDD5E72F7AD0EE001A80A7 /* TalsecRuntime.xcframework in Embed Frameworks */,
+				7DFDD5E52F7AD0EE001A80A7 /* TalsecBridge.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -29,8 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7D2E4D292F753633002F0A40 /* TalsecBridge.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TalsecBridge.xcframework; path = ../../library/src/iosMain/nativeTalsec/TalsecBridge.xcframework; sourceTree = "<group>"; };
 		7D2E4D2A2F753633002F0A40 /* TalsecRuntime.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:PBDDS45LQS:Lynx SFT s.r.o."; lastKnownFileType = wrapper.xcframework; name = TalsecRuntime.xcframework; path = ../../library/src/iosMain/nativeTalsec/TalsecRuntime.xcframework; sourceTree = "<group>"; };
+		7DE549882F7ACE020050612B /* TalsecBridge.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TalsecBridge.xcframework; path = ../../library/src/iosMain/nativeTalsec/TalsecBridge.xcframework; sourceTree = "<group>"; };
 		B9DA97B12DC1472C00A4DA20 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -65,8 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D2E4D2D2F753633002F0A40 /* TalsecRuntime.xcframework in Frameworks */,
-				7D2E4D2B2F753633002F0A40 /* TalsecBridge.xcframework in Frameworks */,
+				7DFDD5E62F7AD0EE001A80A7 /* TalsecRuntime.xcframework in Frameworks */,
+				7DFDD5E42F7AD0EE001A80A7 /* TalsecBridge.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +76,7 @@
 		7DC4DE9A2E687F670028482C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7D2E4D292F753633002F0A40 /* TalsecBridge.xcframework */,
+				7DE549882F7ACE020050612B /* TalsecBridge.xcframework */,
 				7D2E4D2A2F753633002F0A40 /* TalsecRuntime.xcframework */,
 			);
 			name = Frameworks;
@@ -111,7 +111,7 @@
 				B9DA97AD2DC1472C00A4DA20 /* Sources */,
 				B9DA97AE2DC1472C00A4DA20 /* Frameworks */,
 				B9DA97AF2DC1472C00A4DA20 /* Resources */,
-				7DC4DE9E2E687F670028482C /* Embed Frameworks */,
+				7DFDD5E82F7AD0EE001A80A7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
