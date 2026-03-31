@@ -2,6 +2,7 @@ package com.jetbrains.example.ui
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -64,6 +66,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.freeraspkmp.model.SuspiciousAppInfo
+import com.jetbrains.example.model.CheckId
 import com.jetbrains.example.model.SecurityCheck
 import kotlinx.coroutines.launch
 
@@ -165,6 +168,7 @@ fun SecurityDashboard(
                     onStore = {
                         if (externalIdValue.isNotBlank()) {
                             onStoreExternalId(externalIdValue) { message, isSuccess ->
+                                if (isSuccess) externalIdExpanded = false
                                 showFeedback(
                                     message,
                                     if (isSuccess) FeedbackType.Success else FeedbackType.Error,
@@ -175,6 +179,7 @@ fun SecurityDashboard(
                     onRemove = {
                         onRemoveExternalId {
                             externalIdValue = ""
+                            externalIdExpanded = false
                             showFeedback("External ID removed", FeedbackType.Success)
                         }
                     },
@@ -189,7 +194,12 @@ fun SecurityDashboard(
                 )
             }
             items(checks, key = { it.id }) { check ->
-                SecurityCheckRow(check = check)
+                SecurityCheckRow(
+                    check = check,
+                    onClick = if (check.id == CheckId.MALWARE && malwareApps.isNotEmpty()) {
+                        { showMalwareSheet = true }
+                    } else null,
+                )
             }
         }
     }
@@ -441,14 +451,16 @@ private fun FeedbackSnackbar(visuals: FeedbackSnackbarVisuals) {
 }
 
 @Composable
-private fun SecurityCheckRow(check: SecurityCheck) {
+private fun SecurityCheckRow(check: SecurityCheck, onClick: (() -> Unit)? = null) {
     val containerColor = if (check.isDetected) ThreatRedContainer else MaterialTheme.colorScheme.surface
     val iconTint = if (check.isDetected) ThreatRed else SafeGreen
     val icon: ImageVector = if (check.isDetected) Icons.Default.Warning else Icons.Default.CheckCircle
     val statusText = if (check.isDetected) "Threat" else "Safe"
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(if (onClick != null) Modifier.clickable { onClick() } else Modifier),
         colors = CardDefaults.cardColors(containerColor = containerColor),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
@@ -476,12 +488,27 @@ private fun SecurityCheckRow(check: SecurityCheck) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            Text(
-                text = statusText,
-                style = MaterialTheme.typography.labelMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = iconTint,
-            )
+            if (onClick != null) {
+                OutlinedButton(
+                    onClick = onClick,
+                    contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                    modifier = Modifier.height(32.dp),
+                    border = BorderStroke(1.dp, ThreatRed),
+                ) {
+                    Text(
+                        text = "Details",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = ThreatRed,
+                    )
+                }
+            } else {
+                Text(
+                    text = statusText,
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = iconTint,
+                )
+            }
         }
     }
 }
