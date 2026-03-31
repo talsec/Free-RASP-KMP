@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `raspExecutionStateEvents: SharedFlow<RaspExecutionStateEvent>` to `FreeraspKMP` — a dedicated channel for RASP execution lifecycle events
 - Added `RaspExecutionStateEvent` sealed class with `AllChecksFinished` event, indicating that all security checks have completed
 - Added `FreeRaspEvent.Automation` for detecting automation frameworks (e.g. Appium) — Android only
-- Added `removeExternalId()` to `FreeraspKMP` — removes a previously stored external ID (Android only; no-op on iOS)
+- Added `removeExternalId()` to `FreeraspKMP` — removes a previously stored external ID
 - Added `permissions` field to `SuspiciousAppInfo`
 
 #### Changed
@@ -29,15 +29,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Android
 
 #### Added
+- Added Automation detection for detecting automation frameworks (e.g. Appium)
 - Added new detection check for KernelSU
+- Added wireless ADB detection to existing ADB detections
+
+#### Changed
+- Improved `HMA` and root detection capabilities
 
 #### Fixed
 - Fixed memory management issues in the native code
+- Patched possibility of `getInstalledPackages` throwing `DeadSystemException`
+- Patched possibility of `getNetworkCapabilities` throwing `SecurityException`
+- Fixed well-known issue of `Cipher.init` throwing `KeyStoreConnectException`
+
+#### Removed
+- Removed deprecated `monitoring` feature
 
 ### iOS
 
+#### Changed
+- Improved `timeSpoofing` detection methods
+
 #### Fixed
 - Fixed new jailbreak checks false positives on iOS 14 and 13
+- Fixed false positives with jailbreak on iOS 15 and 16
+- Fixed issue with app crashing on screenshot/screen recording
+- Fixed retrigger jailbreak issue on iOS 15 and 16
 
 ## [1.0.0] - 2025-12-05
 
