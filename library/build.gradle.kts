@@ -19,7 +19,7 @@ fun getVariable(name: String): String {
 
 
 group = "com.aheaditec.talsec.security"
-version = "1.0.0"
+version = "1.1.0"
 kotlin {
     targets.all {
         compilations.all {
