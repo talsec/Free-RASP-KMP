@@ -12,11 +12,16 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.model.RaspExecutionStateEvent
 import com.freeraspkmp.model.config.freeraspConfig
 import com.freeraspkmp.android.utils.AppIconUtil
 import com.freeraspkmp.android.utils.toNativeConfig
 import com.freeraspkmp.android.providers.ContextProvider
-import com.freeraspkmp.android.handlers.ThreatHandler
+import com.aheaditec.talsec_security.security.api.ExternalIdResult
+import com.aheaditec.talsec_security.security.api.TalsecMode
+import com.freeraspkmp.android.handlers.ThreatDetectedHandler
+import com.freeraspkmp.android.handlers.DeviceStateHandler
+import com.freeraspkmp.android.handlers.RaspExecutionStateHandler
 import kotlinx.coroutines.cancel
 import com.freeraspkmp.model.exception.FreeraspKMPException
 import com.freeraspkmp.android.providers.ActivityProvider
@@ -26,10 +31,12 @@ import com.freeraspkmp.android.utils.verifyConfig
 actual object FreeraspKMP {
 
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
-    private val eventCache = mutableListOf<FreeRaspEvent>()
+    private val eventCache = mutableSetOf<FreeRaspEvent>()
     private val cacheLock = Any()
     private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
     actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
+    private val _raspExecutionStateEvents = MutableSharedFlow<RaspExecutionStateEvent>(replay = 1)
+    actual val raspExecutionStateEvents: SharedFlow<RaspExecutionStateEvent> = _raspExecutionStateEvents.asSharedFlow()
 
     init {
         scope.launch {
@@ -52,11 +59,13 @@ actual object FreeraspKMP {
         }
     }
 
-    private val threatHandler = ThreatHandler { event ->
-        emitEvent(event)
+    private val threatDetectedHandler = ThreatDetectedHandler { event -> emitEvent(event) }
+    private val deviceStateHandler = DeviceStateHandler { event -> emitEvent(event) }
+    private val raspExecutionStateHandler = RaspExecutionStateHandler {
+        scope.launch { _raspExecutionStateEvents.emit(RaspExecutionStateEvent.AllChecksFinished) }
     }
 
-    private val nativeListener = ThreatListener(threatHandler, threatHandler, threatHandler)
+    private val nativeListener = ThreatListener(threatDetectedHandler, deviceStateHandler, raspExecutionStateHandler)
 
     actual suspend fun start(config: freeraspConfig) {
         verifyConfig(config)
@@ -69,7 +78,14 @@ actual object FreeraspKMP {
 
             nativeListener.registerListener(context)
 
-            Talsec.start(context, nativeConfig)
+            Talsec.start(context, nativeConfig, TalsecMode.BACKGROUND)
+        }
+    }
+
+    actual suspend fun removeExternalId() {
+        withContext(Dispatchers.IO) {
+            val context = ContextProvider.getApplicationContext()
+            Talsec.removeExternalId(context)
         }
     }
 
@@ -85,7 +101,10 @@ actual object FreeraspKMP {
         withContext(Dispatchers.IO){
             val context = ContextProvider.getApplicationContext()
 
-            Talsec.storeExternalId(context, data)
+            when (val result = Talsec.storeExternalId(context, data)) {
+                is ExternalIdResult.Success -> Unit
+                is ExternalIdResult.Error -> throw com.freeraspkmp.model.exception.FreeraspKMPException(result.errorMsg)
+            }
         }
     }
 

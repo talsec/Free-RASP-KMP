@@ -19,8 +19,18 @@ fun getVariable(name: String): String {
 
 
 group = "com.aheaditec.talsec.security"
-version = "1.0.0"
+version = "1.1.0"
 kotlin {
+    targets.all {
+        compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    freeCompilerArgs.add("-Xexpect-actual-classes")
+                }
+            }
+        }
+    }
+
     androidTarget {
         publishLibraryVariants("release")
         compilerOptions {
@@ -67,7 +77,7 @@ kotlin {
             languageSettings.optIn("kotlin.ExperimentalMultiplatform")
 
             dependencies{
-                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:17.0.0")
+                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:18.0.4")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
                 implementation("androidx.startup:startup-runtime:1.2.0")
                 implementation("androidx.annotation:annotation:1.9.1")

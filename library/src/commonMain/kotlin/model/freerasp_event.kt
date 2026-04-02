@@ -105,9 +105,9 @@ sealed class FreeRaspEvent {
     data object LocationSpoofing : FreeRaspEvent()
 
     /**
-     * Indicates that all security checks have finished.
+     * Indicates that automation framework (e.g. Appium) was detected. Android only.
      */
-    data object AllChecksFinished : FreeRaspEvent()
+    data object Automation : FreeRaspEvent()
 
     /**
      * Indicates that malware was detected on the device.

@@ -17,6 +17,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import com.freeraspkmp.model.config.freeraspConfig
 import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.model.RaspExecutionStateEvent
 import com.freeraspkmp.ios.utils.mapStringToFreeraspEvent
 import com.freeraspkmp.ios.utils.toNativeConfig
 import kotlin.coroutines.resume
@@ -26,15 +27,21 @@ import com.freeraspkmp.ios.utils.verifyConfig
 actual object FreeraspKMP {
     private val NativeTalsec = TalsecApiBridge.shared()
     private val scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
-    private val eventCache = mutableListOf<FreeRaspEvent>()
+    private val eventCache = mutableSetOf<FreeRaspEvent>()
     private val cacheMutex = Mutex()
     private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
     actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
+    private val _raspExecutionStateEvents = MutableSharedFlow<RaspExecutionStateEvent>(replay = 1)
+    actual val raspExecutionStateEvents: SharedFlow<RaspExecutionStateEvent> = _raspExecutionStateEvents.asSharedFlow()
 
     init {
         NativeTalsec.setThreatDetectedCallback { threatString ->
-            mapStringToFreeraspEvent(threatString)?.let { event ->
-                emitEvent(event)
+            if (threatString == "allChecksFinished") {
+                scope.launch { _raspExecutionStateEvents.emit(RaspExecutionStateEvent.AllChecksFinished) }
+            } else {
+                mapStringToFreeraspEvent(threatString)?.let { event ->
+                    emitEvent(event)
+                }
             }
         }
 
@@ -45,7 +52,7 @@ actual object FreeraspKMP {
                         val eventsToEmit = eventCache.toList()
                         eventCache.clear()
                         eventsToEmit.forEach { event ->
-                            scope.launch { _threatEvents.emit(event) }
+                            _threatEvents.emit(event)
                         }
                     }
                 }
@@ -78,6 +85,10 @@ actual object FreeraspKMP {
 
     actual suspend fun storeExternalId(data: String) {
         NativeTalsec.storeExternalId(data)
+    }
+
+    actual suspend fun removeExternalId() {
+        NativeTalsec.removeExternalId()
     }
 
     actual suspend fun addToWhiteList(packageName: String) {
