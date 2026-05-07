@@ -12,5 +12,6 @@ data class AndroidConfig(
     val packageName: String,
     val certificateHashes: List<String>,
     val supportedAlternativeStores: List<String> = emptyList(),
+    @Deprecated("Use SuspiciousAppDetectionConfig instead")
     val malwareConfig: MalwareConfig? = null
 )

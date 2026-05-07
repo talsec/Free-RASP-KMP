@@ -4,6 +4,7 @@ import com.aheaditec.talsec_security.security.api.TalsecConfig
 import com.freeraspkmp.model.config.freeraspConfig
 import com.freeraspkmp.model.exception.FreeraspKMPException
 
+@Suppress("DEPRECATION")
 fun freeraspConfig.toNativeConfig(): TalsecConfig {
     val androidConfig = this.androidConfig ?: throw FreeraspKMPException("AndroidConfig is required on the Android platform but was null.")
 
