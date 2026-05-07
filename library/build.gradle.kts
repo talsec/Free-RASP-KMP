@@ -77,7 +77,7 @@ kotlin {
             languageSettings.optIn("kotlin.ExperimentalMultiplatform")
 
             dependencies{
-                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:18.0.4")
+                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:18.3.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
                 implementation("androidx.startup:startup-runtime:1.2.0")
                 implementation("androidx.annotation:annotation:1.9.1")
