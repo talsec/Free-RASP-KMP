@@ -74,7 +74,7 @@ internal fun SuspiciousAppDetectionConfig.toNative(): NativeSuspiciousAppDetecti
 internal fun MalwareScanScope.toNative(): NativeMalwareScanScope =
     NativeMalwareScanScope(
         scanScope = scanScope.toNative(),
-        trustedInstallSources = trustedInstallSources?.toSet()
+        trustedInstallSources = trustedInstallSources
     )
 
 internal fun ScopeType.toNative(): NativeScopeType =
