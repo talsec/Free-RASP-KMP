@@ -1,8 +1,16 @@
 package com.freeraspkmp.android.utils
 
 import com.aheaditec.talsec_security.security.api.TalsecConfig
+import com.freeraspkmp.model.config.MalwareScanScope
+import com.freeraspkmp.model.config.ReasonMode
+import com.freeraspkmp.model.config.ScopeType
+import com.freeraspkmp.model.config.SuspiciousAppDetectionConfig
 import com.freeraspkmp.model.config.freeraspConfig
 import com.freeraspkmp.model.exception.FreeraspKMPException
+import com.aheaditec.talsec_security.security.api.SuspiciousAppDetectionConfig as NativeSuspiciousAppDetectionConfig
+import com.aheaditec.talsec_security.security.api.MalwareScanScope as NativeMalwareScanScope
+import com.aheaditec.talsec_security.security.api.ScopeType as NativeScopeType
+import com.aheaditec.talsec_security.security.api.ReasonMode as NativeReasonMode
 
 @Suppress("DEPRECATION")
 fun freeraspConfig.toNativeConfig(): TalsecConfig {
@@ -44,7 +52,42 @@ fun freeraspConfig.toNativeConfig(): TalsecConfig {
                 whitelistedInstallationSources(malware.whitelistedInstallationSources.toTypedArray())
             }
         }
+
+        androidConfig.suspiciousAppDetectionConfig?.let {
+            suspiciousAppDetection(it.toNative())
+        }
     }
     return builder.build()
 
 }
+
+internal fun SuspiciousAppDetectionConfig.toNative(): NativeSuspiciousAppDetectionConfig =
+    NativeSuspiciousAppDetectionConfig(
+        packageNames = packageNames?.toSet(),
+        hashes = hashes?.toSet(),
+        requestedPermissions = requestedPermissions?.map { it.toSet() }?.toSet(),
+        grantedPermissions = grantedPermissions?.map { it.toSet() }?.toSet(),
+        malwareScanScope = malwareScanScope?.toNative(),
+        reasonMode = reasonMode?.toNative()
+    )
+
+internal fun MalwareScanScope.toNative(): NativeMalwareScanScope =
+    NativeMalwareScanScope(
+        scanScope = scanScope.toNative(),
+        trustedInstallSources = trustedInstallSources?.toSet()
+    )
+
+internal fun ScopeType.toNative(): NativeScopeType =
+    when (this) {
+        ScopeType.SIDELOADED_ONLY -> NativeScopeType.SIDELOADED_ONLY
+        ScopeType.SIDELOADED_AND_SYSTEM_EXCLUDE_OEM -> NativeScopeType.SIDELOADED_AND_SYSTEM_EXCLUDE_OEM
+        ScopeType.SIDELOADED_AND_OEM -> NativeScopeType.SIDELOADED_AND_OEM
+        ScopeType.SIDELOADED_AND_SYSTEM_AND_OEM -> NativeScopeType.SIDELOADED_AND_SYSTEM_AND_OEM
+        ScopeType.ALL -> NativeScopeType.ALL
+    }
+
+internal fun ReasonMode.toNative(): NativeReasonMode =
+    when (this) {
+        ReasonMode.ALL -> NativeReasonMode.ALL
+        ReasonMode.HIGHEST_CONFIDENCE -> NativeReasonMode.HIGHEST_CONFIDENCE
+    }

@@ -12,7 +12,7 @@ import com.freeraspkmp.model.FreeRaspEvent
 import com.freeraspkmp.model.SuspiciousAppInfo
 import com.freeraspkmp.model.config.AndroidConfig
 import com.freeraspkmp.model.config.IOSConfig
-import com.freeraspkmp.model.config.MalwareConfig
+import com.freeraspkmp.model.config.SuspiciousAppDetectionConfig
 import com.freeraspkmp.model.config.freeraspConfig
 import com.jetbrains.example.model.initialChecks
 import com.jetbrains.example.model.toCheckId
@@ -33,8 +33,8 @@ fun App() {
                 androidConfig = AndroidConfig(
                     packageName = "com.jetbrains.example",
                     certificateHashes = listOf("K/iFV7+CypnATFWcrUVM6aUIB5gnU2xwzRJOiKJJqPw="),
-                    malwareConfig = MalwareConfig(
-                        blacklistedPackageNames = listOf("com.google.android.youtube")
+                    suspiciousAppDetectionConfig = SuspiciousAppDetectionConfig(
+                        packageNames = listOf("com.google.android.youtube")
                     )
                 ),
                 iosConfig = IOSConfig(
