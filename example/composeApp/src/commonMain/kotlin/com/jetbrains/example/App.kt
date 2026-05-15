@@ -12,6 +12,9 @@ import com.freeraspkmp.model.FreeRaspEvent
 import com.freeraspkmp.model.SuspiciousAppInfo
 import com.freeraspkmp.model.config.AndroidConfig
 import com.freeraspkmp.model.config.IOSConfig
+import com.freeraspkmp.model.config.MalwareScanScope
+import com.freeraspkmp.model.config.ReasonMode
+import com.freeraspkmp.model.config.ScopeType
 import com.freeraspkmp.model.config.SuspiciousAppDetectionConfig
 import com.freeraspkmp.model.config.freeraspConfig
 import com.jetbrains.example.model.initialChecks
@@ -34,7 +37,24 @@ fun App() {
                     packageName = "com.jetbrains.example",
                     certificateHashes = listOf("K/iFV7+CypnATFWcrUVM6aUIB5gnU2xwzRJOiKJJqPw="),
                     suspiciousAppDetectionConfig = SuspiciousAppDetectionConfig(
-                        packageNames = listOf("com.google.android.youtube")
+                        packageNames = listOf("com.google.android.youtube"),
+                        hashes = listOf("FgvSehLMM91E7lX/Zqp3u4jMmd0A7hH/Iqozu0TMVd0u"),
+                        requestedPermissions = listOf(
+                            listOf(
+                                "android.permission.INTERNET",
+                                "android.permission.ACCESS_COARSE_LOCATION",
+                            ),
+                            listOf("android.permission.BLUETOOTH"),
+                            listOf("android.permission.BATTERY_STATS"),
+                        ),
+                        grantedPermissions = listOf(
+                            listOf("android.permission.ACCESS_FINE_LOCATION"),
+                        ),
+                        malwareScanScope = MalwareScanScope(
+                            scanScope = ScopeType.SIDELOADED_AND_SYSTEM_EXCLUDE_OEM,
+                            trustedInstallSources = listOf("com.apkpure.aegon"),
+                        ),
+                        reasonMode = ReasonMode.HIGHEST_CONFIDENCE,
                     )
                 ),
                 iosConfig = IOSConfig(
