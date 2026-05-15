@@ -28,20 +28,22 @@ data class MalwareScanScope(
 )
 
 /**
- * Configuration for malware detection. Replaces [MalwareConfig].
+ * Configuration for malware detection.
  *
  * @param packageNames Package names of known malicious apps.
  * @param hashes Certificate hashes of known malicious apps.
  * @param requestedPermissions Groups of permissions an app must request to be flagged as suspicious.
  * @param grantedPermissions Groups of permissions an app must be granted to be flagged as suspicious.
  * @param malwareScanScope Defines which apps are scanned.
+ *   Defaults to [MalwareScanScope] with [ScopeType.SIDELOADED_ONLY].
  * @param reasonMode Controls how detection reasons are reported.
+ *   Defaults to [ReasonMode.HIGHEST_CONFIDENCE].
  */
 data class SuspiciousAppDetectionConfig(
     val packageNames: List<String>? = null,
     val hashes: List<String>? = null,
     val requestedPermissions: List<List<String>>? = null,
     val grantedPermissions: List<List<String>>? = null,
-    val malwareScanScope: MalwareScanScope? = null,
-    val reasonMode: ReasonMode? = null
+    val malwareScanScope: MalwareScanScope = MalwareScanScope(ScopeType.SIDELOADED_ONLY),
+    val reasonMode: ReasonMode = ReasonMode.HIGHEST_CONFIDENCE
 )

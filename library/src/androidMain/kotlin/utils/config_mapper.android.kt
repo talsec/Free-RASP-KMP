@@ -67,8 +67,8 @@ internal fun SuspiciousAppDetectionConfig.toNative(): NativeSuspiciousAppDetecti
         hashes = hashes?.toSet(),
         requestedPermissions = requestedPermissions?.map { it.toSet() }?.toSet(),
         grantedPermissions = grantedPermissions?.map { it.toSet() }?.toSet(),
-        malwareScanScope = malwareScanScope?.toNative(),
-        reasonMode = reasonMode?.toNative()
+        malwareScanScope = malwareScanScope.toNative(),
+        reasonMode = reasonMode.toNative()
     )
 
 internal fun MalwareScanScope.toNative(): NativeMalwareScanScope =
