@@ -12,7 +12,6 @@ import com.aheaditec.talsec_security.security.api.MalwareScanScope as NativeMalw
 import com.aheaditec.talsec_security.security.api.ScopeType as NativeScopeType
 import com.aheaditec.talsec_security.security.api.ReasonMode as NativeReasonMode
 
-@Suppress("DEPRECATION")
 fun freeraspConfig.toNativeConfig(): TalsecConfig {
     val androidConfig = this.androidConfig ?: throw FreeraspKMPException("AndroidConfig is required on the Android platform but was null.")
 
@@ -28,29 +27,6 @@ fun freeraspConfig.toNativeConfig(): TalsecConfig {
 
         androidConfig.supportedAlternativeStores?.let {
             supportedAlternativeStores(it.toTypedArray())
-        }
-
-        androidConfig.malwareConfig?.let { malware ->
-            if(malware.blacklistedPackageNames.isNotEmpty())
-            {
-                blacklistedPackageNames(malware.blacklistedPackageNames.toTypedArray())
-            }
-            if(malware.blacklistedHashes.isNotEmpty())
-            {
-                blacklistedHashes(malware.blacklistedHashes.toTypedArray())
-            }
-            if (malware.suspiciousPermissions.isNotEmpty())
-            {
-                val nativePermissions = malware.suspiciousPermissions
-                    .map { innerList -> innerList.toTypedArray() }
-                    .toTypedArray()
-
-                suspiciousPermissions(nativePermissions)
-            }
-            if(malware.whitelistedInstallationSources.isNotEmpty())
-            {
-                whitelistedInstallationSources(malware.whitelistedInstallationSources.toTypedArray())
-            }
         }
 
         androidConfig.suspiciousAppDetectionConfig?.let {

@@ -6,14 +6,11 @@ package com.freeraspkmp.model.config
  * @param packageName The expected package name of the app.
  * @param certificateHashes A list of expected certificate hashes in base64.
  * @param supportedAlternativeStores A list of package names for supported alternative stores.
- * @param malwareConfig Deprecated. Use [suspiciousAppDetectionConfig] instead.
  * @param suspiciousAppDetectionConfig Configuration for malware detection.
  */
 data class AndroidConfig(
     val packageName: String,
     val certificateHashes: List<String>,
     val supportedAlternativeStores: List<String> = emptyList(),
-    @Deprecated("Use SuspiciousAppDetectionConfig instead")
-    val malwareConfig: MalwareConfig? = null,
     val suspiciousAppDetectionConfig: SuspiciousAppDetectionConfig? = null
 )
