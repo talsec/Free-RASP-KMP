@@ -39,18 +39,18 @@ fun freeraspConfig.toNativeConfig(): TalsecConfig {
 
 internal fun SuspiciousAppDetectionConfig.toNative(): NativeSuspiciousAppDetectionConfig =
     NativeSuspiciousAppDetectionConfig(
-        packageNames = packageNames?.toSet(),
-        hashes = hashes?.toSet(),
-        requestedPermissions = requestedPermissions?.map { it.toSet() }?.toSet(),
-        grantedPermissions = grantedPermissions?.map { it.toSet() }?.toSet(),
-        malwareScanScope = malwareScanScope.toNative(),
-        reasonMode = reasonMode.toNative()
+        packageNames?.toSet(),
+        hashes?.toSet(),
+        requestedPermissions?.map { it.toSet() }?.toSet(),
+        grantedPermissions?.map { it.toSet() }?.toSet(),
+        malwareScanScope.toNative(),
+        reasonMode.toNative()
     )
 
 internal fun MalwareScanScope.toNative(): NativeMalwareScanScope =
     NativeMalwareScanScope(
-        scanScope = scanScope.toNative(),
-        trustedInstallSources = trustedInstallSources
+        scanScope.toNative(),
+        trustedInstallSources
     )
 
 internal fun ScopeType.toNative(): NativeScopeType =
