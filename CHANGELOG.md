@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.0] - 2026-05-07
+## [2.0.0] - 2026-05-15
 
 - Android SDK version: 18.3.0
 - iOS SDK version: 6.14.4
@@ -14,12 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `SuspiciousAppInfo.reason` (String) renamed to `reasons` (Set<String>)
 - Value `"blacklist"` in `reasons` renamed to `"blocklist"`
-
-### Kotlin Multiplatform
-
-#### Deprecated
-
-- `blacklistedPackageNames`, `blacklistedHashes`, `suspiciousPermissions`, `whitelistedInstallationSources` are deprecated but remain functional — use `SuspiciousAppDetectionConfig` instead
+- Removed `MalwareConfig` and `AndroidConfig.malwareConfig`
+- `SuspiciousAppDetectionConfig.malwareScanScope` and `reasonMode` are now non-null with defaults `MalwareScanScope(ScopeType.SIDELOADED_ONLY)` and `ReasonMode.HIGHEST_CONFIDENCE`
 
 ### Android
 
@@ -47,7 +43,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fine-tuned hook detection
 - Fine-tuned location spoofing detection
 - Modified malware incident log structure for better aggregation
-- Old malware configuration API methods in `TalsecConfig.Builder` tagged as deprecated (but remain functional): `blacklistedPackageNames`, `blacklistedHashes`, `suspiciousPermissions`, `whitelistedInstallationSources`
 
 ## [1.1.0] - 2025-03-25
 
