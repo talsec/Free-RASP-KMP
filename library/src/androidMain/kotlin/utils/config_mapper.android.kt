@@ -1,7 +1,7 @@
 package com.freeraspkmp.android.utils
 
 import com.aheaditec.talsec_security.security.api.TalsecConfig
-import com.freeraspkmp.model.config.MalwareScanScope
+import com.freeraspkmp.model.config.ScanScope
 import com.freeraspkmp.model.config.ReasonMode
 import com.freeraspkmp.model.config.ScopeType
 import com.freeraspkmp.model.config.SuspiciousAppDetectionConfig
@@ -43,11 +43,11 @@ internal fun SuspiciousAppDetectionConfig.toNative(): NativeSuspiciousAppDetecti
         hashes?.toSet(),
         requestedPermissions?.map { it.toSet() }?.toSet(),
         grantedPermissions?.map { it.toSet() }?.toSet(),
-        malwareScanScope.toNative(),
+        scanScope.toNative(),
         reasonMode.toNative()
     )
 
-internal fun MalwareScanScope.toNative(): NativeMalwareScanScope =
+internal fun ScanScope.toNative(): NativeMalwareScanScope =
     NativeMalwareScanScope(
         scanScope.toNative(),
         trustedInstallSources

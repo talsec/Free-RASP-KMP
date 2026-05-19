@@ -12,7 +12,7 @@ import com.freeraspkmp.model.FreeRaspEvent
 import com.freeraspkmp.model.SuspiciousAppInfo
 import com.freeraspkmp.model.config.AndroidConfig
 import com.freeraspkmp.model.config.IOSConfig
-import com.freeraspkmp.model.config.MalwareScanScope
+import com.freeraspkmp.model.config.ScanScope
 import com.freeraspkmp.model.config.ReasonMode
 import com.freeraspkmp.model.config.ScopeType
 import com.freeraspkmp.model.config.SuspiciousAppDetectionConfig
@@ -50,7 +50,7 @@ fun App() {
                         grantedPermissions = listOf(
                             listOf("android.permission.ACCESS_FINE_LOCATION"),
                         ),
-                        malwareScanScope = MalwareScanScope(
+                        scanScope = ScanScope(
                             scanScope = ScopeType.SIDELOADED_AND_SYSTEM_EXCLUDE_OEM,
                             trustedInstallSources = listOf("com.apkpure.aegon"),
                         ),
