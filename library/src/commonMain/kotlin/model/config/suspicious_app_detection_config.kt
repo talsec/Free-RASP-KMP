@@ -19,11 +19,11 @@ enum class ReasonMode { ALL, HIGHEST_CONFIDENCE }
 /**
  * Defines which installed apps should be scanned for malware.
  *
- * @param scanScope The set of apps to include in the scan.
+ * @param scopeType The set of apps to include in the scan.
  * @param trustedInstallSources Installation sources whose apps should be excluded from the scan.
  */
 data class ScanScope(
-    val scanScope: ScopeType,
+    val scopeType: ScopeType,
     val trustedInstallSources: List<String>? = null
 )
 

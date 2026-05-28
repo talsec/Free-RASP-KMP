@@ -51,7 +51,7 @@ fun App() {
                             listOf("android.permission.ACCESS_FINE_LOCATION"),
                         ),
                         scanScope = ScanScope(
-                            scanScope = ScopeType.SIDELOADED_AND_SYSTEM_EXCLUDE_OEM,
+                            scopeType = ScopeType.SIDELOADED_AND_SYSTEM_EXCLUDE_OEM,
                             trustedInstallSources = listOf("com.apkpure.aegon"),
                         ),
                         reasonMode = ReasonMode.HIGHEST_CONFIDENCE,
