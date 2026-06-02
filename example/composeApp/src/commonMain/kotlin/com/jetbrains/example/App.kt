@@ -12,7 +12,10 @@ import com.freeraspkmp.model.FreeRaspEvent
 import com.freeraspkmp.model.SuspiciousAppInfo
 import com.freeraspkmp.model.config.AndroidConfig
 import com.freeraspkmp.model.config.IOSConfig
-import com.freeraspkmp.model.config.MalwareConfig
+import com.freeraspkmp.model.config.ScanScope
+import com.freeraspkmp.model.config.ReasonMode
+import com.freeraspkmp.model.config.ScopeType
+import com.freeraspkmp.model.config.SuspiciousAppDetectionConfig
 import com.freeraspkmp.model.config.freeraspConfig
 import com.jetbrains.example.model.initialChecks
 import com.jetbrains.example.model.toCheckId
@@ -33,8 +36,25 @@ fun App() {
                 androidConfig = AndroidConfig(
                     packageName = "com.jetbrains.example",
                     certificateHashes = listOf("K/iFV7+CypnATFWcrUVM6aUIB5gnU2xwzRJOiKJJqPw="),
-                    malwareConfig = MalwareConfig(
-                        blacklistedPackageNames = listOf("com.google.android.youtube")
+                    suspiciousAppDetectionConfig = SuspiciousAppDetectionConfig(
+                        packageNames = listOf("com.google.android.youtube"),
+                        hashes = listOf("FgvSehLMM91E7lX/Zqp3u4jMmd0A7hH/Iqozu0TMVd0u"),
+                        requestedPermissions = listOf(
+                            listOf(
+                                "android.permission.INTERNET",
+                                "android.permission.ACCESS_COARSE_LOCATION",
+                            ),
+                            listOf("android.permission.BLUETOOTH"),
+                            listOf("android.permission.BATTERY_STATS"),
+                        ),
+                        grantedPermissions = listOf(
+                            listOf("android.permission.ACCESS_FINE_LOCATION"),
+                        ),
+                        scanScope = ScanScope(
+                            scopeType = ScopeType.SIDELOADED_AND_SYSTEM_EXCLUDE_OEM,
+                            trustedInstallSources = listOf("com.apkpure.aegon"),
+                        ),
+                        reasonMode = ReasonMode.HIGHEST_CONFIDENCE,
                     )
                 ),
                 iosConfig = IOSConfig(

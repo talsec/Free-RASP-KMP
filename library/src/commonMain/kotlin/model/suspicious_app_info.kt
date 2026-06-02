@@ -4,12 +4,12 @@ package com.freeraspkmp.model
  * Contains information about a suspicious app.
  *
  * @param packageInfo Information about the suspicious package.
- * @param reason The reason why the app is considered suspicious.
- * @param permissions A set of suspicious permissions held by the app. Populated when reason is `suspiciousPermission`.
+ * @param reasons The reasons why the app is considered suspicious.
+ * @param permissions A set of suspicious permissions held by the app. Populated when reasons contain `suspiciousPermission`.
  */
 data class SuspiciousAppInfo(
     val packageInfo: PackageInfo,
-    val reason: String,
+    val reasons: Set<String>,
     val permissions: Set<String> = emptySet()
 )
 
