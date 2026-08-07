@@ -10,7 +10,7 @@
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/Info.plist</key>
 		<data>
-		4pI5j8NGLDqEd/OZJnyc+ocjgxM=
+		yqe7Yu658nnrvaC3u0vV+gffjZ8=
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/PrivacyInfo.xcprivacy</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/TalsecRuntime</key>
 		<data>
-		Y213lKskCJqPv32DGE9vCE0Hz9s=
+		M3TnkWKQXnST5iVIoW/nkWEyMVc=
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/_CodeSignature/CodeResources</key>
 		<data>
-		2SjUFO1Z8sHwuPhm8hjVl0KJDAs=
+		7R2qp2ofudE5edHsRzCx7NduT1o=
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/cacert.pem</key>
 		<data>
@@ -56,10 +56,6 @@
 		<data>
 		md++BGDsQJ81SM8LwiM8Bb6iV1k=
 		</data>
-		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftmodule</key>
-		<data>
-		pHF/nPXIx4k6Wv+E+ING2kfSB1E=
-		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		3g/15mHdzVcR2cnGC0101BR6/TI=
@@ -78,7 +74,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TCi1uJQPaYbeJInZZipnibqIrlDrm40pP/Uu1cxF1+8=
+			85yldaf+2IQRaUvolNvjHU4jOg+3vJX3oCChs1sdYRc=
 			</data>
 		</dict>
 		<key>Frameworks/TalsecRuntime.framework/PrivacyInfo.xcprivacy</key>
@@ -92,14 +88,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EMMeVcnA/Aldsp7GNnWGu5ZwKeG2L1i1S5bYVz8N+R8=
+			IPfp8XVM9T4enKh4W2Oshjb9q7UxhTIEtElz79+pkrs=
 			</data>
 		</dict>
 		<key>Frameworks/TalsecRuntime.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			99JpehTLlntlHQEgkxb+nhmMOQfhcENGX7Kt+e6OynM=
+			MoCXnjEkwQDK9pcHtnR+M1xhgyHr/9WYMyGTffAw2bo=
 			</data>
 		</dict>
 		<key>Frameworks/TalsecRuntime.framework/cacert.pem</key>
@@ -149,13 +145,6 @@
 			<key>hash2</key>
 			<data>
 			Vx7FpUpbiMJ62u9a1sSV7EYLbCGCEvQfITEq4AX94As=
-			</data>
-		</dict>
-		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftmodule</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			94DimUDw0MH1mDSjKY24csyAVHrngOnbYoAlf3w6n3E=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
