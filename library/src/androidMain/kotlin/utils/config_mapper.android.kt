@@ -1,16 +1,16 @@
 package com.freeraspkmp.android.utils
 
-import com.aheaditec.talsec_security.security.api.TalsecConfig
+import app.talsec.rasp.security.api.TalsecConfig
 import com.freeraspkmp.model.config.ScanScope
 import com.freeraspkmp.model.config.ReasonMode
 import com.freeraspkmp.model.config.ScopeType
 import com.freeraspkmp.model.config.SuspiciousAppDetectionConfig
 import com.freeraspkmp.model.config.freeraspConfig
 import com.freeraspkmp.model.exception.FreeraspKMPException
-import com.aheaditec.talsec_security.security.api.SuspiciousAppDetectionConfig as NativeSuspiciousAppDetectionConfig
-import com.aheaditec.talsec_security.security.api.MalwareScanScope as NativeMalwareScanScope
-import com.aheaditec.talsec_security.security.api.ScopeType as NativeScopeType
-import com.aheaditec.talsec_security.security.api.ReasonMode as NativeReasonMode
+import app.talsec.rasp.security.api.SuspiciousAppDetectionConfig as NativeSuspiciousAppDetectionConfig
+import app.talsec.rasp.security.api.MalwareScanScope as NativeMalwareScanScope
+import app.talsec.rasp.security.api.ScopeType as NativeScopeType
+import app.talsec.rasp.security.api.ReasonMode as NativeReasonMode
 
 fun freeraspConfig.toNativeConfig(): TalsecConfig {
     val androidConfig = this.androidConfig ?: throw FreeraspKMPException("AndroidConfig is required on the Android platform but was null.")
