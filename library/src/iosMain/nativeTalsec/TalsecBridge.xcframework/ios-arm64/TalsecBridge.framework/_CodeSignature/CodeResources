@@ -18,7 +18,7 @@
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/TalsecRuntime</key>
 		<data>
-		M3TnkWKQXnST5iVIoW/nkWEyMVc=
+		zjWObHdVdY0pVRYGnfWdCj2UnlQ=
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -34,31 +34,31 @@
 		</data>
 		<key>Headers/TalsecBridge-Swift.h</key>
 		<data>
-		iBV7f5myH2LFWbBvOGSuvCkDi20=
+		j0m0aSI4HUMTmb8E1bZWls212m0=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		KVHp2ntufZPQIOvqZnRVNVFpEAM=
+		EFUDQMyS9/klYWviKYYK8dnptoE=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		vk6NCEvj+N58mIwpOey30/jwNy0=
+		xCCvosmGsWi3QFzsswSg3VnZX10=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		md++BGDsQJ81SM8LwiM8Bb6iV1k=
+		AqQNlJTBqNr3riG6l+TFNeBnJt4=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		lhHDkFcZn4B3HdI68EOjwamXkiM=
+		3Vlgh6Ovio9Qjw8FZ754fT9CjiY=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		md++BGDsQJ81SM8LwiM8Bb6iV1k=
+		AqQNlJTBqNr3riG6l+TFNeBnJt4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		3g/15mHdzVcR2cnGC0101BR6/TI=
+		9TVy7qXOsE8Xq2BJSx7Du5YRTzM=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -88,7 +88,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IPfp8XVM9T4enKh4W2Oshjb9q7UxhTIEtElz79+pkrs=
+			Jf9N4Tu8ut9nGdJInAP1SPVCXOD31EuFtsj9OFy3WY4=
 			</data>
 		</dict>
 		<key>Frameworks/TalsecRuntime.framework/_CodeSignature/CodeResources</key>
@@ -116,42 +116,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7wuDlP57Nz+9ip9bjMB9eJGWKb7uqmbZuXV17Baycpg=
+			h6N22kpt6UOsIw8uysZ8zAOVt8gOvUimOX0xfUmYO5w=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			MsmKmhP3izM1VyaQwQ+ysnlnn6zNyFnQPluWmNzf1Yo=
+			z523/1ME+4AkWXN8AhDLsuT3yp4Qapvy8s2us9t4iYw=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Vx7FpUpbiMJ62u9a1sSV7EYLbCGCEvQfITEq4AX94As=
+			2TcMSozrV17GdPwBn6p2XIenEWQ64es4AZVfJ9i+dN0=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			MIyZziNGzQjx6bVpFDEL+kGY0OrdUxG8Lq73t/AP0cw=
+			P3fkzIs77bGC/fTOydPRAMHkvQtaZKbgH9OZ7aL9ziY=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Vx7FpUpbiMJ62u9a1sSV7EYLbCGCEvQfITEq4AX94As=
+			2TcMSozrV17GdPwBn6p2XIenEWQ64es4AZVfJ9i+dN0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5AEN1bunxmtwSjV3dJlqeEwviUOI4wgDikh7MLbRF+o=
+			kHo3Han+VUtXKSGbLQFH56kMdteXxD648z5hEGYPgF4=
 			</data>
 		</dict>
 	</dict>

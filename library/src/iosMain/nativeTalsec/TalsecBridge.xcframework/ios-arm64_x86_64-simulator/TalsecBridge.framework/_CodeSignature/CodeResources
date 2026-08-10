@@ -34,47 +34,47 @@
 		</data>
 		<key>Headers/TalsecBridge-Swift.h</key>
 		<data>
-		Ix0bCm0aQ+X6Eyf3AA5Jja0Fudo=
+		gnGn+fJM+dqZv7X08KVWOAz1lNo=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		P6WQC8ZCXYYNCvCkr/+01LC+Az0=
+		OIH8yJsTx1zamiAbg0is+ma6VRA=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		vk6NCEvj+N58mIwpOey30/jwNy0=
+		xCCvosmGsWi3QFzsswSg3VnZX10=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		fMGc9g2BYfRy1wqlC8E8i5w9o24=
+		4CJg5ExqD605vEjfwDio5pGDuH8=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		DG5Q3FeE0wCHckw2dFR9xZqY6tM=
+		unnJT3dry1H+E31iEpuqKfeqAIU=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		fMGc9g2BYfRy1wqlC8E8i5w9o24=
+		4CJg5ExqD605vEjfwDio5pGDuH8=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		vk6NCEvj+N58mIwpOey30/jwNy0=
+		xCCvosmGsWi3QFzsswSg3VnZX10=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		+beKbK1/N+7Wu0095LO+nrUyE1s=
+		0zUEiyp/9mEg5Ezklcxu0CgFmvA=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		F0FYwjOgAvMx3ClrX4WPiU/AP60=
+		6fjCySMSR4XhlrjPbSsfYZGQKMI=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		+beKbK1/N+7Wu0095LO+nrUyE1s=
+		0zUEiyp/9mEg5Ezklcxu0CgFmvA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		3g/15mHdzVcR2cnGC0101BR6/TI=
+		9TVy7qXOsE8Xq2BJSx7Du5YRTzM=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -132,70 +132,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			A9hl8jYpNcaOb6Y47pZDvr68sHF2Jst3jvYhs91d3+w=
+			BLTtsMOQv9e13xLSh1jt7KfpGWEWozDm/Odp02arAsI=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			MsmKmhP3izM1VyaQwQ+ysnlnn6zNyFnQPluWmNzf1Yo=
+			z523/1ME+4AkWXN8AhDLsuT3yp4Qapvy8s2us9t4iYw=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VZmdoMTVqjmgzp19WMOncEmMTLFeSa0cz+6iL29ublI=
+			IvS2VtdMjSHV9dD+L4uwdZfpj1/3C4EW3fa4k2DPN9M=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			V+LcVrWliiFhx8cweFYXJn1FeJiGn5j0IWqff9WgNAM=
+			MKC9aG6ZvYZbN0zb4uN0qPOR02CSej8mmU/Fbqtb2Ok=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VZmdoMTVqjmgzp19WMOncEmMTLFeSa0cz+6iL29ublI=
+			IvS2VtdMjSHV9dD+L4uwdZfpj1/3C4EW3fa4k2DPN9M=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			MsmKmhP3izM1VyaQwQ+ysnlnn6zNyFnQPluWmNzf1Yo=
+			z523/1ME+4AkWXN8AhDLsuT3yp4Qapvy8s2us9t4iYw=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YNDzg3/paATBNJgdsSvCyZKmnYF2P3jn0P/MHDtf6eY=
+			Z+5iEh+jUvhphzbrT23M+vRKBNCHq6vT5X1ICCSxqug=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/ywEuU2k0MAdCue4lvD2sjcdIUhQnordG+Uq9ctAXJ0=
+			fok0dTjJEKiOEfnpaDSXyXGMJEim8qrmmA8/wgtGYeI=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YNDzg3/paATBNJgdsSvCyZKmnYF2P3jn0P/MHDtf6eY=
+			Z+5iEh+jUvhphzbrT23M+vRKBNCHq6vT5X1ICCSxqug=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5AEN1bunxmtwSjV3dJlqeEwviUOI4wgDikh7MLbRF+o=
+			kHo3Han+VUtXKSGbLQFH56kMdteXxD648z5hEGYPgF4=
 			</data>
 		</dict>
 	</dict>
