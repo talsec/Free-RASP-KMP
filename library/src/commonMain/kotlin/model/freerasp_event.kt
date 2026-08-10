@@ -110,6 +110,11 @@ sealed class FreeRaspEvent {
     data object Automation : FreeRaspEvent()
 
     /**
+     * Indicates that the device bootloader is unlocked or otherwise compromised. Android only.
+     */
+    data object Bootloader : FreeRaspEvent()
+
+    /**
      * Indicates that malware was detected on the device.
      *
      * @param suspiciousAppInfo A list of suspicious apps found on the device.

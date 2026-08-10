@@ -1,7 +1,7 @@
 package com.freeraspkmp.api
 
-import com.aheaditec.talsec_security.security.api.Talsec
-import com.aheaditec.talsec_security.security.api.ThreatListener
+import app.talsec.rasp.security.api.Talsec
+import app.talsec.rasp.security.api.ThreatListener
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,8 +17,8 @@ import com.freeraspkmp.model.config.freeraspConfig
 import com.freeraspkmp.android.utils.AppIconUtil
 import com.freeraspkmp.android.utils.toNativeConfig
 import com.freeraspkmp.android.providers.ContextProvider
-import com.aheaditec.talsec_security.security.api.ExternalIdResult
-import com.aheaditec.talsec_security.security.api.TalsecMode
+import app.talsec.rasp.security.api.ExternalIdResult
+import app.talsec.rasp.security.api.TalsecMode
 import com.freeraspkmp.android.handlers.ThreatDetectedHandler
 import com.freeraspkmp.android.handlers.DeviceStateHandler
 import com.freeraspkmp.android.handlers.RaspExecutionStateHandler
