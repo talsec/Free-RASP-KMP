@@ -19,7 +19,7 @@ fun getVariable(name: String): String {
 
 
 group = "com.aheaditec.talsec.security"
-version = "2.1.0"
+version = "2.1.1"
 kotlin {
     targets.all {
         compilations.all {
@@ -77,7 +77,7 @@ kotlin {
             languageSettings.optIn("kotlin.ExperimentalMultiplatform")
 
             dependencies{
-                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:19.2.1")
+                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:19.2.3")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
                 implementation("androidx.startup:startup-runtime:1.2.0")
                 implementation("androidx.annotation:annotation:1.9.1")
