@@ -3,6 +3,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url = uri("https://europe-west3-maven.pkg.dev/talsec-artifact-repository/plugin") }
     }
 }
 
