@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.2.0] - 2026-09-30
 
 - Android SDK version: 19.3.1
-- iOS SDK version: 7.1.2
+- iOS SDK version: 7.1.4
 
 ### Kotlin Multiplatform
 
@@ -25,6 +25,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - Root detection related bugs causing false positives
+
+### iOS
+
+#### Added
+
+- Improved jailbreak detection
+- Improved hook detection
+- Improved data collection
 
 ## [2.1.1] - 2026-08-25
 
