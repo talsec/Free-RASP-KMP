@@ -56,6 +56,12 @@ android {
     namespace = "com.jetbrains.example"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
+    // Same Talsec SDK as the freeRASP KMP library, so the plugin adds no second SDK
+    talsec {
+        sdkVersion = "19.3.1"
+        platform = "KMP"
+    }
+
     defaultConfig {
         applicationId = "com.jetbrains.example"
         minSdk = libs.versions.android.minSdk.get().toInt()

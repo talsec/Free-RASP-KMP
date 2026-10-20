@@ -9,12 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Android SDK version: 19.3.1
 - iOS SDK version: 7.1.4
+- Talsec Gradle plugin version: 1.1.0
 
 ### Kotlin Multiplatform
 
 #### Added
 
-- Added support for the `app.talsec.plugin` Gradle plugin; apply it to your Android app module to request a license token from Talsec during the build
+- Added support for the `app.talsec.plugin` Gradle plugin; apply it to your Android app module with `talsec { sdkVersion = "19.3.1"; platform = "KMP" }` to request a license token from Talsec during the build
 
 ### Android
 
