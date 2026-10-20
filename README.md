@@ -83,6 +83,7 @@ android {
 ```
 
 The plugin repository is `https://europe-west3-maven.pkg.dev/talsec-artifact-repository/plugin`.
+The plugin requires Android Gradle Plugin 8.3 or newer.
 
 # :rocket: What's New and Changelog
 
