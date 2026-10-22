@@ -4,41 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Frameworks/TalsecRuntime.framework/.jbroot/libRHProbe.dat</key>
-		<data>
-		2jmj7l5rSw0yVb/vlWAYkK/YBwk=
-		</data>
-		<key>Frameworks/TalsecRuntime.framework/Info.plist</key>
-		<data>
-		CRA3dxlPb1yJdb4MxVf8RMUlBiA=
-		</data>
-		<key>Frameworks/TalsecRuntime.framework/PrivacyInfo.xcprivacy</key>
-		<data>
-		EoDY5rl3F+/NSgSM7d7epUYDscA=
-		</data>
-		<key>Frameworks/TalsecRuntime.framework/TalsecRuntime</key>
-		<data>
-		3yIZGTisbE/610DyJiJkZ48pIlU=
-		</data>
-		<key>Frameworks/TalsecRuntime.framework/_CodeSignature/CodeResources</key>
-		<data>
-		Rqwz0sU4SAx9wUHPA4dmSa1tgjs=
-		</data>
-		<key>Frameworks/TalsecRuntime.framework/cacert.pem</key>
-		<data>
-		ibKJMhC3VnHzP2+y913vX/PPbkg=
-		</data>
-		<key>Frameworks/TalsecRuntime.framework/module.modulemap</key>
-		<data>
-		mnI/NClQ83sI5K2xkweR9cS1BrM=
-		</data>
 		<key>Headers/TalsecBridge-Swift.h</key>
 		<data>
 		j0m0aSI4HUMTmb8E1bZWls212m0=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		IpL8PfbhQG3y2AJGrFlVgopXJ+Q=
+		7gmGzJlqEU3vZHvt5/BdtakduYI=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
@@ -46,19 +18,19 @@
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		AqQNlJTBqNr3riG6l+TFNeBnJt4=
+		hPkGyYpDBfj6rKS/iCt9FiR0lms=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		3Vlgh6Ovio9Qjw8FZ754fT9CjiY=
+		BQ6EpPdDTxG1q3s52BYy/VZi79w=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		AqQNlJTBqNr3riG6l+TFNeBnJt4=
+		hPkGyYpDBfj6rKS/iCt9FiR0lms=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		t1h2TzeAUQJ1ap4yEzsbG1LNOFc=
+		duGShrw5fJMHDM2nDH2GliEwN70=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -67,55 +39,6 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Frameworks/TalsecRuntime.framework/.jbroot/libRHProbe.dat</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
-			</data>
-		</dict>
-		<key>Frameworks/TalsecRuntime.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			VWDZw6sieZyPuOeM6y+XOeMOLzOm0l3iVOlDZbBoBJc=
-			</data>
-		</dict>
-		<key>Frameworks/TalsecRuntime.framework/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Tfo6GXW0wL6V4grnszDhSoINMxnjKwgN7Z6h4Ha1EEo=
-			</data>
-		</dict>
-		<key>Frameworks/TalsecRuntime.framework/TalsecRuntime</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			qOWdIbxjhBwO4oFhPU8JohdfUJXr2UvyLwOehmOqpb8=
-			</data>
-		</dict>
-		<key>Frameworks/TalsecRuntime.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			VnOgjYsxoeO6IvbfOlFB0RzVSiwEWh549MRp5cnZa0I=
-			</data>
-		</dict>
-		<key>Frameworks/TalsecRuntime.framework/cacert.pem</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			evXTNBu6jWBekqcSa2FmOhEeJpBAdgyfplv7M3/XVws=
-			</data>
-		</dict>
-		<key>Frameworks/TalsecRuntime.framework/module.modulemap</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			PyY8LBmk2KM3Pm+7gcuZwfV9homQCYsBeTEPUypp+U0=
-			</data>
-		</dict>
 		<key>Headers/TalsecBridge-Swift.h</key>
 		<dict>
 			<key>hash2</key>
@@ -134,28 +57,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2TcMSozrV17GdPwBn6p2XIenEWQ64es4AZVfJ9i+dN0=
+			sqk7rxXDfEtcI/qeqHQmYVvOfJjj0kBhAIIB+EioUKY=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			P3fkzIs77bGC/fTOydPRAMHkvQtaZKbgH9OZ7aL9ziY=
+			Gu9RZB5BaT7FnjLoyu7nDHa4Q0/sW4OSQcDDtBgzZDQ=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2TcMSozrV17GdPwBn6p2XIenEWQ64es4AZVfJ9i+dN0=
+			sqk7rxXDfEtcI/qeqHQmYVvOfJjj0kBhAIIB+EioUKY=
 			</data>
 		</dict>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			rX7mMjcXZfJ3rb7Zl1tBE+9RDGigSeyPbfQL2JbsCp0=
+			GxUrjGNVLAe4GN09KDWOC+9rogqBfmMErahcGeOLahU=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
