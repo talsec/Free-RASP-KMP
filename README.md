@@ -60,7 +60,7 @@ Visit the [GitBook page](https://docs.talsec.app/freerasp) for comprehensive and
 
 ## :link: Integration Guide
 
-For integrating freeRASP on the Kotlin Multiplatform platform, be sure to follow all the steps in the [Integration Guide](https://docs.talsec.app/freerasp/freerasp/integration/kotlin-multiplatform?utm_source=github). This guide provides detailed instructions to help you achieve a smooth and efficient integration.
+For integrating freeRASP on the React Native platform, be sure to follow all the steps in the [Integration Guide](https://docs.talsec.app/freerasp/integration?utm_source=github). This guide provides detailed instructions to help you achieve a smooth and efficient integration.
 
 Be sure to bookmark it and stay informed! :books: :sparkles:.
 
@@ -84,16 +84,6 @@ android {
 
 The plugin repository is `https://europe-west3-maven.pkg.dev/talsec-artifact-repository/plugin`.
 The plugin requires Android Gradle Plugin 8.3 or newer.
-
-### Swift Package Manager
-
-The iOS frameworks (`TalsecBridge` and `TalsecRuntime`) are also available as a Swift package (Xcode 15 or newer):
-
-1. If you added `TalsecBridge.xcframework` and `TalsecRuntime.xcframework` manually, remove them from your app target.
-2. In Xcode, choose **File > Add Package Dependencies…**, enter `https://github.com/talsec/Free-RASP-KMP` and select **Exact Version** matching your `freeRASP_KMP` dependency.
-3. Add the `FreeRASP_KMP` product to your app target only.
-
-The Kotlin framework of your shared module must be static (`isStatic = true`). Do not combine this package with the native `Free-RASP-iOS` package, as both provide `TalsecRuntime`.
 
 # :rocket: What's New and Changelog
 
