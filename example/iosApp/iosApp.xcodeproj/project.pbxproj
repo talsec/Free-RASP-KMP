@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D426AD7776154DCE8505A445 /* FreeRASP_KMP in Frameworks */ = {isa = PBXBuildFile; productRef = 66191A6B20214D20B8034371 /* FreeRASP_KMP */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D426AD7776154DCE8505A445 /* FreeRASP_KMP in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +88,6 @@
 			);
 			name = iosApp;
 			packageProductDependencies = (
-				66191A6B20214D20B8034371 /* FreeRASP_KMP */,
 			);
 			productName = iosApp;
 			productReference = B9DA97B12DC1472C00A4DA20 /* Example.app */;
@@ -119,9 +116,6 @@
 				Base,
 			);
 			mainGroup = B9DA97A82DC1472C00A4DA20;
-			packageReferences = (
-				B11307A8A5BC4D61874A80FE /* XCLocalSwiftPackageReference "../.." */,
-			);
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B9DA97B22DC1472C00A4DA20 /* Products */;
@@ -174,14 +168,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		B11307A8A5BC4D61874A80FE /* XCLocalSwiftPackageReference "../.." */ = {isa = XCLocalSwiftPackageReference; relativePath = ../..; };
-/* End XCLocalSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		66191A6B20214D20B8034371 /* FreeRASP_KMP */ = {isa = XCSwiftPackageProductDependency; package = B11307A8A5BC4D61874A80FE /* XCLocalSwiftPackageReference "../.." */; productName = FreeRASP_KMP; };
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B9DA97BD2DC1472D00A4DA20 /* Debug */ = {

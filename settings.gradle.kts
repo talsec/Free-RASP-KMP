@@ -1,4 +1,6 @@
 pluginManagement {
+    // Builds app.talsec.kmp.ios from source for the example app
+    includeBuild("gradle-plugin")
     repositories {
         google()
         mavenCentral()
