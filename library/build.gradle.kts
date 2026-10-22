@@ -19,7 +19,7 @@ fun getVariable(name: String): String {
 
 
 group = "com.aheaditec.talsec.security"
-version = "2.1.1"
+version = providers.gradleProperty("freeraspKmpVersion").get()
 kotlin {
     targets.all {
         compilations.all {
@@ -59,8 +59,6 @@ kotlin {
                     "$nativeDir/TalsecBridge.xcframework/ios-arm64_x86_64-simulator/TalsecBridge.framework/Headers"
             }
             compilerOpts("-F$nativeDir", "-I$headersDir")
-
-            linkerOpts("-F$nativeDir", "-framework", "TalsecBridge", "-framework", "TalsecRuntime")
         }
     }
 
@@ -77,7 +75,7 @@ kotlin {
             languageSettings.optIn("kotlin.ExperimentalMultiplatform")
 
             dependencies{
-                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:19.2.3")
+                implementation("com.aheaditec.talsec.security:TalsecSecurity-Community-KMP:19.3.1")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
                 implementation("androidx.startup:startup-runtime:1.2.0")
                 implementation("androidx.annotation:annotation:1.9.1")

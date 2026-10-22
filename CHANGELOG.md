@@ -5,6 +5,70 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - Unreleased
+
+- Android SDK version: 19.3.1
+- iOS SDK version: 8.0.3
+- Talsec Gradle plugin version: 1.1.0
+
+### Kotlin Multiplatform
+
+#### Added
+
+- Added `app.talsec.kmp.ios` Gradle plugin for iOS integration without Xcode setup
+
+#### Changed
+
+- Example app uses the `app.talsec.kmp.ios` plugin
+
+## [2.2.0] - 2026-10-22
+
+- Android SDK version: 19.3.1
+- iOS SDK version: 8.0.3
+- Talsec Gradle plugin version: 1.1.0
+
+### Kotlin Multiplatform
+
+#### Added
+
+- Added support for the `app.talsec.plugin` Gradle plugin
+- Added Swift Package Manager support
+
+#### Fixed
+
+- `TalsecBridge` no longer embeds `TalsecRuntime`
+- `TalsecBridge` now supports iOS 13.0+
+
+### Android
+
+#### Changed
+
+- Changed Talsec integration from Maven dependency to the `app.talsec.plugin` Gradle plugin
+- The Talsec Gradle plugin requires the app to build with Android Gradle Plugin 8.3 or newer
+
+#### Fixed
+
+- Root detection related bugs causing false positives
+
+### iOS
+
+#### Added
+
+- Improved jailbreak detection
+- Improved hook detection
+- Improved data collection
+
+#### Changed
+
+- Improved logging structure and data enrichment for better Portal insights/reports
+- Updated `OpenSSL` dependency to `3.5.8`
+- Updated `curl` dependency to `8.22.0`
+
+#### Fixed
+
+- Fixed usage of `_dyld_get_shared_cache_range`
+- Fixed crash in Frida port scanning
+
 ## [2.1.1] - 2026-08-25
 
 - Android SDK version: 19.2.3

@@ -64,6 +64,27 @@ For integrating freeRASP on the React Native platform, be sure to follow all the
 
 Be sure to bookmark it and stay informed! :books: :sparkles:.
 
+### Talsec Gradle plugin
+
+Apply `app.talsec.plugin` to your Android app module and point it at the Talsec SDK that freeRASP KMP
+already brings, so no second SDK is added:
+
+```kotlin
+plugins {
+    id("app.talsec.plugin") version "1.1.0"
+}
+
+android {
+    talsec {
+        sdkVersion = "19.3.1" // the Android SDK version of your freeRASP KMP release
+        platform = "KMP"
+    }
+}
+```
+
+The plugin repository is `https://europe-west3-maven.pkg.dev/talsec-artifact-repository/plugin`.
+The plugin requires Android Gradle Plugin 8.3 or newer.
+
 # :rocket: What's New and Changelog
 
 Stay informed and make the most of freeRASP by checking out [What's New and Changelog](https://docs.talsec.app/freerasp/whats-new-and-changelog?utm_source=github)! Here, you’ll discover the latest features, enhancements, and bug fixes we’ve implemented to improve your experience across all platforms, including Android, iOS, Flutter, React Native, Capacitor, Cordova and Kotlin Multiplatform.
