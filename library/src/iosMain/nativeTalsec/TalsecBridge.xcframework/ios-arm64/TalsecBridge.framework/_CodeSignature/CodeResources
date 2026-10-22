@@ -10,7 +10,7 @@
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/Info.plist</key>
 		<data>
-		yqe7Yu658nnrvaC3u0vV+gffjZ8=
+		CRA3dxlPb1yJdb4MxVf8RMUlBiA=
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/PrivacyInfo.xcprivacy</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/TalsecRuntime</key>
 		<data>
-		zjWObHdVdY0pVRYGnfWdCj2UnlQ=
+		3yIZGTisbE/610DyJiJkZ48pIlU=
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/_CodeSignature/CodeResources</key>
 		<data>
-		7R2qp2ofudE5edHsRzCx7NduT1o=
+		Rqwz0sU4SAx9wUHPA4dmSa1tgjs=
 		</data>
 		<key>Frameworks/TalsecRuntime.framework/cacert.pem</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		EFUDQMyS9/klYWviKYYK8dnptoE=
+		IpL8PfbhQG3y2AJGrFlVgopXJ+Q=
 		</data>
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
@@ -55,6 +55,10 @@
 		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
 		AqQNlJTBqNr3riG6l+TFNeBnJt4=
+		</data>
+		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftmodule</key>
+		<data>
+		t1h2TzeAUQJ1ap4yEzsbG1LNOFc=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -74,7 +78,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			85yldaf+2IQRaUvolNvjHU4jOg+3vJX3oCChs1sdYRc=
+			VWDZw6sieZyPuOeM6y+XOeMOLzOm0l3iVOlDZbBoBJc=
 			</data>
 		</dict>
 		<key>Frameworks/TalsecRuntime.framework/PrivacyInfo.xcprivacy</key>
@@ -88,14 +92,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Jf9N4Tu8ut9nGdJInAP1SPVCXOD31EuFtsj9OFy3WY4=
+			qOWdIbxjhBwO4oFhPU8JohdfUJXr2UvyLwOehmOqpb8=
 			</data>
 		</dict>
 		<key>Frameworks/TalsecRuntime.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			MoCXnjEkwQDK9pcHtnR+M1xhgyHr/9WYMyGTffAw2bo=
+			VnOgjYsxoeO6IvbfOlFB0RzVSiwEWh549MRp5cnZa0I=
 			</data>
 		</dict>
 		<key>Frameworks/TalsecRuntime.framework/cacert.pem</key>
@@ -145,6 +149,13 @@
 			<key>hash2</key>
 			<data>
 			2TcMSozrV17GdPwBn6p2XIenEWQ64es4AZVfJ9i+dN0=
+			</data>
+		</dict>
+		<key>Modules/TalsecBridge.swiftmodule/arm64-apple-ios.swiftmodule</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rX7mMjcXZfJ3rb7Zl1tBE+9RDGigSeyPbfQL2JbsCp0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

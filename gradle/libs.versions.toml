@@ -12,6 +12,8 @@ androidx-lifecycle = "2.8.0"
 androidx-activity = "1.8.2"
 core = "1.17.0"
 lifecycleProcess = "2.9.2"
+# TODO: set the real version once app.talsec.plugin with wrapper support is released
+talsec = "1.1.0"
 
 
 [libraries]
@@ -31,3 +33,4 @@ kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = 
 androidApplication = { id = "com.android.application", version.ref = "agp"}
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+talsec = { id = "app.talsec.plugin", version.ref = "talsec" }
