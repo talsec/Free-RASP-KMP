@@ -85,6 +85,25 @@ android {
 The plugin repository is `https://europe-west3-maven.pkg.dev/talsec-artifact-repository/plugin`.
 The plugin requires Android Gradle Plugin 8.3 or newer.
 
+### iOS frameworks through the Gradle plugin
+
+Apply `app.talsec.kmp.ios` to the Kotlin Multiplatform module that builds your iOS framework. It adds and signs
+`TalsecBridge` and `TalsecRuntime` while Xcode builds the app, so nothing needs to be set up in Xcode:
+
+```kotlin
+plugins {
+    id("app.talsec.kmp.ios") version "2.3.0" // the version of your freeRASP_KMP dependency
+}
+```
+
+Add `https://europe-west3-maven.pkg.dev/talsec-artifact-repository/freerasp` to `pluginManagement.repositories`. The plugin requires:
+
+- the standard Kotlin Multiplatform build phase in Xcode that runs `embedAndSignAppleFrameworkForXcode`
+- `ENABLE_USER_SCRIPT_SANDBOXING` set to `NO` for the app target
+- the same version as your `freeRASP_KMP` dependency
+
+If you added the frameworks manually or through Swift Package Manager, remove them from the Xcode project first. The plugin stops the build otherwise.
+
 ### Swift Package Manager
 
 The iOS frameworks (`TalsecBridge` and `TalsecRuntime`) are also available as a Swift package (Xcode 15 or newer):
