@@ -397,6 +397,41 @@
       },
       {
         "kind": "Import",
+        "name": "MobileCoreServices",
+        "printedName": "MobileCoreServices",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "QuartzCore",
+        "printedName": "QuartzCore",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "WebKit",
+        "printedName": "WebKit",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Darwin",
+        "printedName": "Darwin",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -911,70 +946,10 @@
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
-        "moduleName": "TalsecRuntime"
-      },
-      {
-        "kind": "Import",
-        "name": "Network",
-        "printedName": "Network",
-        "declKind": "Import",
-        "moduleName": "TalsecRuntime"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "TalsecRuntime"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "TalsecRuntime"
-      },
-      {
-        "kind": "Import",
-        "name": "Network",
-        "printedName": "Network",
-        "declKind": "Import",
-        "moduleName": "TalsecRuntime"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "TalsecRuntime"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "TalsecRuntime"
-      },
-      {
-        "kind": "Import",
-        "name": "Network",
-        "printedName": "Network",
-        "declKind": "Import",
-        "moduleName": "TalsecRuntime"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "TalsecRuntime"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "TalsecRuntime"
+        "moduleName": "TalsecRuntime",
+        "declAttributes": [
+          "RawDocComment"
+        ]
       },
       {
         "kind": "Import",
@@ -1094,6 +1069,76 @@
         "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Network",
+        "printedName": "Network",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Network",
+        "printedName": "Network",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "TalsecRuntime"
+      },
+      {
+        "kind": "Import",
+        "name": "Network",
+        "printedName": "Network",
         "declKind": "Import",
         "moduleName": "TalsecRuntime"
       },
@@ -3356,6 +3401,20 @@
       "value": "\"timeMs\""
     },
     {
+      "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/Jailbreak\/RootHideWebContentTimingFeatureCheck.swift",
+      "kind": "Dictionary",
+      "offset": 3257,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/Jailbreak\/RootHideWebContentTimingFeatureCheck.swift",
+      "kind": "BooleanLiteral",
+      "offset": 10168,
+      "length": 5,
+      "value": "false"
+    },
+    {
       "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/Runtime\/FreeRASP\/TalsecRunner.swift",
       "kind": "BooleanLiteral",
       "offset": 477,
@@ -3363,25 +3422,11 @@
       "value": "true"
     },
     {
-      "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/TimeManipulation\/NTP\/NTPTime.swift",
-      "kind": "IntegerLiteral",
-      "offset": 287,
-      "length": 13,
-      "value": "2208988800"
-    },
-    {
-      "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/TimeManipulation\/NTP\/NTPTime.swift",
-      "kind": "IntegerLiteral",
-      "offset": 466,
-      "length": 13,
-      "value": "2085978496"
-    },
-    {
-      "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/TimeManipulation\/NTP\/NTPTime.swift",
-      "kind": "IntegerLiteral",
-      "offset": 580,
-      "length": 25,
-      "value": "9487534653230284800"
+      "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/RuntimeManipulation\/MSHookDetector.swift",
+      "kind": "Array",
+      "offset": 260,
+      "length": 254,
+      "value": "[\"open\", \"openat\", \"read\", \"write\", \"stat\", \"lstat\", \"fstat\", \"ptrace\", \"sysctl\", \"sysctlbyname\", \"dlopen\", \"dlsym\", \"fork\", \"syscall\"]"
     },
     {
       "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/TimeManipulation\/TimeSpoofingDetector.swift",
@@ -3503,6 +3548,27 @@
       "value": "3"
     },
     {
+      "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/TimeManipulation\/NTP\/NTPTime.swift",
+      "kind": "IntegerLiteral",
+      "offset": 287,
+      "length": 13,
+      "value": "2208988800"
+    },
+    {
+      "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/TimeManipulation\/NTP\/NTPTime.swift",
+      "kind": "IntegerLiteral",
+      "offset": 466,
+      "length": 13,
+      "value": "2085978496"
+    },
+    {
+      "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/TimeManipulation\/NTP\/NTPTime.swift",
+      "kind": "IntegerLiteral",
+      "offset": 580,
+      "length": 25,
+      "value": "9487534653230284800"
+    },
+    {
       "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/Runtime\/SecurityThreat.swift",
       "kind": "StringLiteral",
       "offset": 289,
@@ -3603,28 +3669,28 @@
     {
       "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/Runtime\/TalsecRuntime.swift",
       "kind": "BooleanLiteral",
-      "offset": 14887,
+      "offset": 14948,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/Runtime\/TalsecRuntime.swift",
       "kind": "BooleanLiteral",
-      "offset": 28757,
+      "offset": 29887,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/Runtime\/TalsecRuntime.swift",
       "kind": "BooleanLiteral",
-      "offset": 29994,
+      "offset": 31124,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/talsec\/Talsec_Development\/talsec-dev\/actions-runner2\/actions-runner15\/_work\/rasp-ios\/rasp-ios\/Talsec\/TalsecRuntime\/Classes\/Runtime\/TalsecRuntime.swift",
       "kind": "BooleanLiteral",
-      "offset": 30758,
+      "offset": 31888,
       "length": 4,
       "value": "true"
     }
