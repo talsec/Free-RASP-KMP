@@ -19,7 +19,7 @@ fun getVariable(name: String): String {
 
 
 group = "com.aheaditec.talsec.security"
-version = "2.2.0"
+version = providers.gradleProperty("freeraspKmpVersion").get()
 kotlin {
     targets.all {
         compilations.all {

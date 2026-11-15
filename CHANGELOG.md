@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - Unreleased
+
+- Android SDK version: 19.3.1
+- iOS SDK version: 8.0.3
+- Talsec Gradle plugin version: 1.1.0
+
+### Kotlin Multiplatform
+
+#### Added
+
+- Added `app.talsec.kmp.ios` Gradle plugin for iOS integration without Xcode setup
+
+#### Changed
+
+- Example app uses the `app.talsec.kmp.ios` plugin
+
 ## [2.2.0] - 2026-10-22
 
 - Android SDK version: 19.3.1

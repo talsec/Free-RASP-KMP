@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.talsec)
+    id("app.talsec.kmp.ios")
 }
 
 kotlin {
