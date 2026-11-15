@@ -59,8 +59,6 @@ kotlin {
                     "$nativeDir/TalsecBridge.xcframework/ios-arm64_x86_64-simulator/TalsecBridge.framework/Headers"
             }
             compilerOpts("-F$nativeDir", "-I$headersDir")
-
-            linkerOpts("-F$nativeDir", "-framework", "TalsecBridge", "-framework", "TalsecRuntime")
         }
     }
 
