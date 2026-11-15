@@ -15,3 +15,7 @@ Pods/
 *.jks
 *.gpg
 *yarn.lock
+
+# Swift Package Manager
+.swiftpm/
+.build/
