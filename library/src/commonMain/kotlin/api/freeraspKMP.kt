@@ -16,8 +16,8 @@ expect object FreeraspKMP {
 
     /**
      * A [SharedFlow] of [RaspExecutionStateEvent] which emits events about the RASP execution lifecycle.
-     * Uses replay = 1, so late subscribers receive the last emitted event even if
-     * it was emitted before they subscribed.
+     * Replays every state of the current run in the order it occurred, so late subscribers
+     * also receive the states emitted before they subscribed.
      */
     val raspExecutionStateEvents: SharedFlow<RaspExecutionStateEvent>
 

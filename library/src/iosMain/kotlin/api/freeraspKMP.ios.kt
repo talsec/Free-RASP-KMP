@@ -31,13 +31,13 @@ actual object FreeraspKMP {
     private val cacheMutex = Mutex()
     private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
     actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
-    private val _raspExecutionStateEvents = MutableSharedFlow<RaspExecutionStateEvent>(replay = 1)
+    private val _raspExecutionStateEvents = raspExecutionStateFlow()
     actual val raspExecutionStateEvents: SharedFlow<RaspExecutionStateEvent> = _raspExecutionStateEvents.asSharedFlow()
 
     init {
         NativeTalsec.setThreatDetectedCallback { threatString ->
             if (threatString == "allChecksFinished") {
-                scope.launch { _raspExecutionStateEvents.emit(RaspExecutionStateEvent.FastChecksFinished) }
+                _raspExecutionStateEvents.tryEmit(RaspExecutionStateEvent.FastChecksFinished)
             } else {
                 mapStringToFreeraspEvent(threatString)?.let { event ->
                     emitEvent(event)

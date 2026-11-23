@@ -35,7 +35,7 @@ actual object FreeraspKMP {
     private val cacheLock = Any()
     private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
     actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
-    private val _raspExecutionStateEvents = MutableSharedFlow<RaspExecutionStateEvent>(replay = 1)
+    private val _raspExecutionStateEvents = raspExecutionStateFlow()
     actual val raspExecutionStateEvents: SharedFlow<RaspExecutionStateEvent> = _raspExecutionStateEvents.asSharedFlow()
 
     init {
@@ -62,7 +62,7 @@ actual object FreeraspKMP {
     private val threatDetectedHandler = ThreatDetectedHandler { event -> emitEvent(event) }
     private val deviceStateHandler = DeviceStateHandler { event -> emitEvent(event) }
     private val raspExecutionStateHandler = RaspExecutionStateHandler { event ->
-        scope.launch { _raspExecutionStateEvents.emit(event) }
+        _raspExecutionStateEvents.tryEmit(event)
     }
 
     private val nativeListener = ThreatListener(threatDetectedHandler, deviceStateHandler, raspExecutionStateHandler)
