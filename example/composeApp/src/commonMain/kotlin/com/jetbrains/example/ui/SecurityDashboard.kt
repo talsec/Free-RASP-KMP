@@ -65,17 +65,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.freeraspkmp.model.RaspExecutionStateEvent
 import com.freeraspkmp.model.SuspiciousAppInfo
 import com.jetbrains.example.model.CheckId
 import com.jetbrains.example.model.SecurityCheck
 import kotlinx.coroutines.launch
 
+// Android-only protections of the example; null hides their card on iOS
+data class AndroidProtections(
+    val isScreenControlBlocked: Boolean,
+    val isOverlayWindowsBlocked: Boolean,
+    val isOngoingCallDetectionOn: Boolean,
+    val onToggleScreenControl: () -> Unit,
+    val onToggleOverlayWindows: () -> Unit,
+    val onToggleOngoingCallDetection: () -> Unit,
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SecurityDashboard(
     checks: List<SecurityCheck>,
-    allChecksFinished: Boolean,
+    finishedStates: Set<RaspExecutionStateEvent>,
     isScreenCaptureBlocked: Boolean,
+    androidProtections: AndroidProtections?,
     malwareApps: List<SuspiciousAppInfo>,
     onToggleScreenCapture: () -> Unit,
     onStoreExternalId: (id: String, onResult: (message: String, isSuccess: Boolean) -> Unit) -> Unit,
@@ -151,13 +163,24 @@ fun SecurityDashboard(
             contentPadding = PaddingValues(vertical = 16.dp),
         ) {
             item {
-                StatusCard(checks = checks, allChecksFinished = allChecksFinished)
+                StatusCard(
+                    checks = checks,
+                    checksFinished = RaspExecutionStateEvent.FastChecksFinished in finishedStates,
+                )
+            }
+            item {
+                ExecutionStateCard(finishedStates = finishedStates)
             }
             item {
                 ScreenCaptureCard(
                     isBlocked = isScreenCaptureBlocked,
                     onToggle = onToggleScreenCapture,
                 )
+            }
+            if (androidProtections != null) {
+                item {
+                    AndroidProtectionsCard(protections = androidProtections)
+                }
             }
             item {
                 ExternalIdCard(
@@ -215,14 +238,14 @@ fun SecurityDashboard(
 @Composable
 private fun StatusCard(
     checks: List<SecurityCheck>,
-    allChecksFinished: Boolean,
+    checksFinished: Boolean,
 ) {
     val detectedCount = checks.count { it.isDetected }
     val isAllSafe = detectedCount == 0
 
     val containerColor by animateColorAsState(
         targetValue = when {
-            !allChecksFinished -> PendingGrayContainer
+            !checksFinished -> PendingGrayContainer
             isAllSafe -> SafeGreenContainer
             else -> ThreatRedContainer
         },
@@ -230,12 +253,12 @@ private fun StatusCard(
         label = "statusContainerColor",
     )
     val contentColor = when {
-        !allChecksFinished -> PendingGray
+        !checksFinished -> PendingGray
         isAllSafe -> SafeGreen
         else -> ThreatRed
     }
     val icon: ImageVector = when {
-        !allChecksFinished -> Icons.Default.Security
+        !checksFinished -> Icons.Default.Security
         isAllSafe -> Icons.Default.VerifiedUser
         else -> Icons.Default.GppBad
     }
@@ -259,7 +282,7 @@ private fun StatusCard(
             Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(
                     text = when {
-                        !allChecksFinished -> "Running checks\u2026"
+                        !checksFinished -> "Running checks\u2026"
                         isAllSafe -> "All Secure"
                         else -> "$detectedCount Threat${if (detectedCount > 1) "s" else ""} Detected"
                     },
@@ -269,7 +292,7 @@ private fun StatusCard(
                 )
                 Text(
                     text = when {
-                        !allChecksFinished -> "Security checks in progress"
+                        !checksFinished -> "Security checks in progress"
                         isAllSafe -> "No threats found"
                         else -> "Review the checks below"
                     },
@@ -278,6 +301,50 @@ private fun StatusCard(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun ExecutionStateCard(finishedStates: Set<RaspExecutionStateEvent>) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = "RASP Execution State",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Medium,
+            )
+            ExecutionStateRow("Critical checks", RaspExecutionStateEvent.CriticalChecksFinished in finishedStates)
+            ExecutionStateRow("Fast checks", RaspExecutionStateEvent.FastChecksFinished in finishedStates)
+            ExecutionStateRow("Postponed checks", RaspExecutionStateEvent.PostponedChecksFinished in finishedStates)
+        }
+    }
+}
+
+@Composable
+private fun ExecutionStateRow(name: String, isFinished: Boolean) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Text(
+            text = name,
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        Text(
+            text = if (isFinished) "Finished" else "Running\u2026",
+            style = MaterialTheme.typography.labelMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = if (isFinished) SafeGreen else PendingGray,
+        )
     }
 }
 
@@ -328,6 +395,79 @@ private fun ScreenCaptureCard(
                 ),
             )
         }
+    }
+}
+
+@Composable
+private fun AndroidProtectionsCard(protections: AndroidProtections) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = "Android Protections",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Medium,
+            )
+            ProtectionSwitchRow(
+                name = "Screen Control",
+                description = "Blocks accessibility services",
+                checked = protections.isScreenControlBlocked,
+                onToggle = protections.onToggleScreenControl,
+            )
+            ProtectionSwitchRow(
+                name = "Overlay Windows",
+                description = "Hides overlays of other apps (Android 12+)",
+                checked = protections.isOverlayWindowsBlocked,
+                onToggle = protections.onToggleOverlayWindows,
+            )
+            ProtectionSwitchRow(
+                name = "Ongoing Call Detection",
+                description = "Reports phone and VoIP calls",
+                checked = protections.isOngoingCallDetectionOn,
+                onToggle = protections.onToggleOngoingCallDetection,
+            )
+        }
+    }
+}
+
+@Composable
+private fun ProtectionSwitchRow(
+    name: String,
+    description: String,
+    checked: Boolean,
+    onToggle: () -> Unit,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = name,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        Switch(
+            checked = checked,
+            onCheckedChange = { onToggle() },
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Color.White,
+                checkedTrackColor = SafeGreen,
+            ),
+        )
     }
 }
 

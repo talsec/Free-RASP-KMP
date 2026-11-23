@@ -1,6 +1,7 @@
 package com.freeraspkmp.ios.utils
 
 import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.model.RaspExecutionStateEvent
 
 internal fun mapStringToFreeraspEvent(threatString: String?): FreeRaspEvent? {
     return when (threatString) {
@@ -19,10 +20,19 @@ internal fun mapStringToFreeraspEvent(threatString: String?): FreeRaspEvent? {
         "screenshot" -> FreeRaspEvent.Screenshot
         "screenRecording" -> FreeRaspEvent.ScreenRecording
         "timeSpoofing" -> FreeRaspEvent.TimeSpoofing
-        "allChecksFinished" -> null
         else -> {
             println("Received unknown threat ($threatString)")
             null
         }
+    }
+}
+
+// TalsecBridge sends the execution states through the threat callback, under these names
+internal fun mapStringToRaspExecutionStateEvent(stateString: String?): RaspExecutionStateEvent? {
+    return when (stateString) {
+        "criticalChecksFinished" -> RaspExecutionStateEvent.CriticalChecksFinished
+        "fastChecksFinished" -> RaspExecutionStateEvent.FastChecksFinished
+        "postponedChecksFinished" -> RaspExecutionStateEvent.PostponedChecksFinished
+        else -> null
     }
 }

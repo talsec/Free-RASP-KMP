@@ -19,6 +19,7 @@ import com.freeraspkmp.model.config.freeraspConfig
 import com.freeraspkmp.model.FreeRaspEvent
 import com.freeraspkmp.model.RaspExecutionStateEvent
 import com.freeraspkmp.ios.utils.mapStringToFreeraspEvent
+import com.freeraspkmp.ios.utils.mapStringToRaspExecutionStateEvent
 import com.freeraspkmp.ios.utils.toNativeConfig
 import kotlin.coroutines.resume
 
@@ -31,13 +32,14 @@ actual object FreeraspKMP {
     private val cacheMutex = Mutex()
     private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
     actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
-    private val _raspExecutionStateEvents = MutableSharedFlow<RaspExecutionStateEvent>(replay = 1)
+    private val _raspExecutionStateEvents = raspExecutionStateFlow()
     actual val raspExecutionStateEvents: SharedFlow<RaspExecutionStateEvent> = _raspExecutionStateEvents.asSharedFlow()
 
     init {
         NativeTalsec.setThreatDetectedCallback { threatString ->
-            if (threatString == "allChecksFinished") {
-                scope.launch { _raspExecutionStateEvents.emit(RaspExecutionStateEvent.AllChecksFinished) }
+            val executionState = mapStringToRaspExecutionStateEvent(threatString)
+            if (executionState != null) {
+                _raspExecutionStateEvents.tryEmit(executionState)
             } else {
                 mapStringToFreeraspEvent(threatString)?.let { event ->
                     emitEvent(event)
@@ -106,6 +108,33 @@ actual object FreeraspKMP {
         withContext(Dispatchers.Main){
             NativeTalsec.blockScreenCapture(enable)
         }
+    }
+
+    actual suspend fun blockScreenControl(enable: Boolean) {
+        println("freeraspKMP: blockScreenControl is not supported on iOS.")
+    }
+
+    actual suspend fun isScreenControlBlocked(): Boolean {
+        println("freeraspKMP: isScreenControlBlocked is not supported on iOS.")
+        return false
+    }
+
+    actual suspend fun blockOverlayWindows(enable: Boolean): Boolean {
+        println("freeraspKMP: blockOverlayWindows is not supported on iOS.")
+        return false
+    }
+
+    actual suspend fun isOverlayWindowsBlocked(): Boolean {
+        println("freeraspKMP: isOverlayWindowsBlocked is not supported on iOS.")
+        return false
+    }
+
+    actual suspend fun startOngoingCallDetection() {
+        println("freeraspKMP: startOngoingCallDetection is not supported on iOS.")
+    }
+
+    actual suspend fun stopOngoingCallDetection() {
+        println("freeraspKMP: stopOngoingCallDetection is not supported on iOS.")
     }
 
     actual suspend fun isScreenCaptureBlocked(): Boolean {

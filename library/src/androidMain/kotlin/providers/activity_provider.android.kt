@@ -3,6 +3,7 @@ package com.freeraspkmp.android.providers
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.freeraspkmp.android.handlers.OngoingCallDetector
 import java.lang.ref.WeakReference
 
 internal object ActivityProvider : Application.ActivityLifecycleCallbacks {
@@ -15,6 +16,7 @@ internal object ActivityProvider : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityResumed(activity: Activity) {
         currentActivity = WeakReference(activity)
+        OngoingCallDetector.onActivityResumed(activity)
     }
 
     override fun onActivityPaused(activity: Activity) {
@@ -31,6 +33,8 @@ internal object ActivityProvider : Application.ActivityLifecycleCallbacks {
 
     override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) {}
 
-    override fun onActivityDestroyed(p0: Activity) {}
+    override fun onActivityDestroyed(p0: Activity) {
+        OngoingCallDetector.onActivityDestroyed(p0)
+    }
 
 }

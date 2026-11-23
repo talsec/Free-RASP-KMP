@@ -10,11 +10,11 @@ import com.freeraspkmp.model.exception.FreeraspKMPException
 internal fun verifyConfig(config: freeraspConfig) {
     config.iosConfig ?: throw FreeraspKMPException("freeRASP: iosConfig must be provided on iOS.")
 
-    if (config.iosConfig.bundleIds.isEmpty()) {
-        throw FreeraspKMPException("freeRASP: bundleIds in iosConfig must not be empty.")
+    if (config.iosConfig.appBundleIds.isEmpty()) {
+        throw FreeraspKMPException("freeRASP: appBundleIds in iosConfig must not be empty.")
     }
 
-    if (config.iosConfig.teamId.isBlank()) {
-        throw FreeraspKMPException("freeRASP: teamId in iosConfig must not be blank.")
+    if (config.iosConfig.appTeamId.isBlank()) {
+        throw FreeraspKMPException("freeRASP: appTeamId in iosConfig must not be blank.")
     }
 }

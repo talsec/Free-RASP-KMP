@@ -66,10 +66,10 @@ class IosFrameworksTest {
 
     @Test
     fun `accepts runtime versions the bridge was verified with`() {
-        assertTrue(IosFrameworks.isCompatibleRuntime("7.1.2"))
-        assertTrue(IosFrameworks.isCompatibleRuntime("8.0.3"))
-        assertFalse(IosFrameworks.isCompatibleRuntime("7.0.9"))
-        assertFalse(IosFrameworks.isCompatibleRuntime("9.0.0"))
+        assertTrue(IosFrameworks.isCompatibleRuntime("9.0.0"))
+        assertTrue(IosFrameworks.isCompatibleRuntime("9.1.2"))
+        assertFalse(IosFrameworks.isCompatibleRuntime("8.0.3"))
+        assertFalse(IosFrameworks.isCompatibleRuntime("10.0.0"))
         assertFalse(IosFrameworks.isCompatibleRuntime("unknown"))
     }
 

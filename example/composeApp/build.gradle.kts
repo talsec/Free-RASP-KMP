@@ -59,7 +59,7 @@ android {
 
     // Same Talsec SDK as the freeRASP KMP library, so the plugin adds no second SDK
     talsec {
-        sdkVersion = "19.3.1"
+        sdkVersion = "20.0.1"
         platform = "KMP"
     }
 

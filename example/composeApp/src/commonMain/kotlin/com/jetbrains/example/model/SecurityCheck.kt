@@ -7,7 +7,7 @@ enum class CheckId {
     HOOKS, DEVICE_BINDING, OBFUSCATION_ISSUES, SCREENSHOT, SCREEN_RECORDING,
     PASSCODE, SECURE_HARDWARE, SYSTEM_VPN, DEV_MODE, ADB_ENABLED,
     MULTI_INSTANCE, DEVICE_ID, TIME_SPOOFING, UNSECURE_WIFI,
-    LOCATION_SPOOFING, AUTOMATION, BOOTLOADER, MALWARE
+    LOCATION_SPOOFING, AUTOMATION, BOOTLOADER, ONGOING_CALL, MALWARE
 }
 
 data class SecurityCheck(
@@ -40,6 +40,7 @@ fun FreeRaspEvent.toCheckId(): CheckId = when (this) {
     is FreeRaspEvent.LocationSpoofing -> CheckId.LOCATION_SPOOFING
     is FreeRaspEvent.Automation -> CheckId.AUTOMATION
     is FreeRaspEvent.Bootloader -> CheckId.BOOTLOADER
+    is FreeRaspEvent.OngoingCall -> CheckId.ONGOING_CALL
     is FreeRaspEvent.Malware -> CheckId.MALWARE
 }
 
@@ -66,5 +67,6 @@ val initialChecks: List<SecurityCheck> = listOf(
     SecurityCheck(CheckId.LOCATION_SPOOFING, "Location Spoofing", "Detects GPS spoofing"),
     SecurityCheck(CheckId.AUTOMATION, "Automation", "Detects automation tools"),
     SecurityCheck(CheckId.BOOTLOADER, "Bootloader", "Detects unlocked or compromised bootloader"),
+    SecurityCheck(CheckId.ONGOING_CALL, "Ongoing Call", "Detects an active phone or VoIP call"),
     SecurityCheck(CheckId.MALWARE, "Malware", "Detects malicious applications"),
 )

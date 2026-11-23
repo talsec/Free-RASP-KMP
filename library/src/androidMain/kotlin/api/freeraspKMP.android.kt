@@ -2,6 +2,8 @@ package com.freeraspkmp.api
 
 import app.talsec.rasp.security.api.Talsec
 import app.talsec.rasp.security.api.ThreatListener
+import android.annotation.SuppressLint
+import android.os.Build
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +24,7 @@ import app.talsec.rasp.security.api.TalsecMode
 import com.freeraspkmp.android.handlers.ThreatDetectedHandler
 import com.freeraspkmp.android.handlers.DeviceStateHandler
 import com.freeraspkmp.android.handlers.RaspExecutionStateHandler
+import com.freeraspkmp.android.handlers.OngoingCallDetector
 import kotlinx.coroutines.cancel
 import com.freeraspkmp.model.exception.FreeraspKMPException
 import com.freeraspkmp.android.providers.ActivityProvider
@@ -35,7 +38,7 @@ actual object FreeraspKMP {
     private val cacheLock = Any()
     private val _threatEvents = MutableSharedFlow<FreeRaspEvent>()
     actual val threatEvents: SharedFlow<FreeRaspEvent> = _threatEvents.asSharedFlow()
-    private val _raspExecutionStateEvents = MutableSharedFlow<RaspExecutionStateEvent>(replay = 1)
+    private val _raspExecutionStateEvents = raspExecutionStateFlow()
     actual val raspExecutionStateEvents: SharedFlow<RaspExecutionStateEvent> = _raspExecutionStateEvents.asSharedFlow()
 
     init {
@@ -61,8 +64,8 @@ actual object FreeraspKMP {
 
     private val threatDetectedHandler = ThreatDetectedHandler { event -> emitEvent(event) }
     private val deviceStateHandler = DeviceStateHandler { event -> emitEvent(event) }
-    private val raspExecutionStateHandler = RaspExecutionStateHandler {
-        scope.launch { _raspExecutionStateEvents.emit(RaspExecutionStateEvent.AllChecksFinished) }
+    private val raspExecutionStateHandler = RaspExecutionStateHandler { event ->
+        _raspExecutionStateEvents.tryEmit(event)
     }
 
     private val nativeListener = ThreatListener(threatDetectedHandler, deviceStateHandler, raspExecutionStateHandler)
@@ -129,8 +132,92 @@ actual object FreeraspKMP {
         }
     }
 
+    actual suspend fun blockScreenControl(enable: Boolean) {
+        withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                Talsec.blockScreenControl(activity, enable)
+            } else {
+                Log.w("freeraspKMP", "blockScreenControl called but no activity is in foreground.")
+            }
+        }
+    }
+
+    actual suspend fun isScreenControlBlocked(): Boolean {
+        return withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                Talsec.isScreenControlBlocked(activity)
+            } else {
+                Log.w("freeraspKMP", "isScreenControlBlocked called but no activity is in foreground.")
+                false
+            }
+        }
+    }
+
+    // The HIDE_OVERLAY_WINDOWS permission is declared by the app that decides to use this API
+    @SuppressLint("MissingPermission")
+    actual suspend fun blockOverlayWindows(enable: Boolean): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            Log.w("freeraspKMP", "blockOverlayWindows requires Android 12 or newer.")
+            return false
+        }
+        return withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                Talsec.blockOverlayWindows(activity, enable)
+            } else {
+                Log.w("freeraspKMP", "blockOverlayWindows called but no activity is in foreground.")
+                false
+            }
+        }
+    }
+
+    actual suspend fun isOverlayWindowsBlocked(): Boolean {
+        return withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                Talsec.isOverlayWindowsBlocked(activity)
+            } else {
+                Log.w("freeraspKMP", "isOverlayWindowsBlocked called but no activity is in foreground.")
+                false
+            }
+        }
+    }
+
+    actual suspend fun startOngoingCallDetection() {
+        withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                OngoingCallDetector.start(activity)
+            } else {
+                Log.w("freeraspKMP", "startOngoingCallDetection called but no activity is in foreground.")
+            }
+        }
+    }
+
+    actual suspend fun stopOngoingCallDetection() {
+        withContext(Dispatchers.Main) {
+            OngoingCallDetector.stop()
+        }
+    }
+
     actual suspend fun isScreenCaptureBlocked(): Boolean {
-        return Talsec.isScreenCaptureBlocked()
+        return withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                Talsec.isScreenCaptureBlocked(activity)
+            } else {
+                Log.w("freeraspKMP", "isScreenCaptureBlocked called but no activity is in foreground.")
+                false
+            }
+        }
     }
 
     internal fun emitEvent(event: FreeRaspEvent){
@@ -146,6 +233,7 @@ actual object FreeraspKMP {
     }
 
     internal fun cleanup() {
+        OngoingCallDetector.stop()
         val context = ContextProvider.getApplicationContext()
         nativeListener.unregisterListener(context)
         scope.cancel()

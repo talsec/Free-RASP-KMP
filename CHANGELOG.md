@@ -5,17 +5,70 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [3.0.0] - 2026-11-23
+
+- Android SDK version: 20.0.1
+- iOS SDK version: 9.0.0
 
 ### Kotlin Multiplatform
+
+#### Breaking
+
+- `RaspExecutionStateEvent.AllChecksFinished` replaced by `FastChecksFinished`, triggered when the fast checks are completed while the postponed checks may still run. `CriticalChecksFinished` and `PostponedChecksFinished` are new. All three are triggered on both platforms
+- `IOSConfig.bundleIds` renamed to `appBundleIds` and `IOSConfig.teamId` renamed to `appTeamId`, matching the iOS SDK and the other freeRASP plugins
+- `FreeRaspEvent.OngoingCall` added, so an exhaustive `when` over `FreeRaspEvent` must handle it
+- The Android SDK is now published as `app.talsec.rasp:TalsecRasp-Community-KMP`. Set `sdkVersion = "20.0.1"` in the `talsec { }` block of the `app.talsec.plugin` Gradle plugin
 
 #### Added
 
 - Added `app.talsec.kmp.ios` Gradle plugin for iOS integration without Xcode setup
+- Added `FreeRaspEvent.OngoingCall` with the new `CallState` enum (`STARTED`, `ONGOING`, `STOPPED`), driven by `startOngoingCallDetection()` and `stopOngoingCallDetection()` (Android only)
+- Added `blockScreenControl()` and `isScreenControlBlocked()` to prevent accessibility services from reading or controlling the app screen (Android only)
+- Added `blockOverlayWindows()` and `isOverlayWindowsBlocked()` to hide overlay windows of other apps (Android 12+ only, requires the `HIDE_OVERLAY_WINDOWS` permission)
 
 #### Changed
 
+- `raspExecutionStateEvents` replays every execution state of the run in the order it occurred, so late subscribers receive all of them
+- On Android, `isScreenCaptureBlocked()` reports the protection state of the activity in the foreground
 - Example app uses the `app.talsec.kmp.ios` plugin
+
+### Android
+
+#### Changed
+
+- Deprecated the freeRASP Maven coordinates (`com.aheaditec.talsec.security:TalsecSecurity-{flavor}`)
+- Improved Bootloader detection
+- Extended emulator detection with additional device-property and ABI checks
+- Improved logging structure and data enrichment for better Portal insights/reports
+- Refactoring of the time spoofing detection which improves the performance of the freeRASP check execution
+- Improved the performance of the App integrity check
+- Updated CA bundle
+
+#### Fixed
+
+- Improved hook detection to prevent collisions with running VPN services and to better work with the device resources (threads/RAM)
+- Fixed a release crash during root detection when a checked package is not installed
+- Fixed a crash in `ScreenProtector.unregisterScreenCallbacks` on Android 15+ when several activities registered screen callbacks
+- Fixed intermittent build failures of apps using the SDK (`NullPointerException: Cannot read field "d"`, shown by Gradle as `[CIRCULAR REFERENCE]`) caused by invalid bytecode in some SDK builds
+- Fixed `killOnBypass` closing the app when the same threat was reported twice in quick succession
+
+### iOS
+
+#### Added
+
+- Improved app integrity detection.
+
+#### Changed
+
+- Improved jailbreak detection.
+- Updated CA bundle.
+- Reduced the SDK size.
+
+#### Fixed
+
+- Fixed stack overflow crash when `blockScreenCapture` is enabled.
+- Fixed missing app integrity detection details in logs for builds with a provisioning profile.
+- Fixed placement of app integrity certificate details in logs.
 
 ## [2.2.0] - 2026-10-22
 

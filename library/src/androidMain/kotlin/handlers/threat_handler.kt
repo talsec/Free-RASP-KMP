@@ -2,7 +2,9 @@ package com.freeraspkmp.android.handlers
 
 import app.talsec.rasp.security.api.SuspiciousAppInfo
 import app.talsec.rasp.security.api.ThreatListener
+import com.freeraspkmp.model.CallState
 import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.model.RaspExecutionStateEvent
 import com.freeraspkmp.android.providers.ContextProvider
 import com.freeraspkmp.android.utils.processMalwareData
 
@@ -52,6 +54,14 @@ internal class ThreatDetectedHandler(
     override fun onAutomation() = onEvent(FreeRaspEvent.Automation)
 
     override fun onBootloader() = onEvent(FreeRaspEvent.Bootloader)
+
+    override fun onOngoingCall(state: ThreatListener.CallState) = onEvent(FreeRaspEvent.OngoingCall(state.toCallState()))
+
+    private fun ThreatListener.CallState.toCallState(): CallState = when (this) {
+        ThreatListener.CallState.STARTED -> CallState.STARTED
+        ThreatListener.CallState.ONGOING -> CallState.ONGOING
+        ThreatListener.CallState.STOPPED -> CallState.STOPPED
+    }
 }
 
 internal class DeviceStateHandler(
@@ -70,8 +80,12 @@ internal class DeviceStateHandler(
 }
 
 internal class RaspExecutionStateHandler(
-    private val callback: () -> Unit
+    private val onEvent: (RaspExecutionStateEvent) -> Unit
 ) : ThreatListener.RaspExecutionState() {
 
-    override fun onAllChecksFinished() = callback()
+    override fun onCriticalChecksFinished() = onEvent(RaspExecutionStateEvent.CriticalChecksFinished)
+
+    override fun onFastChecksFinished() = onEvent(RaspExecutionStateEvent.FastChecksFinished)
+
+    override fun onPostponedChecksFinished() = onEvent(RaspExecutionStateEvent.PostponedChecksFinished)
 }

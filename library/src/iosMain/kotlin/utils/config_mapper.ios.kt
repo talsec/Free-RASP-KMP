@@ -15,8 +15,8 @@ internal fun freeraspConfig.toNativeConfig(): iosFreeraspConfig {
         ?: throw FreeraspKMPException("IOSConfig is required on the iOS platform but was null.")
 
     return iosFreeraspConfig(
-        appBundleIds = iosConfig.bundleIds,
-        appTeamId = iosConfig.teamId,
+        appBundleIds = iosConfig.appBundleIds,
+        appTeamId = iosConfig.appTeamId,
         watcherMail = this.watcherMail,
         isProd = this.isProd
     )

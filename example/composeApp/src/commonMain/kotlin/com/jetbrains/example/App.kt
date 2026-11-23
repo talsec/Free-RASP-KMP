@@ -8,7 +8,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import com.freeraspkmp.api.FreeraspKMP
+import com.freeraspkmp.model.CallState
 import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.model.RaspExecutionStateEvent
 import com.freeraspkmp.model.SuspiciousAppInfo
 import com.freeraspkmp.model.config.AndroidConfig
 import com.freeraspkmp.model.config.IOSConfig
@@ -19,6 +21,7 @@ import com.freeraspkmp.model.config.SuspiciousAppDetectionConfig
 import com.freeraspkmp.model.config.freeraspConfig
 import com.jetbrains.example.model.initialChecks
 import com.jetbrains.example.model.toCheckId
+import com.jetbrains.example.ui.AndroidProtections
 import com.jetbrains.example.ui.FreeraspTheme
 import com.jetbrains.example.ui.SecurityDashboard
 import kotlinx.coroutines.launch
@@ -58,24 +61,30 @@ fun App() {
                     )
                 ),
                 iosConfig = IOSConfig(
-                    bundleIds = listOf("com.jetbrains.example.iosApp"),
-                    teamId = "YOUR_TEAM_ID"
+                    appBundleIds = listOf("com.jetbrains.example.iosApp"),
+                    appTeamId = "YOUR_TEAM_ID"
                 )
             )
         }
 
         var checks by remember { mutableStateOf(initialChecks) }
         var malwareApps by remember { mutableStateOf<List<SuspiciousAppInfo>>(emptyList()) }
-        var allChecksFinished by remember { mutableStateOf(false) }
+        var finishedStates by remember { mutableStateOf(emptySet<RaspExecutionStateEvent>()) }
         var isScreenCaptureBlocked by remember { mutableStateOf(false) }
+        val isAndroid = remember { getPlatform().name.startsWith("Android") }
+        var isScreenControlBlocked by remember { mutableStateOf(false) }
+        var isOverlayWindowsBlocked by remember { mutableStateOf(false) }
+        var isOngoingCallDetectionOn by remember { mutableStateOf(false) }
         val scope = rememberCoroutineScope()
 
         LaunchedEffect(Unit) {
             launch {
                 FreeraspKMP.threatEvents.collect { event ->
                     val checkId = event.toCheckId()
+                    // A call that has ended is no longer a threat
+                    val isDetected = event !is FreeRaspEvent.OngoingCall || event.callState != CallState.STOPPED
                     checks = checks.map { check ->
-                        if (check.id == checkId) check.copy(isDetected = true) else check
+                        if (check.id == checkId) check.copy(isDetected = isDetected) else check
                     }
                     if (event is FreeRaspEvent.Malware) {
                         malwareApps = event.suspiciousAppInfo
@@ -84,8 +93,9 @@ fun App() {
             }
 
             launch {
-                FreeraspKMP.raspExecutionStateEvents.collect {
-                    allChecksFinished = true
+                FreeraspKMP.raspExecutionStateEvents.collect { state ->
+                    println("freeRASP: $state")
+                    finishedStates = finishedStates + state
                 }
             }
 
@@ -93,6 +103,10 @@ fun App() {
                 FreeraspKMP.start(freeraspConfig)
                 FreeraspKMP.blockScreenCapture(true)
                 isScreenCaptureBlocked = FreeraspKMP.isScreenCaptureBlocked()
+                if (isAndroid) {
+                    isScreenControlBlocked = FreeraspKMP.isScreenControlBlocked()
+                    isOverlayWindowsBlocked = FreeraspKMP.isOverlayWindowsBlocked()
+                }
             } catch (e: Exception) {
                 println("freeraspKMP: Error starting: ${e.message}")
             }
@@ -100,8 +114,39 @@ fun App() {
 
         SecurityDashboard(
             checks = checks,
-            allChecksFinished = allChecksFinished,
+            finishedStates = finishedStates,
             isScreenCaptureBlocked = isScreenCaptureBlocked,
+            androidProtections = if (isAndroid) {
+                AndroidProtections(
+                    isScreenControlBlocked = isScreenControlBlocked,
+                    isOverlayWindowsBlocked = isOverlayWindowsBlocked,
+                    isOngoingCallDetectionOn = isOngoingCallDetectionOn,
+                    onToggleScreenControl = {
+                        scope.launch {
+                            FreeraspKMP.blockScreenControl(!isScreenControlBlocked)
+                            isScreenControlBlocked = FreeraspKMP.isScreenControlBlocked()
+                        }
+                    },
+                    onToggleOverlayWindows = {
+                        scope.launch {
+                            FreeraspKMP.blockOverlayWindows(!isOverlayWindowsBlocked)
+                            isOverlayWindowsBlocked = FreeraspKMP.isOverlayWindowsBlocked()
+                        }
+                    },
+                    onToggleOngoingCallDetection = {
+                        scope.launch {
+                            if (isOngoingCallDetectionOn) {
+                                FreeraspKMP.stopOngoingCallDetection()
+                            } else {
+                                FreeraspKMP.startOngoingCallDetection()
+                            }
+                            isOngoingCallDetectionOn = !isOngoingCallDetectionOn
+                        }
+                    },
+                )
+            } else {
+                null
+            },
             malwareApps = malwareApps,
             onToggleScreenCapture = {
                 scope.launch {

@@ -5,7 +5,17 @@ package com.freeraspkmp.model
  */
 sealed class RaspExecutionStateEvent {
     /**
-     * Indicates that all security checks have finished.
+     * Indicates that the critical security checks have finished.
      */
-    data object AllChecksFinished : RaspExecutionStateEvent()
+    data object CriticalChecksFinished : RaspExecutionStateEvent()
+
+    /**
+     * Indicates that the fast security checks have finished. The postponed checks may still be running.
+     */
+    data object FastChecksFinished : RaspExecutionStateEvent()
+
+    /**
+     * Indicates that the postponed security checks have finished.
+     */
+    data object PostponedChecksFinished : RaspExecutionStateEvent()
 }

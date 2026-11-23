@@ -564,8 +564,8 @@
           },
           {
             "kind": "Function",
-            "name": "onAllChecksFinished",
-            "printedName": "onAllChecksFinished()",
+            "name": "onCriticalChecksFinished",
+            "printedName": "onCriticalChecksFinished()",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -574,8 +574,50 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:13TalsecRuntime20SecurityThreatCenterC0A6BridgeE19onAllChecksFinishedyyF",
-            "mangledName": "$s13TalsecRuntime20SecurityThreatCenterC0A6BridgeE19onAllChecksFinishedyyF",
+            "usr": "s:13TalsecRuntime20SecurityThreatCenterC0A6BridgeE24onCriticalChecksFinishedyyF",
+            "mangledName": "$s13TalsecRuntime20SecurityThreatCenterC0A6BridgeE24onCriticalChecksFinishedyyF",
+            "moduleName": "TalsecBridge",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onFastChecksFinished",
+            "printedName": "onFastChecksFinished()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:13TalsecRuntime20SecurityThreatCenterC0A6BridgeE20onFastChecksFinishedyyF",
+            "mangledName": "$s13TalsecRuntime20SecurityThreatCenterC0A6BridgeE20onFastChecksFinishedyyF",
+            "moduleName": "TalsecBridge",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onPostponedChecksFinished",
+            "printedName": "onPostponedChecksFinished()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:13TalsecRuntime20SecurityThreatCenterC0A6BridgeE25onPostponedChecksFinishedyyF",
+            "mangledName": "$s13TalsecRuntime20SecurityThreatCenterC0A6BridgeE25onPostponedChecksFinishedyyF",
             "moduleName": "TalsecBridge",
             "declAttributes": [
               "AccessControl"
