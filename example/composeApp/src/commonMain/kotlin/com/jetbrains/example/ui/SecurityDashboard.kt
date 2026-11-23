@@ -71,12 +71,23 @@ import com.jetbrains.example.model.CheckId
 import com.jetbrains.example.model.SecurityCheck
 import kotlinx.coroutines.launch
 
+// Android-only protections of the example; null hides their card on iOS
+data class AndroidProtections(
+    val isScreenControlBlocked: Boolean,
+    val isOverlayWindowsBlocked: Boolean,
+    val isOngoingCallDetectionOn: Boolean,
+    val onToggleScreenControl: () -> Unit,
+    val onToggleOverlayWindows: () -> Unit,
+    val onToggleOngoingCallDetection: () -> Unit,
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SecurityDashboard(
     checks: List<SecurityCheck>,
     finishedStates: Set<RaspExecutionStateEvent>,
     isScreenCaptureBlocked: Boolean,
+    androidProtections: AndroidProtections?,
     malwareApps: List<SuspiciousAppInfo>,
     onToggleScreenCapture: () -> Unit,
     onStoreExternalId: (id: String, onResult: (message: String, isSuccess: Boolean) -> Unit) -> Unit,
@@ -165,6 +176,11 @@ fun SecurityDashboard(
                     isBlocked = isScreenCaptureBlocked,
                     onToggle = onToggleScreenCapture,
                 )
+            }
+            if (androidProtections != null) {
+                item {
+                    AndroidProtectionsCard(protections = androidProtections)
+                }
             }
             item {
                 ExternalIdCard(
@@ -379,6 +395,79 @@ private fun ScreenCaptureCard(
                 ),
             )
         }
+    }
+}
+
+@Composable
+private fun AndroidProtectionsCard(protections: AndroidProtections) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = "Android Protections",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Medium,
+            )
+            ProtectionSwitchRow(
+                name = "Screen Control",
+                description = "Blocks accessibility services",
+                checked = protections.isScreenControlBlocked,
+                onToggle = protections.onToggleScreenControl,
+            )
+            ProtectionSwitchRow(
+                name = "Overlay Windows",
+                description = "Hides overlays of other apps (Android 12+)",
+                checked = protections.isOverlayWindowsBlocked,
+                onToggle = protections.onToggleOverlayWindows,
+            )
+            ProtectionSwitchRow(
+                name = "Ongoing Call Detection",
+                description = "Reports phone and VoIP calls",
+                checked = protections.isOngoingCallDetectionOn,
+                onToggle = protections.onToggleOngoingCallDetection,
+            )
+        }
+    }
+}
+
+@Composable
+private fun ProtectionSwitchRow(
+    name: String,
+    description: String,
+    checked: Boolean,
+    onToggle: () -> Unit,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = name,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        Switch(
+            checked = checked,
+            onCheckedChange = { onToggle() },
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Color.White,
+                checkedTrackColor = SafeGreen,
+            ),
+        )
     }
 }
 
