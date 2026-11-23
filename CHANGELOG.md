@@ -10,14 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Android SDK version: 20.0.1
 - iOS SDK version: 9.0.0
 
-### Breaking
+### Kotlin Multiplatform
+
+#### Breaking
 
 - `RaspExecutionStateEvent.AllChecksFinished` replaced by `FastChecksFinished`, triggered when the fast checks are completed while the postponed checks may still run. `CriticalChecksFinished` and `PostponedChecksFinished` are new. All three are triggered on both platforms
 - `IOSConfig.bundleIds` renamed to `appBundleIds` and `IOSConfig.teamId` renamed to `appTeamId`, matching the iOS SDK and the other freeRASP plugins
 - `FreeRaspEvent.OngoingCall` added, so an exhaustive `when` over `FreeRaspEvent` must handle it
 - The Android SDK is now published as `app.talsec.rasp:TalsecRasp-Community-KMP`. Set `sdkVersion = "20.0.1"` in the `talsec { }` block of the `app.talsec.plugin` Gradle plugin
-
-### Kotlin Multiplatform
 
 #### Added
 
