@@ -58,8 +58,8 @@ fun App() {
                     )
                 ),
                 iosConfig = IOSConfig(
-                    bundleIds = listOf("com.jetbrains.example.iosApp"),
-                    teamId = "YOUR_TEAM_ID"
+                    appBundleIds = listOf("com.jetbrains.example.iosApp"),
+                    appTeamId = "YOUR_TEAM_ID"
                 )
             )
         }
