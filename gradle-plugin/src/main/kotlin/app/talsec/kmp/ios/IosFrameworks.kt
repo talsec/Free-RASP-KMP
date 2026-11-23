@@ -19,8 +19,8 @@ internal object IosFrameworks {
     const val SWIFT_PACKAGE_PRODUCT = "FreeRASP_KMP"
 
     // TalsecRuntime versions the bridge was verified with when another component provides the runtime
-    private val MIN_RUNTIME = listOf(7, 1)
-    private const val MAX_RUNTIME_MAJOR_EXCLUSIVE = 9
+    private val MIN_RUNTIME = listOf(9, 0)
+    private const val MAX_RUNTIME_MAJOR_EXCLUSIVE = 10
 
     fun sliceForPlatform(platformName: String): String = when (platformName) {
         "iphoneos" -> DEVICE_SLICE

@@ -22,5 +22,7 @@ import _SwiftConcurrencyShims
 }
 extension TalsecRuntime.SecurityThreatCenter : TalsecRuntime.SecurityThreatHandler, TalsecRuntime.RaspExecutionState {
   public func threatDetected(_ securityThreat: TalsecRuntime.SecurityThreat)
-  public func onAllChecksFinished()
+  public func onCriticalChecksFinished()
+  public func onFastChecksFinished()
+  public func onPostponedChecksFinished()
 }

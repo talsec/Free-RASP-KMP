@@ -19,6 +19,7 @@ import com.freeraspkmp.model.config.freeraspConfig
 import com.freeraspkmp.model.FreeRaspEvent
 import com.freeraspkmp.model.RaspExecutionStateEvent
 import com.freeraspkmp.ios.utils.mapStringToFreeraspEvent
+import com.freeraspkmp.ios.utils.mapStringToRaspExecutionStateEvent
 import com.freeraspkmp.ios.utils.toNativeConfig
 import kotlin.coroutines.resume
 
@@ -36,8 +37,9 @@ actual object FreeraspKMP {
 
     init {
         NativeTalsec.setThreatDetectedCallback { threatString ->
-            if (threatString == "allChecksFinished") {
-                _raspExecutionStateEvents.tryEmit(RaspExecutionStateEvent.FastChecksFinished)
+            val executionState = mapStringToRaspExecutionStateEvent(threatString)
+            if (executionState != null) {
+                _raspExecutionStateEvents.tryEmit(executionState)
             } else {
                 mapStringToFreeraspEvent(threatString)?.let { event ->
                     emitEvent(event)
