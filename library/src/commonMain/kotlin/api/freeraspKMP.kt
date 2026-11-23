@@ -70,4 +70,16 @@ expect object FreeraspKMP {
      * @return `true` if screen capture is blocked, `false` otherwise.
      */
     suspend fun isScreenCaptureBlocked(): Boolean
+
+    /**
+     * Starts the detection of cellular and VoIP calls for the activity in the foreground.
+     * Calls are reported as [FreeRaspEvent.OngoingCall]. The detection follows the activity when it is recreated.
+     * Android only; on iOS, and on Android without an activity in the foreground, it logs a message and does nothing.
+     */
+    suspend fun startOngoingCallDetection()
+
+    /**
+     * Stops the ongoing call detection. Android only; on iOS, it logs a message and does nothing.
+     */
+    suspend fun stopOngoingCallDetection()
 }

@@ -8,6 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import com.freeraspkmp.api.FreeraspKMP
+import com.freeraspkmp.model.CallState
 import com.freeraspkmp.model.FreeRaspEvent
 import com.freeraspkmp.model.SuspiciousAppInfo
 import com.freeraspkmp.model.config.AndroidConfig
@@ -74,8 +75,10 @@ fun App() {
             launch {
                 FreeraspKMP.threatEvents.collect { event ->
                     val checkId = event.toCheckId()
+                    // A call that has ended is no longer a threat
+                    val isDetected = event !is FreeRaspEvent.OngoingCall || event.callState != CallState.STOPPED
                     checks = checks.map { check ->
-                        if (check.id == checkId) check.copy(isDetected = true) else check
+                        if (check.id == checkId) check.copy(isDetected = isDetected) else check
                     }
                     if (event is FreeRaspEvent.Malware) {
                         malwareApps = event.suspiciousAppInfo

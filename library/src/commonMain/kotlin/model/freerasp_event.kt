@@ -115,6 +115,14 @@ sealed class FreeRaspEvent {
     data object Bootloader : FreeRaspEvent()
 
     /**
+     * Indicates a change of a cellular or VoIP call while the ongoing call detection runs,
+     * see [com.freeraspkmp.api.FreeraspKMP.startOngoingCallDetection]. Android only.
+     *
+     * @param callState The current state of the call.
+     */
+    data class OngoingCall(val callState: CallState) : FreeRaspEvent()
+
+    /**
      * Indicates that malware was detected on the device.
      *
      * @param suspiciousAppInfo A list of suspicious apps found on the device.

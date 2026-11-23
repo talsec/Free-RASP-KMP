@@ -22,6 +22,7 @@ import app.talsec.rasp.security.api.TalsecMode
 import com.freeraspkmp.android.handlers.ThreatDetectedHandler
 import com.freeraspkmp.android.handlers.DeviceStateHandler
 import com.freeraspkmp.android.handlers.RaspExecutionStateHandler
+import com.freeraspkmp.android.handlers.OngoingCallDetector
 import kotlinx.coroutines.cancel
 import com.freeraspkmp.model.exception.FreeraspKMPException
 import com.freeraspkmp.android.providers.ActivityProvider
@@ -129,6 +130,24 @@ actual object FreeraspKMP {
         }
     }
 
+    actual suspend fun startOngoingCallDetection() {
+        withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                OngoingCallDetector.start(activity)
+            } else {
+                Log.w("freeraspKMP", "startOngoingCallDetection called but no activity is in foreground.")
+            }
+        }
+    }
+
+    actual suspend fun stopOngoingCallDetection() {
+        withContext(Dispatchers.Main) {
+            OngoingCallDetector.stop()
+        }
+    }
+
     actual suspend fun isScreenCaptureBlocked(): Boolean {
         return withContext(Dispatchers.Main) {
             val activity = ActivityProvider.getCurrentActivity()
@@ -155,6 +174,7 @@ actual object FreeraspKMP {
     }
 
     internal fun cleanup() {
+        OngoingCallDetector.stop()
         val context = ContextProvider.getApplicationContext()
         nativeListener.unregisterListener(context)
         scope.cancel()

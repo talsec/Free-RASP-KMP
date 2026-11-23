@@ -110,6 +110,14 @@ actual object FreeraspKMP {
         }
     }
 
+    actual suspend fun startOngoingCallDetection() {
+        println("freeraspKMP: startOngoingCallDetection is not supported on iOS.")
+    }
+
+    actual suspend fun stopOngoingCallDetection() {
+        println("freeraspKMP: stopOngoingCallDetection is not supported on iOS.")
+    }
+
     actual suspend fun isScreenCaptureBlocked(): Boolean {
         return suspendCancellableCoroutine { continuation ->
             NativeTalsec.isScreenCaptureBlocked { isBlocked ->
