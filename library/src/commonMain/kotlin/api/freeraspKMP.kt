@@ -72,6 +72,22 @@ expect object FreeraspKMP {
     suspend fun isScreenCaptureBlocked(): Boolean
 
     /**
+     * Blocks or allows accessibility services reading or controlling the screen of the activity in the foreground.
+     * Android only; on iOS, and on Android without an activity in the foreground, it logs a message and does nothing.
+     *
+     * @param enable `true` to block screen control, `false` to allow it.
+     */
+    suspend fun blockScreenControl(enable: Boolean)
+
+    /**
+     * Returns whether screen control is blocked for the activity in the foreground.
+     * Android only; returns `false` on iOS and on Android without an activity in the foreground.
+     *
+     * @return `true` if screen control is blocked, `false` otherwise.
+     */
+    suspend fun isScreenControlBlocked(): Boolean
+
+    /**
      * Starts the detection of cellular and VoIP calls for the activity in the foreground.
      * Calls are reported as [FreeRaspEvent.OngoingCall]. The detection follows the activity when it is recreated.
      * Android only; on iOS, and on Android without an activity in the foreground, it logs a message and does nothing.

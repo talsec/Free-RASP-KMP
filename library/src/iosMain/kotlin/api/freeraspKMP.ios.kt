@@ -110,6 +110,15 @@ actual object FreeraspKMP {
         }
     }
 
+    actual suspend fun blockScreenControl(enable: Boolean) {
+        println("freeraspKMP: blockScreenControl is not supported on iOS.")
+    }
+
+    actual suspend fun isScreenControlBlocked(): Boolean {
+        println("freeraspKMP: isScreenControlBlocked is not supported on iOS.")
+        return false
+    }
+
     actual suspend fun startOngoingCallDetection() {
         println("freeraspKMP: startOngoingCallDetection is not supported on iOS.")
     }

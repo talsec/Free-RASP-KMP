@@ -130,6 +130,31 @@ actual object FreeraspKMP {
         }
     }
 
+    actual suspend fun blockScreenControl(enable: Boolean) {
+        withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                Talsec.blockScreenControl(activity, enable)
+            } else {
+                Log.w("freeraspKMP", "blockScreenControl called but no activity is in foreground.")
+            }
+        }
+    }
+
+    actual suspend fun isScreenControlBlocked(): Boolean {
+        return withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                Talsec.isScreenControlBlocked(activity)
+            } else {
+                Log.w("freeraspKMP", "isScreenControlBlocked called but no activity is in foreground.")
+                false
+            }
+        }
+    }
+
     actual suspend fun startOngoingCallDetection() {
         withContext(Dispatchers.Main) {
             val activity = ActivityProvider.getCurrentActivity()
