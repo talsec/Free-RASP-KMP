@@ -37,7 +37,7 @@ actual object FreeraspKMP {
     init {
         NativeTalsec.setThreatDetectedCallback { threatString ->
             if (threatString == "allChecksFinished") {
-                scope.launch { _raspExecutionStateEvents.emit(RaspExecutionStateEvent.AllChecksFinished) }
+                scope.launch { _raspExecutionStateEvents.emit(RaspExecutionStateEvent.FastChecksFinished) }
             } else {
                 mapStringToFreeraspEvent(threatString)?.let { event ->
                     emitEvent(event)

@@ -61,8 +61,8 @@ actual object FreeraspKMP {
 
     private val threatDetectedHandler = ThreatDetectedHandler { event -> emitEvent(event) }
     private val deviceStateHandler = DeviceStateHandler { event -> emitEvent(event) }
-    private val raspExecutionStateHandler = RaspExecutionStateHandler {
-        scope.launch { _raspExecutionStateEvents.emit(RaspExecutionStateEvent.AllChecksFinished) }
+    private val raspExecutionStateHandler = RaspExecutionStateHandler { event ->
+        scope.launch { _raspExecutionStateEvents.emit(event) }
     }
 
     private val nativeListener = ThreatListener(threatDetectedHandler, deviceStateHandler, raspExecutionStateHandler)
@@ -130,7 +130,16 @@ actual object FreeraspKMP {
     }
 
     actual suspend fun isScreenCaptureBlocked(): Boolean {
-        return Talsec.isScreenCaptureBlocked()
+        return withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                Talsec.isScreenCaptureBlocked(activity)
+            } else {
+                Log.w("freeraspKMP", "isScreenCaptureBlocked called but no activity is in foreground.")
+                false
+            }
+        }
     }
 
     internal fun emitEvent(event: FreeRaspEvent){

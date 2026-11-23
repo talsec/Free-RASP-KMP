@@ -76,7 +76,7 @@ plugins {
 
 android {
     talsec {
-        sdkVersion = "19.3.1" // the Android SDK version of your freeRASP KMP release
+        sdkVersion = "20.0.1" // the Android SDK version of your freeRASP KMP release
         platform = "KMP"
     }
 }

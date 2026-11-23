@@ -16,7 +16,7 @@ expect object FreeraspKMP {
 
     /**
      * A [SharedFlow] of [RaspExecutionStateEvent] which emits events about the RASP execution lifecycle.
-     * Uses replay = 1, so late subscribers receive [RaspExecutionStateEvent.AllChecksFinished] even if
+     * Uses replay = 1, so late subscribers receive the last emitted event even if
      * it was emitted before they subscribed.
      */
     val raspExecutionStateEvents: SharedFlow<RaspExecutionStateEvent>
@@ -65,6 +65,7 @@ expect object FreeraspKMP {
 
     /**
      * Returns whether screen capture is currently blocked.
+     * On Android, it reports the state of the activity in the foreground and returns `false` when there is none.
      *
      * @return `true` if screen capture is blocked, `false` otherwise.
      */
