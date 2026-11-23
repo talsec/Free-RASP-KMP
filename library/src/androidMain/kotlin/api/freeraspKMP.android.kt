@@ -2,6 +2,8 @@ package com.freeraspkmp.api
 
 import app.talsec.rasp.security.api.Talsec
 import app.talsec.rasp.security.api.ThreatListener
+import android.annotation.SuppressLint
+import android.os.Build
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -150,6 +152,38 @@ actual object FreeraspKMP {
                 Talsec.isScreenControlBlocked(activity)
             } else {
                 Log.w("freeraspKMP", "isScreenControlBlocked called but no activity is in foreground.")
+                false
+            }
+        }
+    }
+
+    // The HIDE_OVERLAY_WINDOWS permission is declared by the app that decides to use this API
+    @SuppressLint("MissingPermission")
+    actual suspend fun blockOverlayWindows(enable: Boolean): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            Log.w("freeraspKMP", "blockOverlayWindows requires Android 12 or newer.")
+            return false
+        }
+        return withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                Talsec.blockOverlayWindows(activity, enable)
+            } else {
+                Log.w("freeraspKMP", "blockOverlayWindows called but no activity is in foreground.")
+                false
+            }
+        }
+    }
+
+    actual suspend fun isOverlayWindowsBlocked(): Boolean {
+        return withContext(Dispatchers.Main) {
+            val activity = ActivityProvider.getCurrentActivity()
+
+            if (activity != null) {
+                Talsec.isOverlayWindowsBlocked(activity)
+            } else {
+                Log.w("freeraspKMP", "isOverlayWindowsBlocked called but no activity is in foreground.")
                 false
             }
         }

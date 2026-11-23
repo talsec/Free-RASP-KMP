@@ -88,6 +88,24 @@ expect object FreeraspKMP {
     suspend fun isScreenControlBlocked(): Boolean
 
     /**
+     * Hides or shows overlay windows of other apps over the activity in the foreground.
+     * Requires Android 12 or newer and the `android.permission.HIDE_OVERLAY_WINDOWS` permission in the app manifest.
+     * Android only; returns `false` on iOS, on older Android versions and without an activity in the foreground.
+     *
+     * @param enable `true` to hide overlay windows, `false` to show them.
+     * @return `true` if the request was applied, `false` otherwise.
+     */
+    suspend fun blockOverlayWindows(enable: Boolean): Boolean
+
+    /**
+     * Returns whether overlay windows of other apps are hidden for the activity in the foreground.
+     * Android only; returns `false` on iOS and on Android without an activity in the foreground.
+     *
+     * @return `true` if overlay windows are hidden, `false` otherwise.
+     */
+    suspend fun isOverlayWindowsBlocked(): Boolean
+
+    /**
      * Starts the detection of cellular and VoIP calls for the activity in the foreground.
      * Calls are reported as [FreeRaspEvent.OngoingCall]. The detection follows the activity when it is recreated.
      * Android only; on iOS, and on Android without an activity in the foreground, it logs a message and does nothing.

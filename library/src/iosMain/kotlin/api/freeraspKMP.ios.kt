@@ -119,6 +119,16 @@ actual object FreeraspKMP {
         return false
     }
 
+    actual suspend fun blockOverlayWindows(enable: Boolean): Boolean {
+        println("freeraspKMP: blockOverlayWindows is not supported on iOS.")
+        return false
+    }
+
+    actual suspend fun isOverlayWindowsBlocked(): Boolean {
+        println("freeraspKMP: isOverlayWindowsBlocked is not supported on iOS.")
+        return false
+    }
+
     actual suspend fun startOngoingCallDetection() {
         println("freeraspKMP: startOngoingCallDetection is not supported on iOS.")
     }
