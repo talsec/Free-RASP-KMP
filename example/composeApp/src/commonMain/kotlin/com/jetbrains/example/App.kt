@@ -10,6 +10,7 @@ import androidx.compose.runtime.setValue
 import com.freeraspkmp.api.FreeraspKMP
 import com.freeraspkmp.model.CallState
 import com.freeraspkmp.model.FreeRaspEvent
+import com.freeraspkmp.model.RaspExecutionStateEvent
 import com.freeraspkmp.model.SuspiciousAppInfo
 import com.freeraspkmp.model.config.AndroidConfig
 import com.freeraspkmp.model.config.IOSConfig
@@ -67,7 +68,7 @@ fun App() {
 
         var checks by remember { mutableStateOf(initialChecks) }
         var malwareApps by remember { mutableStateOf<List<SuspiciousAppInfo>>(emptyList()) }
-        var allChecksFinished by remember { mutableStateOf(false) }
+        var finishedStates by remember { mutableStateOf(emptySet<RaspExecutionStateEvent>()) }
         var isScreenCaptureBlocked by remember { mutableStateOf(false) }
         val scope = rememberCoroutineScope()
 
@@ -87,8 +88,9 @@ fun App() {
             }
 
             launch {
-                FreeraspKMP.raspExecutionStateEvents.collect {
-                    allChecksFinished = true
+                FreeraspKMP.raspExecutionStateEvents.collect { state ->
+                    println("freeRASP: $state")
+                    finishedStates = finishedStates + state
                 }
             }
 
@@ -103,7 +105,7 @@ fun App() {
 
         SecurityDashboard(
             checks = checks,
-            allChecksFinished = allChecksFinished,
+            finishedStates = finishedStates,
             isScreenCaptureBlocked = isScreenCaptureBlocked,
             malwareApps = malwareApps,
             onToggleScreenCapture = {
